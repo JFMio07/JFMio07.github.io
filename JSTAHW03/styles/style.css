@@ -1,0 +1,286 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700&display=swap");
+
+/* layout */
+html,
+body {
+  height: 100%;
+  font-family: "Noto Sans TC", sans-serif;
+}
+
+.container-fluid {
+  height: 100%;
+}
+
+.calendar {
+  padding-top: 10px;
+  text-decoration: none;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.calendar-title {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.calendar-title .calendar-date {
+  margin: 0 10px;
+  flex-grow: 1;
+  text-align: center;
+}
+
+.calendar-btnPrev,
+.calendar-btnNext {
+  font-size: 30px;
+}
+.calendar-date {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  font-size: 30px;
+}
+
+.calendar-date span {
+  padding: 0 5px;
+}
+.calendar-date span:first-child {
+  color: rgb(169, 157, 194);
+}
+.calendar-date span:last-child {
+  font-weight: bold;
+  color: rgb(155, 214, 5);
+}
+
+.calendar-title button {
+  outline: none;
+  border: none;
+  background-color: #fff;
+  box-sizing: border-box;
+  color: gray;
+  min-width: 1.5rem;
+  opacity: 0.5;
+}
+.calendar-title button:hover {
+  opacity: 1;
+}
+.calendar-title .calendar-btnPrev {
+  order: -1;
+}
+
+.calendar-body {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.calendar-weeklabel div,
+.calendar-days > div {
+  overflow: hidden;
+  width: 14.2857142%;
+  box-sizing: border-box;
+}
+
+.calendar-weeklabel {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 5px;
+}
+.calendar-weeklabel div {
+  text-align: center;
+  color: gray;
+  font-weight: bold;
+}
+
+.calendar-daysWrap {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.calendar-days {
+  /* flex-grow: 1; */
+  display: flex;
+  flex-wrap: wrap;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  opacity: 1;
+}
+.calendar-days > div {
+  padding: 5px;
+  flex-grow: 1;
+  border-right: 1px solid #dadce0;
+  border-bottom: 1px solid #dadce0;
+}
+
+.calendar-days > div:nth-child(-n + 7) {
+  border-top: 1px solid #dadce0;
+}
+.calendar-days > div:nth-child(7n + 1) {
+  border-left: 1px solid #dadce0;
+}
+
+.currentDay.intarget .dayInfo-label span {
+  width: 26px;
+  text-align: center;
+  border-radius: 50%;
+}
+
+.currentDay.outtarget .dayInfo-label span {
+  border-radius: 5%;
+}
+.dayInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.dayInfo-title {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  z-index: -100;
+}
+
+.dayInfo-label {
+  width: 100%;
+  margin-bottom: 2px;
+  display: flex;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.dayInfo-toDo {
+  position: relative;
+  width: 100%;
+  flex-grow: 1;
+  /* background-color:red; */
+}
+
+.dayInfo-toDoBox {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  overflow: hidden;
+  z-index: 10; 
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.dayInfo-toDoItem {
+  background-color: #039be5;
+  height: 20px;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 3px;
+  margin-bottom: 2px;
+  display: flex;
+  border: none;
+  outline: none;
+  font-size: 12px;
+  padding: 0;
+}
+
+.dayInfo-toDoItem span {
+  border-radius: 3px;
+  text-align: left;
+  overflow: hidden;
+  white-space: nowrap;
+  box-sizing: border-box;
+  color: #fff;
+  padding: 0 5px;
+  height: 100%;
+}
+
+.dayInfo-toDoItem span:first-child{
+  background-color: green;
+  padding: 0 5px;
+  flex-shrink: 0;
+}
+
+.dayInfo-toDoItemMore {
+  background-color: #fff;
+  font-weight: bold;
+  height: 20px;
+  width: 100%;
+  overflow: hidden;
+  margin-bottom: 2px;
+  border: none;
+  outline: none;
+  text-align: left;
+  flex-grow: 1;
+}
+
+.addToDo {
+  position: fixed;
+  font-size: calc(2rem + 1vw);
+  border-radius: 50%;
+  right: 2%;
+  bottom: 5%;
+  color: #4294ef;
+  border: none;
+  background-color: #fff;
+  padding: 0;
+  z-index: 100;
+}
+.addToDo i {
+  display: block;
+}
+
+.iconBtn{
+  padding: 0;
+  outline: none;
+  border: none;
+  background-color: #fff;
+  font-size: 35px;
+  line-height: 1;
+}
+
+.modal-addBtn{
+  color: #0d6efd;
+}
+
+.modal-editBtn{
+  color: #0dcaf0;
+}
+
+.modal-delBtn{
+  color: #dc3545;
+  margin-right: auto;
+}
+
+.modal-savebtn{
+  color: #198754;
+}
+
+/* State */
+.currentDay .dayInfo-label span {
+  line-height: 24px;
+  font-weight: bold;
+  background-color: #1a73e8;
+  color: #fff;
+}
+
+.outtarget {
+  color: #aab9d6de;
+}
+
+.saturday {
+  color: rgb(155, 214, 5);
+}
+.sunday {
+  color: red;
+}

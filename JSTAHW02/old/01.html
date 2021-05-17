@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Simple Map</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <style type="text/css">
+        /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+        #map {
+            height: 100%;
+        }
+
+        /* Optional: Makes the sample page fill the window. */
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+    <script>
+        let map;
+        const CHU = { lat: 24.760049283988955, lng: 120.9529990274559 };
+        const test = [
+            { lat: 24.770049283988955, lng: 120.9529990274559 },
+            { lat: 24.780049283988955, lng: 120.9529990274559 },
+            { lat: 24.790049283988955, lng: 120.9529990274559 }
+        ];
+        const iconBase =
+            "https://developers.google.com/maps/documentation/javascript/examples/full/images/";
+
+        const msgString = "123456789";
+        function initMap() {
+            map = new google.maps.Map(document.getElementById("map"), {
+                //   center: { lat: -34.397, lng: 150.644 },
+                // 24.756944196132864, 120.95241868853984
+                center: CHU,
+                zoom: 15,
+            });
+
+            new google.maps.Marker({
+                position: CHU,
+                map,
+                title: "中華大學",
+                icon: iconBase + "info-i_maps.png",
+
+            });
+
+            let infos = new Set();
+            test.forEach((item, index) => {
+                const marker = new google.maps.Marker({
+                    position: item,
+                    map,
+                    draggable: true,
+                    title: index.toString(),
+
+                });
+
+                const info = new google.maps.InfoWindow(
+                    { content: msgString }
+                );
+                
+                infos.add(info);
+                // console.log(info);
+
+                marker.addListener("click", () => {
+                    infos.forEach((x)=>{
+                        x.close();
+                    });
+                    info.open(map, marker);
+                });
+
+
+
+            });
+
+
+        }
+    </script>
+</head>
+
+<body>
+    <div id="map"></div>
+
+    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5zCk7EUypGLf0BfA7p8oA5v2FMtmW52M&callback=initMap&libraries=&v=weekly"
+        async></script>
+</body>
+
+</html>

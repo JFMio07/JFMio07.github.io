@@ -1,0 +1,20 @@
+  <style>
+        #origin{
+            width: 40px;
+            height: 40px;
+            margin: 10px;
+            border: none;
+            background-color: #fff;
+            box-shadow: 0 1px 4px -1px; 
+            position: absolute;
+            top: 40px;
+            right: 0;
+        }
+    </style>
+
+
+    <template id="tpl-originPoint">
+        <button id="originPoint">
+            <div><img src="./images/icons/origin.svg" alt=""></div>
+        </button>
+    </template>
