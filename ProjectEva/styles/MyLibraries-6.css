@@ -55,7 +55,7 @@ li {
   border-right: 1px solid #fff;
 }
 
-.colheader {
+.colHeader {
   background-color: #000;
   color: #fff;
   font-size: 0.8125rem;
@@ -65,30 +65,9 @@ li {
   box-sizing: border-box;
   padding: 5px;
 }
-.list .title {
-  flex-grow: 4;
-}
 
-.list .subtitle {
-  flex-grow: 4;
-}
-
-.list .series {
-  flex-grow: 2;
-}
-
-.list .genre {
-  flex-grow: 1;
-}
-
-.list .status {
-  flex-grow: 1;
-}
-
-.list .item-added {
-}
-
-.list .actions {
+.item-field.colSubtitle {
+  display: none;
 }
 
 .item-image {
@@ -110,23 +89,23 @@ li {
   line-height: 1.2;
 }
 
-.item-field.title {
+.item-field.colTitle {
   font-weight: 600;
 }
 
-.item-field.subtitle,
-.item-field.authors,
-.item-field.series {
+.item-field.colSubtitle,
+.item-field.colAuthors,
+.item-field.colSeries {
   text-overflow: ellipsis;
   word-break: break-all;
   white-space: nowrap;
 }
 
-.item-field.title a {
+.item-field.colTitle a {
   color: #0d0d0d;
 }
 
-.item-field.subtitle a {
+.item-field.colSubtitle a {
   color: #595959;
 }
 
@@ -261,22 +240,22 @@ input[id^="menu-ctl"]:checked + .wrap label[for^="menu-ctl"] span {
     margin-bottom: 2px;
     padding: 0px 0 5px 5px;
   }
-  .item-field.title {
+  .item-field.colTitle {
     font-size: 0.875rem;
   }
 
-  .item-field.subtitle,
-  .item-field.authors,
-  .item-field.series {
+  .item-field.colSubtitle,
+  .item-field.colAuthors,
+  .item-field.colSeries {
     font-size: 0.75rem;
   }
 
-  .item-field.authors a,
-  .item-field.series a {
+  .item-field.colAuthors a,
+  .item-field.colSeries a {
     color: #bf0000;
   }
-  .item-added,
-  .item-field.genre {
+  .colAdded,
+  .item-field.colGenre {
     display: none;
   }
   .item-actionItems {
@@ -295,6 +274,18 @@ input[id^="menu-ctl"]:checked + .wrap label[for^="menu-ctl"] span {
   }
 
   .list .libraries-content-header {
+    display: flex;
+  }
+
+  .list .colGroupFirst {
+    width: 72.5%;
+  }
+
+  .list .colGroupLast {
+    width: 27.5%;
+  }
+
+  .list .libraries-content-header > * {
     display: flex;
   }
 
@@ -323,33 +314,63 @@ input[id^="menu-ctl"]:checked + .wrap label[for^="menu-ctl"] span {
     display: flex;
   }
 
-.list .item-added {
-    display: block;
+  .list .item-bar {
+    border: 0;
   }
+
+  .list .item-field.colTitle,
+  .list .item-field.colAuthors,
+  .list .item-field.colSeries,
+  .list .item-field.colGenre,
   
-  .list .genre {
-    display: block;
+  
+  {
+    font-size: 0.75rem;
   }
-  
+
+  .list .colTitle {
+    width: 32.5%;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    white-space: nowrap;
+  }
+
+  .list .colAuthors {
+    width: 32.5%;
+  }
+
+  .list .colSeries {
+    width: 20%;
+  }
+
+  .list .colGenre {
+    width: 15%;
+  }
+
+  .list .colStatus {
+    width: 37.5%;
+  }
+
+  .list .colAdded {
+    width: 37.5%;
+  }
+
+  .list .colActions {
+    width: 25%;
+  }
+
   /* libraries grid viewer */
-  .grid .item-added {
+  .grid .colAdded {
     display: none;
   }
-  
-  .grid .genre {
+
+  .grid .colGenre {
     display: none;
   }
-  
+
   .grid .libraries-content-header {
     display: none;
   }
-
-
-
-
-
-
-
 
   .libraries-items {
     display: flex;
@@ -388,13 +409,13 @@ input[id^="menu-ctl"]:checked + .wrap label[for^="menu-ctl"] span {
     flex-direction: column;
   }
 
-  .item-field.title {
+  .item-field.colTitle {
     font-size: 1rem;
   }
 
-  .item-field.subtitle,
-  .item-field.authors,
-  .item-field.series {
+  .item-field.colSubtitle,
+  .item-field.colAuthors,
+  .item-field.colSeries {
     font-size: 0.875rem;
   }
 
@@ -410,8 +431,8 @@ input[id^="menu-ctl"]:checked + .wrap label[for^="menu-ctl"] span {
     right: 0;
     margin: auto;
   }
-  .item-field.authors a,
-  .item-field.series a {
+  .item-field.colAuthors a,
+  .item-field.colSeries a {
     color: black;
   }
 }
@@ -439,8 +460,20 @@ input[id^="menu-ctl"]:checked + .wrap label[for^="menu-ctl"] span {
     width: 33.333333%;
   }
 
-  .list .series {
+  .list .colSeries {
     display: none;
+  }
+
+  .list .colTitle {
+    width: 40%;
+  }
+
+  .list .colAuthors {
+    width: 40%;
+  }
+
+  .list .colGenre {
+    width: 20%;
   }
 }
 
@@ -456,13 +489,13 @@ input[id^="menu-ctl"]:checked + .wrap label[for^="menu-ctl"] span {
     width: 25%;
   }
 
-  .item-field.title {
+  .item-field.colTitle {
     font-size: 1rem;
   }
 
-  .item-field.subtitle,
-  .item-field.authors,
-  .item-field.series {
+  .item-field.colSubtitle,
+  .item-field.colAuthors,
+  .item-field.colSeries {
     font-size: 0.875rem;
   }
 }
