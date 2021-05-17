@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/Common/Reset.css">
+    <link rel="stylesheet" href="style.css">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <title>CSSHW05</title>
+    <style>     
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Build School</h1>
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container">
+                <a class="navbar-brand d-flex" href="javascript:;">
+                    <span class="logo me-1">
+                        <img class="" src="/CSSHW05/images/logo.webp" alt="logo">
+                    </span>
+                    <span class="title">
+                        Build School
+                        <span class="d-block">developer career builder</span>
+                    </span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav m-auto mb-2">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="javascript:;">台北班簡介</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="javascript:;">新竹班簡介</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="javascript:;" aria-current="page">
+                                校友會-台灣青築未來協會 Build the Future
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="javascript:;" aria-current="page">
+                                Blog
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="javascript:;" aria-current="page">
+                                歷屆老師
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="javascript:;" aria-current="page">
+                                問題洽詢
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div id="BScarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#BScarousel" data-bs-slide-to="0" class="active"
+                    aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#BScarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#BScarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                <button type="button" data-bs-target="#BScarousel" data-bs-slide-to="3" aria-label="Slide 3"></button>
+                <button type="button" data-bs-target="#BScarousel" data-bs-slide-to="4" aria-label="Slide 4"></button>
+                <button type="button" data-bs-target="#BScarousel" data-bs-slide-to="5" aria-label="Slide 5"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="images/header-background01.webp" class="d-block w-100" alt="background01">
+                    <div class="carousel-caption">
+                        <div class="caption-label">
+                            <span>想搭上火箭?<br>門票是給想成為軟體工程師的你</span>
+                            <span>BUILD SCHOOL - DEVELOPER CAREER BUILDER</span>
+                        </div>
+                        <div class="caption-btn">
+                            <a href="javascript:;">台北班簡介及報名(2021/4/28開課)</a>
+                            <a href="javascript:;">新竹班簡介(2021/11月後)</a>
+                            <a href="javascript:;">招生說明會報名</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="images/header-background02.webp" class="d-block w-100" alt="background02">
+                    <div class="carousel-caption">
+                        <div class="caption-label">
+                            <span>動手做出東西<br>才能解決問題</span>
+                            <span>BUILD SOMETHING AND SOLVE THE PROBLEM, THAT'S MY STYLE</span>
+                        </div>
+                        <div class="caption-btn">
+                            <a href="javascript:;">台北班簡介及報名(2021/4/28開課)</a>
+                            <a href="javascript:;">新竹班簡介(2021/11月後)</a>
+                            <a href="javascript:;">招生說明會報名</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="images/header-background03.webp" class="d-block w-100" alt="background03">
+                    <div class="carousel-caption">
+                        <div class="caption-label">
+                            <span>這裏沒有考試<br>只有滿滿的程式碼</span>
+                            <span>NO TEST BUT YOUR CODES</span>
+                        </div>
+                        <div class="caption-btn">
+                            <a href="javascript:;">台北班簡介及報名(2021/4/28開課)</a>
+                            <a href="javascript:;">新竹班簡介(2021/11月後)</a>
+                            <a href="javascript:;">招生說明會報名</a>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="carousel-item">
+                    <img src="images/header-background04.webp" class="d-block w-100" alt="background04">
+                    <div class="carousel-caption">
+                        <div class="caption-label">
+                            <span>BUILD SCHOOL</span>
+                            <span>Build School 是軟體開發教育的先鋒 為您打造更有競爭力的職涯</span>
+                        </div>
+                        <div class="caption-btn">
+                            <a href="javascript:;">台北班簡介及報名(2021/4/28開課)</a>
+                            <a href="javascript:;">新竹班簡介(2021/11月後)</a>
+                            <a href="javascript:;">招生說明會報名</a>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="carousel-item">
+                    <img src="images/header-background05.webp" class="d-block w-100" alt="background05">
+                    <div class="carousel-caption">
+                        <div class="caption-label">
+                            <span>前往峰頂的路上<br>有人帶!</span>
+                            <span>START CODING AND GET COACHED FROM MENTORS</span>
+                        </div>
+                        <div class="caption-btn">
+                            <a href="javascript:;">台北班簡介及報名(2021/4/28開課)</a>
+                            <a href="javascript:;">新竹班簡介(2021/11月後)</a>
+                            <a href="javascript:;">招生說明會報名</a>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="carousel-item">
+                    <img src="images/header-background06.webp" class="d-block w-100" alt="background06">
+                    <div class="carousel-caption">
+                        <div class="caption-label">
+                            <span>BUILD SCHOOL</span>
+                            <span>Build School is a pioneer of software developer education and career builder for
+                                engineers
+                            </span>
+                        </div>
+                        <div class="caption-btn">
+                            <a href="javascript:;">台北班簡介及報名(2021/4/28開課)</a>
+                            <a href="javascript:;">新竹班簡介(2021/11月後)</a>
+                            <a href="javascript:;">招生說明會報名</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#BScarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#BScarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+
+    </header>
+    <main>
+        <section class="feature-core container">
+            <div class="core-concept my-5 row justify-content-evenly align-center"">
+                <div class=" col-12 col-lg-6 py-2 d-flex flex-column align-center">
+                <h2 class="fs-3 fw-bold text-center"><span class="d-block fs-1">Build School</span>/*我們的理念*/</h2>
+                <p class="d-flex flex-column m-auto">
+                    <span class="d-block fw-bold">Build = 將程式碼編譯及建置成<span
+                            class="text-decoration-underline">可執行的軟體</span></span>
+                    <span class="d-block fw-bold">Build = <span class="text-decoration-underline">動手做</span></span>
+                    <span class="d-block fw-bold">Build = 軟體開發<span
+                            class="text-decoration-underline">職涯的打造者</span></span>
+                </p>
+            </div>
+            <div class="col-12 col-lg-6 py-2 d-flex flex-column justify-content-center">
+                <h3 class="fs-5 fw-bold text-center">實作及就業導向的軟體開發學校</h3>
+                <p class="text text-center">
+                    因應數位新時代的來臨，軟體、App、IoT
+                    、SaaS、雲端平台的應用需求大爆炸，軟體工程師的招募需求持續上升，以2016年5月求職平台的統計資料，從高科技、電商、金融、傳產、網路服務、軟體資訊、新創等各行業，台灣至少有
+                    27,000 位軟體開發工程師的職缺，甚至日本、新加坡等軟體及App 外商也來台灣求才。
+                    為了彌補企業求才所需技能及實務教學上的落差，我們希望能幫助想搭上軟體開發及數位經濟這艘火箭的學員們，打造更有競爭力的職涯!
+                </p>
+            </div>
+            </div>
+            <div class="core-learning my-5 row flex-row-reverse justify-content-evenly align-center">
+                <div class="col-12 col-lg-6 py-2 d-flex  flex-column align-center">
+                    <div class="pic mb-2 mx-auto">
+                        <img class="" src="images/core-learning.webp" alt="core-learning">
+                    </div>
+                    <h2 class="fs-3 fw-bold text-center">動手實作才是真學習</h2>
+                </div>
+                <div class="col-12 col-lg-6 py-2 d-flex flex-column justify-content-center">
+                    <h3 class="fs-4 fw-bold text-center">
+                        打造專案作品的學習方式
+                        <span class="d-block fs-5">(Project-based Learning)</span>
+                    </h3>
+                    <p class="text text-center">
+                        透過身經百戰的實務講師、各大企業的資深軟體工程師或CTO，帶領學員實作一個真正能運作的產品開發，解決真實世界的問題，透過專題過程中的實作，培養解決問題的能力，這裏不只是程式教學或教育訓練，學的不只是技能，而是
+                        Learn how to learn，以因應變化多端的軟體開發技能，及自主尋找解答的能力。
+                    </p>
+                </div>
+            </div>
+            <div class="core-readiness my-5 row justify-content-evenly align-center">
+                <div class="col-12 col-lg-6 py-2 d-flex  flex-column align-center">
+                    <div class="pic mb-2 mx-auto">
+                        <img class="" src="images/core-readiness.webp" alt="core-learning">
+                    </div>
+                    <h2 class="fs-3 fw-bold text-center">就業銜接</h2>
+                </div>
+                <div class="col-12 col-lg-6 py-2 d-flex flex-column justify-content-center">
+                    <h3 class="fs-4 fw-bold text-center">
+                        真正企業職場所需技能
+                        <span class="d-block fs-5">(Career Readiness)</span>
+                    </h3>
+                    <p class="text text-center">
+                        除了透過打造專題作品過程，學到了技術及硬技能外，不同於一般的軟體培訓，我們更加入了簡報技巧、履歷及面試準備、以及真正軟體開發的團隊溝通及運作，這些軟實力
+                        (Soft-Skill)的培養，讓學員能提早做好準備，在職場上成為一位專業的軟體工程師!
+                    </p>
+                </div>
+            </div>
+            <div class="core-Network my-5 row flex-row-reverse justify-content-evenly align-center">
+                <div class="col-12 col-lg-6 py-2 d-flex  flex-column align-center">
+                    <div class="pic mb-2 mx-auto">
+                        <img class="" src="images/core-network.webp" alt="core-learning">
+                    </div>
+                    <h2 class="fs-3 fw-bold text-center">連結及影響力</h2>
+                </div>
+                <div class="col-12 col-lg-6 py-2 d-flex flex-column justify-content-center">
+                    <h3 class="fs-4 fw-bold text-center">
+                        企業導師的連結
+                        <span class="d-block fs-5">(Mentor Network)</span>
+                    </h3>
+                    <p class="text text-center">
+                        每一位在軟體開發上有實務經驗的企業導師，他們是各大企業的主管、資深軟體工程師或 CTO，其人際連結及資源將帶給同學更多更好的就業機會，你將比別人站得更高，看得更遠!
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="feature-training">
+            <div class="title-bgimg">
+                <h2 class="fs-4 title-banner m-0 p-5 text-center">
+                    18 - 24週的實作及作品開發 - 從訓練、就業、到企業連結
+                </h2>
+            </div>
+            <div class="container py-3">
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="card border-0">
+                            <h3 class="text-center fw-bold fs-5">第 1 - 4 個月</h3>
+                            <div class="icon">
+                                <svg class="icon-svg" preserveAspectRatio="xMidYMid meet" data-bbox="0 19.2 200 161.6"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="-1.0638297872340416 -1.0638297872340452 202.12765957446808 202.12765957446808"
+                                    role="img">
+                                    <g>
+                                        <path
+                                            d="M190.1 80.8h-5.5V31.4c0-7.4-4.9-12.2-12.5-12.2H14.8C7.6 19.2 0 23.5 0 31.4v103.4c0 7.6 7.3 15.1 14.8 15.1h56.9L66.8 173h-5.3c-2.1 0-3.8 1.7-3.8 3.8s1.7 3.8 3.8 3.8h61.6c2.1 0 3.8-1.7 3.8-3.8s-1.7-3.8-3.8-3.8H119l-5-23h32.1v20.9c0 5.4 4.4 9.9 9.9 9.9h34.1c5.4 0 9.9-4.4 9.9-9.9V90.6c0-5.4-4.4-9.8-9.9-9.8zm-36.3 23h38.5v53.8h-38.5v-53.8zm36.3-15.3c1.2 0 2.2 1 2.2 2.2v5.5h-38.5v-5.5c0-1.2 1-2.2 2.2-2.2h34.1zM156 80.8c-5.4 0-9.9 4.4-9.9 9.9v28.6H7.7v-77h169.2v38.5H156zM7.7 31.4c0-3.3 4.4-4.5 7.1-4.5h157.3c4.2 0 4.8 2.2 4.8 4.5v3.2H7.7v-3.2zm103.4 141.7H74.7l4.9-23.1h26.5l5 23.1zm-1.8-30.8H14.8c-3.2 0-7.1-4.1-7.1-7.5v-7.9h138.5v15.4h-36.9zm83 28.6c0 1.2-1 2.2-2.2 2.2H156c-1.2 0-2.2-1-2.2-2.2v-5.5h38.5v5.5z">
+                                        </path>
+                                    </g>
+                                </svg>
+                            </div>
+                            <div class="card-body d-flex flex-column align-items-center">
+                                <h4 class="card-title text-danger text-center fs-5">程式基礎教學</h4>
+                                <ul class="card-text">
+                                    <li>
+                                        業界實戰講師
+                                    </li>
+                                    <li>
+                                        企業主管/創業家/CTO 演講
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="card border-0">
+                            <h3 class="text-center fw-bold fs-5">第 5 - 6 個月</h3>
+                            <div class="icon">
+                                <svg class="icon-svg" preserveAspectRatio="xMidYMid meet" data-bbox="50 0 100 200"
+                                    xmlns="http://www.w3.org/2000/svg" viewBox="50 0 100 200" role="img">
+                                    <g>
+                                        <path d="M97 0h7v33h-7V0z"></path>
+                                        <path d="M75.2 36.9L66.6 22l6.5-3.6 8.5 14.8-6.4 3.7z"></path>
+                                        <path
+                                            d="M106 60.5v7.4c11 0 20.4 8.8 20.4 20.2 0 .1-.1 0-.1 0h7.4c.2-15-12-27.7-27.4-28-.1 0-.3.4-.3.4z">
+                                        </path>
+                                        <path
+                                            d="M100 42.1c-27.6 0-50 22.3-50 49.9 0 8 1.9 15.9 5.6 23 2.5 5.7 5.8 11.2 9.3 16.3C69.3 138 73 143.6 73 150v33c0 2 1.6 2.2 3.7 2.2h7.5c.6 7 7.4 14.8 15.8 14.8s15.2-7.8 15.8-14.8h7.5c2.1 0 3.7 0 3.7-2.2v-33c0-6.4 3.8-12.1 8.2-18.7 3.7-5.3 6.9-10.9 9.4-16.8 3.5-7 5.4-14.7 5.4-22.5 0-27.5-22.4-49.9-50-49.9zm0 150.5c-4.3 0-7.8-4.4-8.3-7.4h16.7c-.6 3-4.1 7.4-8.4 7.4zm20-14.4H81v-10h39v10zm0-12H81v-7h39v7zm0-9H81v-6h39v6zm17.9-47.1h-.9v1.4c-2 5.6-4.9 10.7-8.3 15.7-4.7 7.1-8.4 13-8.7 22H80.7c-.3-9-4.5-14.9-9.1-22-3-4.7-6.5-9.4-8.5-15.2v-.3c-3-6-5.2-12.8-5.2-19.6 0-23.5 18.9-42.5 42.4-42.5s42.4 18.4 42.4 41.9c-.1 6.7-1.8 13.6-4.8 18.6z">
+                                        </path>
+                                        <path d="M125.3 36.9l-6.4-3.7 8.5-14.8 6.4 3.7-8.5 14.8z"></path>
+                                    </g>
+                                </svg>
+                            </div>
+                            <div class="card-body  d-flex flex-column align-items-center">
+                                <h4 class="card-title text-danger text-center fs-5">專案及作品導向實作</h4>
+                                <ul class="card-text">
+                                    <li>
+                                        Web / App 作品開發 - 企業導師指導
+                                    </li>
+                                    <li>
+                                        不只是 Demo - 真實可運作成果
+                                    </li>
+                                    <li>
+                                        團隊開發 - 真實軟體開發團隊的運作及分工 (Agile敏捷, kanban 看板, CI 自動化建置)
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="card border-0">
+                            <h3 class="text-center fw-bold fs-5">第 6 - 7 月</h3>
+                            <div class="icon">
+                                <svg class="icon-svg" preserveAspectRatio="xMidYMid meet" data-bbox="16.6 0 166.7 200.1"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="-1.211666666666666 -1.1116666666666646 202.32333333333332 202.32333333333332"
+                                    role="img">
+                                    <g>
+                                        <path
+                                            d="M179.2 0H20.8c-2.3 0-4.2 1.9-4.2 4.2v191.7c0 2.3 1.9 4.2 4.2 4.2h158.3c2.3 0 4.2-1.9 4.2-4.2V4.2c0-2.3-1.8-4.2-4.1-4.2zM175 191.7H25V8.3h150v183.4zm-45-62c0-.1 0-.1 0 0 .4-2 .6-4.1.6-6.2 0-16.1-13.1-29.2-29.2-29.2s-29.2 13.1-29.2 29.2c0 2.1.2 4.1.7 6.1l-.1.1-25 41.7c-.9 1.5-.8 3.4.3 4.8s2.9 1.9 4.6 1.3l22.6-7.5 14.8 14.8c.8.8 1.9 1.2 2.9 1.2.4 0 .7 0 1.1-.2 1.4-.4 2.6-1.5 2.9-3l4.3-17.2 4.3 17.2c.4 1.5 1.5 2.6 2.9 3 .4.1.7.2 1.1.2 1.1 0 2.2-.4 2.9-1.2l14.8-14.8 22.6 7.5c1.7.5 3.5 0 4.6-1.3 1.1-1.4 1.2-3.3.3-4.8L130 129.7zm-28.6-27.1c11.5 0 20.8 9.3 20.8 20.8s-9.3 20.8-20.8 20.8-20.8-9.3-20.8-20.8c0-11.4 9.4-20.8 20.8-20.8zm-10.6 71.1l-11.5-11.5c-1.1-1.1-2.8-1.5-4.3-1L60.8 166l16.1-26.8c4.3 6.7 11.2 11.5 19.3 13l-5.4 21.5zm37-12.5c-1.5-.5-3.1-.1-4.3 1L112 173.7l-5.4-21.5c8.1-1.5 15-6.3 19.3-13L142 166l-14.2-4.8zm-65.3-132c0-2.3 1.9-4.2 4.2-4.2h66.7c2.3 0 4.2 1.9 4.2 4.2s-1.9 4.2-4.2 4.2H66.7c-2.3-.1-4.2-1.9-4.2-4.2zm4.2 54.1c-2.3 0-4.2-1.9-4.2-4.2s1.9-4.2 4.2-4.2h66.7c2.3 0 4.2 1.9 4.2 4.2s-1.9 4.2-4.2 4.2H66.7zM37.5 54.2c0-2.3 1.9-4.2 4.2-4.2h116.7c2.3 0 4.2 1.9 4.2 4.2s-1.9 4.2-4.2 4.2H41.7c-2.3-.1-4.2-1.9-4.2-4.2z">
+                                        </path>
+                                    </g>
+                                </svg>
+                            </div>
+                            <div class="card-body  d-flex flex-column align-items-center">
+                                <h4 class="card-title text-danger text-center fs-5">作品發表</h4>
+                                <ul class="card-text">
+                                    <li>
+                                        簡報 Demo 及溝通技巧
+                                    </li>
+                                    <li>
+                                        作品及程式碼講解
+                                    </li>
+                                    <li>
+                                        個人履歷準備 – GitHub, CodePen …
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="card border-0">
+                            <h3 class="text-center fw-bold fs-5">未來及展望</h3>
+                            <div class="icon">
+                                <!-- <div class="icon w-50 h-0 pb-50 m-auto"></div> -->
+                                <img class="" src="images/training-HR.webp" alt="training-HR">
+                            </div>
+                            <div class="card-body  d-flex flex-column align-items-center">
+                                <h4 class="card-title text-danger text-center fs-5">就業及企業導師諮詢</h4>
+                                <ul class="card-text">
+                                    <li>
+                                        就業媒合或未來職涯諮詢
+                                    </li>
+                                    <li>
+                                        企業導師 -人際連結及資源
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="feature-tools">
+            <div class="title-bgimg">
+                <h2 class="fs-4 title-banner m-0 p-5 text-center">
+                    在課程及作品實作中，將採用這些工具 - 熟悉實務上軟體開發團隊的運作、分工及真實專案的流程
+                </h2>
+            </div>
+            <div class="container py-3">
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="card border-0">
+                            <div class="icons">
+                                <div class="icon">
+                                    <img class="" src="images/logo-git-1.webp" alt="logo-git-1">
+                                </div>
+                                <div class="icon">
+                                    <img class="" src="images/logo-git-2.webp" alt="logo-git-2">
+                                </div>
+                            </div>
+                            <div class="card-body d-flex flex-column align-items-center">
+                                <h3 class="card-title text-center fs-5">版本控管及程式碼管理</h3>
+                                <ul class="card-text">
+                                    <li>
+                                        學員之練習及作品之程式碼，皆採用主流的 Git 當版本控管，熟悉版控的各種操作及實務專案運用; 課程中公開之練習程式碼，提交至 GitHub
+                                        上，其它學員可參考或供講師 Code Review 檢閱，並熟悉 Open Source 生態及工具
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="card border-0">
+                            <div class="icons">
+                                <div class="icon">
+                                    <img class="" src="images/logo-vs.webp" alt="logo-vs">
+                                </div>
+                                <div class="icon">
+                                    <img class="" src="images/logo-trello.webp" alt="logo-trello">
+                                </div>
+                            </div>
+                            <div class="card-body  d-flex flex-column align-items-center">
+                                <h3 class="card-title text-center fs-5">作品開發及團隊管理</h3>
+                                <ul class="card-text">
+                                    <li>
+                                        除了使用 GitHub 外，專題開發階段也將使用 Microsoft Azure DevOps Services
+                                        進行團隊開發、包括程式碼管理、工作項目追蹤、自動化建置等，熟悉一個軟體開發專案之流程、分工及日常工作。
+                                    </li>
+                                    <li>
+                                        也可透過目前許多開發團隊常用的專案管理及看板工具 - Trello 進行工作分派、追蹤、或整個班的工作事項管理
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="card border-0">
+                            <div class="icon">
+                                <img class="" src="images/logo-azure.webp" alt="logo-azure">
+                            </div>
+                            <div class="icon">
+                                <img class="" src="images/logo-SQL.webp" alt="logo-SQL">
+                            </div>
+                            <div class="card-body  d-flex flex-column align-items-center">
+                                <h3 class="card-title text-center fs-5">雲端平台及服務</h3>
+                                <ul class="card-text">
+                                    <li>
+                                        雲端平台的使用已逐漸成為一個成熟軟體開發團隊之基礎，並讓開發、測試、佈署工作更加的便利及自動化。因此學員將使用 Microsoft Azure
+                                        當成作品及專案應用系統執行的雲端平台，包括 Azure App Service 建立網站服務、Azure SQL Database 建立資料庫服務
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="card border-0">
+                            <div class="icon">
+                                <img class="" src="images/logo-teams.webp" alt="logo-teams">
+                            </div>
+                            <div class="icon">
+                                <img class="" src="images/logo-slack.webp" alt="logo-slack">
+                            </div>
+                            <div class="card-body  d-flex flex-column align-items-center">
+                                <h3 class="card-title text-center fs-5">團隊溝通協作及通知</h3>
+                                <ul class="card-text">
+                                    <li>
+                                        課程過程中的線上討論、遠端溝通、或技術分享，將可透過 Microsoft Teams 或Slack 工具。另外練習的程式碼提交至 GitHub、或是
+                                        Trello 上的工作狀態更新，或是 Azure DevOps 上自動化建置的狀態，皆可發通知至 Microsoft Teams 或
+                                        Slack，透過自動化提升工作效率，並熟悉一個軟體開發團隊的協同合作
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+        </section>
+        <section class="feature-teacher">
+            <div class="title-bgimg">
+                <h2 class="fs-4 title-banner m-0 p-5 text-center">
+                    我們的講師及企業導師擁有在這些公司的工作經歷、擔任主管或資深工程師
+                </h2>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-3 gy-3 text-center">
+                        <img src="images/logo-microsoft.webp" alt="logo-microsoft">
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3 gy-3 text-center">
+                        <img src="images/logo-kingston.webp" alt="logo-kingston">
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3 gy-3 text-center">
+                        <img src="images/logo-kerry.webp" alt="logo-kerry">
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3 gy-3 text-center">
+                        <img src="images/logo-skilltree.webp" alt="logo-skilltree">
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3 gy-3 text-center">
+                        <img src="images/logo-twmvc.webp" alt="logo-twmvc">
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3 gy-3 text-center">
+                        <img src="images/logo-trend.webp" alt="logo-trend">
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3 gy-3 text-center">
+                        <img src="images/logo-gamania.webp" alt="logo-gamania">
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3 gy-3 text-center">
+                        <img src="images/logo-leo.webp" alt="logo-leo">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container my-3">
+            <div class="row">
+                <div class="col-12 col-md-5 m-auto">
+                    <h2>合作及接洽</h2>
+                    <p>若為企業欲徵才、或非營利組織或公益團體希望參加我們的培訓或公益合作、或成為我們的講師或擔任指導學生的企業導師 (Inspire Mentor)，請與我們連絡</p>
+                </div>
+                <div class="col-12 col-md-5 m-auto">
+                    <address>
+                        Build School​ 青杉人才有限公司<br>
+                        社團法人台灣青築未來協會 Build the Future<br>
+                        (內政部立案 : 台內團字第 1090033261 號)<br>
+                        email：<a class="text-dark"
+                            href="mailto:contact@build-school.com">contact@build-school.com</a><br>
+                        電話：<a class="text-dark" href="tel:02-66057606">02-66057606</a><br>
+                        ​台北市忠孝東路三段96號11F-1 (台北科大對面/忠孝新生站3號出口)​
+                    </address>
+                </div>
+            </div>
+            <div class="community">
+                <div class="icon">
+                    <img src="images/logo-facebook.webp" alt="logo-facebook">
+                </div>
+                <div class="icon">
+                    <img src="images/logo-youtube.webp" alt="logo-youtube">
+                </div>
+            </div>
+            <p class="copyright text-center"><a class="text-dark" href="javascript:;">隱私權宣告</a>&nbsp;&nbsp;© 2020 by
+                Build School</p>
+        </div>
+    </footer>
+
+
+
+
+
+
+
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
