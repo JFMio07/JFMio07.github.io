@@ -1,0 +1,270 @@
+li {
+  list-style: none;
+}
+
+.libraries-container {
+  max-width: 1140px;
+  margin: auto;
+}
+
+.item-image img {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.item-detail > * {
+  overflow: hidden;
+  line-height: 1.2;
+}
+
+.item-detail-title {
+  font-weight: 600;
+}
+
+.item-detail-subtitle,
+.item-detail-authors,
+.item-detail-series {
+  text-overflow: ellipsis;
+  word-break: break-all;
+  white-space: nowrap;
+}
+
+.item-detail-title a {
+  color: #0d0d0d;
+}
+
+.item-detail-subtitle a {
+  color: #595959;
+}
+
+.item-bar {
+  border-bottom: 1px solid #595959;
+  position: relative;
+}
+
+.item-status {
+  font-size: 0.875rem;
+  line-height: 2rem;
+}
+
+.item-action {
+  padding: 0 3px;
+  position: relative;
+  z-index: 100;
+}
+
+.item-action > :first-child {
+  display: flex;
+  border: none;
+  background-color: transparent;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 2rem;
+  height: 2rem;
+}
+
+.item-action > :first-child :not(:last-child) {
+  margin: 0 3px 0 0;
+}
+
+.item-action-dot {
+  margin: 0px;
+  display: block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: #595959;
+}
+
+.item-actionItems {
+  display: none;
+  background-color: #fff;
+  margin-bottom: 0;
+  border-top: 1px solid #d8d8d8;
+  border-bottom: 1px solid #d8d8d8;
+  border-left: 1px solid #d8d8d8;
+  border-right: 1px solid #d8d8d8;
+}
+
+.item-actionItems li {
+  border-top: 1px solid #d8d8d8;
+  padding: 3px 0;
+  font-size: 0.875rem;
+  line-height: 2rem;
+}
+
+.item-actionItems a {
+  padding: 0 10px;
+  display: block;
+  color: #595959;
+  text-decoration: none;
+}
+
+/* checktest */
+input[id^="menu-ctl"] {
+  display: none;
+}
+
+input[id^="menu-ctl"]:checked ~ .item-actionItems {
+  display: block;
+}
+
+input[id^="menu-ctl"]:checked + .wrap label[for^="menu-ctl"] span {
+  background-color: #bf0000;
+}
+
+@media screen and (max-width: 568px) {
+  /* x <= 568px */
+  .libraries-item {
+    margin-bottom: 20px;
+    padding-top: 5px;
+    width: 100%;
+  }
+
+  .libraries-container .item-detail {
+    margin-bottom: 10px;
+  }
+
+  .item-detail {
+    min-height: 150px;
+  }
+
+  .item-detail::after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+
+  .item-image {
+    width: 90px;
+    height: 150px;
+    float: left;
+    margin-right: 10px;
+  }
+
+  .item-detail > * {
+    margin-bottom: 2px;
+    padding: 0px 0 5px 5px;
+  }
+  .item-detail-title {
+    font-size: 0.875rem;
+  }
+
+  .item-detail-subtitle,
+  .item-detail-authors,
+  .item-detail-series {
+    font-size: 0.75rem;
+  }
+
+  .item-detail-authors a,
+  .item-detail-series a {
+    color: #bf0000;
+  }
+
+  .item-actionItems {
+    padding: 2rem 0.5rem 0 0.5rem;
+    position: relative;
+    margin-top: -2rem;
+  }
+}
+
+@media screen and (min-width: 569px) {
+  /* x >= 569px */
+  .libraries-items {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .libraries-item {
+    box-sizing: border-box;    
+    max-width: 180px;    
+  }
+
+  .item-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .item-detail-title {
+    font-size: 1rem;
+  }
+
+  .item-detail-subtitle,
+  .item-detail-authors,
+  .item-detail-series {
+    font-size: 0.875rem;
+  }
+
+  .item-bar {
+    order: -1;
+  }
+
+  .item-actionItems {
+    padding: 2rem 0.5rem 0 0.5rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+  }
+  .item-detail-authors a,
+  .item-detail-series a {
+    color: black;
+  }
+}
+
+@media screen and (max-width: 880px) {
+  /* x <= 880px */
+  .libraries-container {
+    padding-left: 0.9375rem;
+    padding-right: 0.9375rem;
+  }
+}
+
+@media screen and (min-width: 569px) and (max-width: 880px) {
+  /* 569px <= x <= 880px */
+  /*三欄*/
+  .libraries-item {
+    margin-bottom: 20px;
+    padding-top: 5px;
+    width: 33.333333%;
+    padding-left: calc((33.333333% - 180px)/2);
+    padding-right: calc((33.333333% - 180px)/2);
+  }
+}
+
+@media screen and (min-width: 881px) {
+  /* x >= 881px */
+  /*四欄*/
+  .libraries-container {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  .libraries-item {
+    /* margin-left: auto; */
+    /* margin-right: auto; */
+    margin-bottom: 20px;
+    padding-top: 5px;
+    box-sizing: border-box;
+    width: 25%;
+    padding-left: calc((25% - 180px)/2);
+    padding-right: calc((25% - 180px)/2);
+    /* padding-right: 2.386363%; */
+  }
+
+  .item-image {
+    width: 180px;
+    height: 300px;
+  }
+
+  .item-detail-title {
+    font-size: 1rem;
+  }
+
+  .item-detail-subtitle,
+  .item-detail-authors,
+  .item-detail-series {
+    font-size: 0.875rem;
+  }
+}
