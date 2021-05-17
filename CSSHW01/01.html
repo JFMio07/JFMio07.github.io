@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Reset.css">
+    <title>賈以食日 CHIA YI SHI RI</title>
+    <style>
+        body {
+            background-color: #f5f5f5;
+
+        }
+
+        p,
+        s {
+            font-size: 14px;
+            color: #666666;
+            margin: 10px 0px;
+        }
+
+        .wrap {
+            width: 1200px;
+            margin: auto;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+
+        .forsale {
+            margin: 15px;
+        }
+
+        /* 商品排列一個欄位 */
+        .item1C {
+            width: 1170px;
+
+        }
+
+        /* 商品排列二個欄位 */
+        .item2C {
+            width: 570px;
+
+        }
+
+        /* 商品排列三個欄位 */
+        .item3C {
+            width: 370px;
+
+        }
+
+        /* 商品排列四個欄位 */
+        .item4C {
+            width: 270px;
+
+        }
+
+        .item1C .box img,
+        .item2C .box img,
+        .item3C .box img,
+        .item4C .box img,
+        .title-pic img {
+            width: 100%;
+            vertical-align: top;
+
+        }
+
+        .box {
+            position: relative;
+        }
+
+        /* 滑鼠移過去顯示加入購物車 */
+        .box:hover .btn-buy {
+            visibility: visible;
+        }
+
+        /* 加入購物車 */
+        .btn-buy {
+            display: block;
+            width: 100%;
+            font-size: 18px;
+            color: #fcfcfc;
+            padding: 15px 0 10px;
+            text-align: center;
+            text-decoration: none;
+            background-color: #575757;
+            position: absolute;
+            bottom: 0;
+            opacity: .8;
+            visibility: hidden;
+
+        }
+
+        .end-of-sale img {
+            opacity: .5;
+        }
+
+        /* 販售結束的標籤 */
+        .label-end-of-sale {
+            color: #fcfcfc;
+            margin: 0;
+            font-size: 18px;
+            text-align: center;
+            padding: 5px 10px 0 10px;
+            background-color: #533838;
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            border-radius: 5px;
+        }
+
+        .footer {
+            font-size: 14px;
+            color: #666666;
+            width: 1200px;
+            margin: auto;
+        }
+
+        .footer .box {
+            display: flex;
+        }
+
+        .footer .box img {
+            width: 300px;
+            display: block;
+        }
+
+        .footer ul {
+            margin: 50px 0px 50px 0;
+            display: flex;
+            justify-content: center;
+        }
+        .footer li{
+            padding: 0 5px;
+            /* 分隔符號'|'的定位基準*/
+            position: relative;
+        }
+        .footer li a {
+            text-decoration: none;
+            color: #666666;
+        }
+        /*
+        除了第一個li不會選取，只要符合li後面的li都會選到，
+        有選到的li的內容前面加入'|' 分隔符號
+        再使用絕對定位定到li left 0 的地方
+        */
+        .footer li+li::before{
+            content: '|';
+
+            position: absolute;
+            left: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="title-pic">
+            <img src="image/new-product-title.webp" alt="new-product-title">
+        </div>
+        <div class="item2C forsale">
+            <div class="box">
+                <img src="image/new-product-item1.webp" alt="new-product-item1">
+                <a class="btn-buy" href="">加入購物車</a>
+            </div>
+            <p>賈以食日-拌雙粉 醋香豆瓣（1袋/3入）</p>
+            <s>NT$249</s>
+            <p>NT$230</p>
+        </div>
+        <div class="item2C forsale">
+            <div class="box">
+                <img src="image/new-product-item2.webp" alt="new-product-item2">
+                <a class="btn-buy" href="">加入購物車</a>
+            </div>
+            <p>賈以食日-拌雙粉 醋香豆瓣（16袋/48入）</p>
+            <s>NT$3,984</s>
+            <p>NT$3,580</p>
+        </div>
+        <div class="item1C forsale">
+            <div class="box">
+                <img src="image/new-product-sumikko-large-photo.webp" alt="new-product-sumikko-large-photo">
+                <a class="btn-buy" href="">加入購物車</a>
+            </div>
+            <p>賈以食日-角落小夥伴 寶貝麵三入綜合提袋組</p>
+            <s>NT$530</s>
+            <p>NT$499</p>
+        </div>
+        <div class="item3C forsale">
+            <div class="box">
+                <img src="image/new-product-sumikko-item1.webp" alt="new-product-sumikko-item1">
+                <a class="btn-buy" href="">加入購物車</a>
+            </div>
+            <p>賈以食日-角落小夥伴 寶貝麵（經典原味）</p>
+            <p>NT$159</p>
+        </div>
+        <div class="item3C forsale">
+            <div class="box">
+                <img src="image/new-product-sumikko-item2.webp" alt="new-product-sumikko-item2">
+                <a class="btn-buy" href="">加入購物車</a>
+            </div>
+            <p>賈以食日-角落小夥伴 寶貝麵（綜合蔬菜）</p>
+            <p>NT$159</p>
+        </div>
+        <div class="item3C forsale">
+            <div class="box">
+                <img src="image/new-product-sumikko-item3.webp" alt="new-product-sumikko-item3">
+                <a class="btn-buy" href="">加入購物車</a>
+            </div>
+            <p>賈以食日-角落小夥伴 寶貝麵（南瓜地瓜）</p>
+            <p>NT$159</p>
+        </div>
+        <div class="item2C forsale">
+            <div class="box">
+                <img src="image/new-product-item3.webp" alt="new-product-item3">
+                <a class="btn-buy" href="">加入購物車</a>
+            </div>
+            <p>賈以食日-干貝鍋燒意麵</p>
+            <s>NT$150</s>
+            <p>NT$138</p>
+        </div>
+        <div class="item2C forsale">
+            <div class="box">
+                <img src="image/new-product-item4.webp" alt="new-product-item4">
+                <a class="btn-buy" href="">加入購物車</a>
+            </div>
+            <p>賈以食日-干貝鍋燒意麵（1箱/16盒）</p>
+            <s>NT$2,400</s>
+            <p>NT$2,080</p>
+        </div>
+        <div class="item2C forsale">
+            <div class="box">
+                <img src="image/new-product-item5.webp" alt="new-product-item5">
+                <a class="btn-buy" href="">加入購物車</a>
+            </div>
+            <p>賈以食日-泰式酸辣粉（1盒/3入）</p>
+            <s>NT$238</s>
+            <p>NT$220</p>
+        </div>
+        <div class="item2C forsale">
+            <div class="box">
+                <img src="image/new-product-item6.webp" alt="new-product-item6">
+                <a class="btn-buy" href="">加入購物車</a>
+            </div>
+            <p>賈以食日–泰式酸辣粉（1箱/16盒）</p>
+            <s>NT$3,808</s>
+            <p>NT$3,360</p>
+        </div>
+    </div>
+
+
+    <div class="wrap">
+        <div class="title-pic">
+            <img src="image/feature-product-title.webp" alt="feature-product-title">
+        </div>
+        <div class="item3C forsale">
+            <div class="box">
+                <img src="image/feature-product-item1.webp" alt="feature-product-item1">
+                <a class="btn-buy" href="">加入購物車</a>
+            </div>
+            <p>賈以食日-麻花麵（1袋/4入)</p>
+            <p>NT$268</p>
+        </div>
+        <div class="item3C forsale">
+            <div class="box">
+                <img src="image/feature-product-item2.webp" alt="feature-product-item2">
+                <a class="btn-buy" href="">加入購物車</a>
+            </div>
+            <p>賈以食日-燒椒麵（1袋/4入）</p>
+            <p>NT$268</p>
+        </div>
+        <div class="item3C forsale">
+            <div class="box">
+                <img src="image/feature-product-item3.webp" alt="feature-product-item3">
+                <a class="btn-buy" href="">加入購物車</a>
+            </div>
+            <p>賈以食日-麻薑麵（1袋/4入)</p>
+            <p>NT$268</p>
+        </div>
+        <div class="item2C forsale">
+            <div class="box">
+                <img src="image/feature-product-item4.webp" alt="feature-product-item4">
+                <a class="btn-buy" href="">加入購物車</a>
+            </div>
+            <p>賈以食日-麻辣鴨血冬粉</p>
+            <p>NT$159</p>
+        </div>
+        <div class="item2C forsale">
+            <div class="box">
+                <img src="image/feature-product-item5.webp" alt="feature-product-item5">
+                <a class="btn-buy" href="">加入購物車</a>
+            </div>
+            <p>賈以食日-麻辣鴨血冬粉（1箱/20盒）</p>
+            NT$3,180
+        </div>
+        <div class="item2C forsale">
+            <div class="box">
+                <img src="image/feature-product-item6.webp" alt="feature-product-item6">
+                <a class="btn-buy" href="">加入購物車</a>
+            </div>
+            <p>賈以食日-雪莓餅 (期間限定，售完為止)</p>
+            <s>NT$250</s>
+            <p>NT$230</p>
+        </div>
+    </div>
+
+    <div class="wrap">
+        <div class="title-pic">
+            <img src="image/flash-sale-title.webp" alt="flash-sale-title">
+        </div>
+        <div class="item1C forsale end-of-sale">
+            <div class="box">
+                <img src="image/flash-sale-item1.webp" alt="flash-sale-item1">
+                <p class="label-end-of-sale">販售結束</p>
+            </div>
+            <p>賈以食日-2021 HAPPY 牛 YEAR 福箱</p>
+            <p>NT$999</p>
+        </div>
+    </div>
+
+
+    <div class="footer">
+        <div class="box">
+            <img src="image/footer-item1.webp" alt="footer-item1">
+            <img src="image/footer-item2.webp" alt="footer-item2">
+            <img src="image/footer-item3.webp" alt="footer-item3">
+            <img src="image/footer-item4.webp" alt="footer-item4">
+        </div>
+        <ul class="copyright">
+            <li><a href="">隱私權聲明</a></li>
+            <li><a href="">服務條款</a></li>
+            <li>2018 © 賈以食日 拾躍創意國際有限公司 02-2579-2323</li>
+        </ul>
+    </div>
+
+</body>
+
+</html>
