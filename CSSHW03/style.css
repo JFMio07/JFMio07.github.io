@@ -1,0 +1,342 @@
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+header:first-child {
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.advantage {
+  width: 1200px;
+  box-sizing: border-box;
+  /* background-color: #ccc; */
+  margin: auto;
+  padding: 50px 100px;
+}
+
+.advantage > .header {
+  margin: auto;
+  padding: 5px 0;
+}
+
+.advantage > .header .title {
+  font-size: 35px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.advantage > .header .title::after {
+  content: "";
+  display: block;
+  width: 30px;
+  height: 4px;
+  background-color: black;
+  margin: 10px auto;
+}
+
+.advantage .nav {
+  margin-top: 30px;
+  display: flex;
+  text-align: center;
+}
+
+.header .nav a {
+  font-size: 18px;
+  color: black;
+  border: 1px dotted;
+  border-bottom: none;
+  width: 238px;
+  /* background-color: #fff; */
+  line-height: 1.5;
+  position: relative;
+  z-index: 1;
+  /* overflow: hidden; */
+  /* transition: 1s; */
+}
+
+.header .nav a + a {
+  width: 218px;
+  margin-left: 20px;
+}
+
+.header .nav a::after {
+  content: "";
+  display: block;
+  background-color: #b90e0e;
+  width: 100%;
+  height: 3px;
+  left: 0;
+  bottom: 0;
+  position: absolute;
+  transition: 0.7s;
+  z-index: -1;
+}
+
+.header .nav a:hover::after {
+  height: 100%;
+  transition: 0.7s;
+  z-index: -1;
+}
+
+.header .nav a:hover {
+  color: #fff;
+  transition: color 0.5s linear;
+  font-weight: bold;
+}
+
+.list {
+  /* background-color: pink; */
+  box-sizing: border-box;
+  /* padding: 5px; */
+  margin: auto;
+}
+
+.item {
+  /* background-color: #af0; */
+  font-size: 0;
+  width: 100%;
+  padding-top: 100px;
+  margin: 30px auto;
+  position: relative;
+}
+
+/* #region item-info */
+
+.item-info {
+  vertical-align: top;
+  display: inline-block;
+  width: 355px;
+  max-height: 400px;
+  color: #fff;
+  position: absolute;
+  z-index: 1;
+}
+
+.info-title {
+  background-color: #b90e0e;
+  font-size: 50px;
+  display: flex;
+  align-items: center;
+}
+
+.info-title > span {
+  display: inline-block;
+  transform: rotate(90deg);
+  font-size: 100px;
+}
+
+.info-description {
+  font-size: 20px;
+  letter-spacing: 1px;
+  line-height: 1.3;
+  padding: 20px 20px 20px 20px;
+  background-color: black;
+}
+
+/* info-description >> h4 */
+.info-description :first-child {
+  font-size: 26px;
+  margin-bottom: 10px;
+}
+
+/* #endregion */
+
+/* #region grayblock */
+
+.grayblock {
+  display: block;
+  background-color: #eeeeee;
+  position: absolute;
+  z-index: 0;
+  opacity: 0.6;
+}
+
+/* #endregion */
+
+/* #region item-video */
+
+.item-video {
+  width: 695px;
+  display: block;
+  position: relative;
+}
+
+.item-video img {
+  width: 100%;
+  vertical-align: middle;
+}
+
+.list .item-video::after {
+  content: url("image/video-icon.png");
+  display: block;
+  width: 57px;
+  height: 36px;
+  position: absolute;
+  margin: auto;
+}
+
+/* #endregion */
+
+/* #region item-innovation */
+
+.item-innovation {
+  width: 680px;
+  box-sizing: border-box;
+  font-size: 0px;
+  background-color: #eeeeee;
+  padding: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.innovation-header {
+  font-size: 18px;
+  color: #b90e0e;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.innovation-header::before {
+  content: "因為我們做了這些革新";
+  display: block;
+}
+
+.innovation-header::after {
+  content: "";
+  display: block;
+  width: 68%;
+  height: 1px;
+  background-color: #b90e0e;
+}
+
+.innovation-list {
+  font-size: 15px;
+}
+
+/* innovation-list >> li >> h5   */
+.innovation-list > li > :first-child {
+  background-color: black;
+  font-size: 16px;
+  padding: 5px 10px;
+  border-radius: 3px;
+  color: white;
+  display: inline-block;
+}
+
+.innovation-detail {
+  margin: 6px;
+}
+
+.innovation-detail > li {
+  padding: 0 0 0 1em;
+  color: #959595;
+  font-weight: bold;
+}
+
+/* .innovation-detail>li::before {
+            content: "\25A0";
+            display: inline-block;
+            color: #b90e0e;
+            
+            margin-right: .5em;
+        } */
+
+/* #endregion */
+
+/* ------------ odd of item ------------------*/
+/* #region  odd of item */
+.list > :nth-child(odd) > .item-info {
+  left: 0;
+  top: 0;
+}
+
+/* list >> odd of item >> item-info >> info-title */
+.list > :nth-child(odd) > .item-info > .info-title {
+  flex-direction: row;
+}
+
+/* list >> odd of item >> item-info >> info-title >> span  */
+
+.list > :nth-child(odd) > .item-info > .info-title > :first-child {
+  margin-left: 0px;
+}
+
+/* list >> odd of item >> item-info >> info-title */
+.list > :nth-child(odd) > .grayblock {
+  width: 439px;
+  height: 250px;
+  top: 36px;
+  left: 561px;
+}
+
+.list > :nth-child(odd) > .item-video {
+  left: 190px;
+}
+
+/* list >> odd of item >> item-video*/
+.list > :nth-child(odd) > .item-video::after {
+  top: 0;
+  right: -10px;
+  bottom: 0;
+}
+
+/* list >> odd of item >> item-innovation*/
+.list > :nth-child(odd) > .item-innovation {
+  top: -30px;
+  left: 60px;
+}
+
+/* #endregion */
+
+/* #region even of item */
+/* ------------ even of item ------------------*/
+.list > :nth-child(even) > .item-info {
+  right: 0;
+  top: 0;
+}
+
+/* list >> even of item >> item-info >> info-title */
+.list > :nth-child(even) > .item-info > .info-title {
+  flex-direction: row-reverse;
+}
+
+/* list >> even of item >> item-info >> info-title >> span  */
+.list > :nth-child(even) > .item-info > .info-title > :first-child {
+  margin-right: 0px;
+}
+
+/* list >> even of item >> item-info >> info-title */
+.list > :nth-child(even) > .grayblock {
+  width: 518px;
+  height: 413px;
+  top: 50px;
+  right: 150px;
+}
+
+.list > :nth-child(even) > .item-video {
+  left: 70px;
+}
+
+/* list >> even of item >> item-video*/
+.list > :nth-child(even) > .item-video::after {
+  top: 0;
+  left: -10px;
+  bottom: 0;
+}
+
+/* list >> even of item >> item-innovation*/
+.list > :nth-child(even) > .item-innovation {
+  top: -30px;
+  left: 320px;
+}
+
+/* #endregion */
