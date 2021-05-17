@@ -7,6 +7,15 @@ li {
   margin: auto;
 }
 
+.item-image{
+    position: relative;
+}
+
+.item-image a{
+    position: absolute;
+    display: block;
+}
+
 .item-image img {
   max-width: 100%;
   overflow: hidden;
@@ -121,6 +130,10 @@ input[id^="menu-ctl"]:checked + .wrap label[for^="menu-ctl"] span {
     width: 100%;
   }
 
+  .item-card {
+    width: 100%;
+  }
+
   .libraries-container .item-detail {
     margin-bottom: 10px;
   }
@@ -141,6 +154,10 @@ input[id^="menu-ctl"]:checked + .wrap label[for^="menu-ctl"] span {
     float: left;
     margin-right: 10px;
   }
+
+  .item-image a{
+    top: 0;
+}
 
   .item-detail > * {
     margin-bottom: 2px;
@@ -176,9 +193,28 @@ input[id^="menu-ctl"]:checked + .wrap label[for^="menu-ctl"] span {
   }
 
   .libraries-item {
-    box-sizing: border-box;    
-    /* max-width: 180px;     */
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    padding-top: 5px;
+    padding-left: 0.3125rem;
+    padding-right: 0.3125rem;
   }
+
+  .item-card {
+    max-width: 180px;
+    margin: auto;
+    width: 100%;
+  }
+
+  .item-image {
+    max-width: 180px;
+    height: 300px;
+  }
+
+
+  .item-image a{
+    bottom: 0;
+}
 
   .item-info {
     display: flex;
@@ -233,11 +269,7 @@ input[id^="menu-ctl"]:checked + .wrap label[for^="menu-ctl"] span {
   }
 } */
   .libraries-item {
-    margin-bottom: 20px;
-    padding-top: 5px;
-    width: 50%;
-    padding-left: calc((50% - 180px)/2);
-    padding-right: calc((50% - 180px)/2);
+    width: 33.333333%;
   }
 }
 
@@ -249,22 +281,11 @@ input[id^="menu-ctl"]:checked + .wrap label[for^="menu-ctl"] span {
     padding-right: 1.25rem;
   }
 
-  .libraries-item {
-    /* margin-left: auto; */
-    /* margin-right: auto; */
-    margin-bottom: 20px;
-    padding-top: 5px;
-    box-sizing: border-box;
-    width: 25%;
-    padding-left: calc((25% - 180px)/2);
-    padding-right: calc((25% - 180px)/2);
-    /* padding-right: 2.386363%; */
+  .libraries-item {    
+    width: 25%;    
   }
 
-  .item-image {
-    width: 180px;
-    height: 300px;
-  }
+
 
   .item-detail-title {
     font-size: 1rem;
