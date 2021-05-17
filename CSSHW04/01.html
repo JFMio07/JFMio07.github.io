@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/Common/fonts/fontawesome-free-5.15.3-web/css/all.css">
+    <link rel="stylesheet" href="/Common/Reset.css">
+    <title>選單作業</title>
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            background-color: #546377;
+        }        
+
+        .side-menu {
+            width: 300px;
+            height: 100%;
+            background: linear-gradient(0deg, #3381b0, #c2196c);
+            box-shadow: 5px 0 10px hsla(240, 40%, 15%, .6);
+            padding: 30px 0;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+            position: relative;
+            transform: translateX(-100%);
+            transition: .5s;
+        }
+
+        .side-menu form {
+            display: flex;
+            margin: 0 10px 50px;
+            border-radius: 100px;
+            border: 1px solid rgba(255, 255, 255, .4);
+        }
+
+        .side-menu form input,
+        .side-menu form button {
+
+            border: none;
+            color: #fff;
+            background-color: transparent;
+            padding: 5px;
+        }
+
+        .side-menu form input {
+            text-align: center;
+            width: 240px;
+        }
+
+        .side-menu form button {
+            width: 40px;
+        }
+
+        .side-menu form input:focus,
+        .side-menu form button:focus {
+            outline: none;
+        }
+
+
+        .side-menu form input::placeholder {
+            color: #fff;
+            text-align: center;
+        }
+
+        .nav a {
+            display: block;
+            text-decoration: none;
+            color: #fff;
+            padding: 10px;
+            position: relative;
+        }
+
+        .nav li+li>a::before {
+            content: '';
+            position: absolute;
+            background-color: rgba(255, 255, 255, .4);
+            height: 1px;
+            left: 10px;
+            right: 10px;
+            top: 0;
+        }
+
+        .nav li {
+            position: relative;
+        }
+
+        .nav li:hover {
+            background: hsla(240, 40%, 15%, .6);
+        }
+
+        .nav li:hover>ul {
+            display: block;
+        }
+
+        .nav ul {
+            position: absolute;
+            left: 100%;
+            width: 150px;
+            top: 10px;
+            background-color: rgba(255, 255, 255, .4);
+            box-shadow: 5px 0 10px hsla(240, 40%, 15%, .6);
+            display: none;
+        }
+
+        .nav .fas {
+            margin-right: -1.1em;
+            transform: scale(0);
+            transition: .5s;
+        }
+
+        .nav li:hover .fas {
+            margin-right: 0;
+            transform: scale(1);
+        }
+
+        .side-menu .menu-ctlbtn {
+            width: 40px;
+            height: 70px;
+            background-color: #000;
+            border-radius: 0px 10px 10px 0px;
+            color: #fff;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            font-size: 30px;
+            right: -40px;
+            margin: auto;
+            line-height: 70px;
+            text-align: center;
+        }
+
+        #menu-ctl {
+            position: absolute;
+            opacity: 0;
+            z-index: -100;
+        }
+
+        #menu-ctl:checked+.side-menu {
+            transform: translateX(0);
+        }
+
+        #menu-ctl:checked+.side-menu>.menu-ctlbtn>.fas {
+            transform: scaleX(-1);
+        }
+
+        .copyright {
+            color: #fff;
+            font-size: 12px;
+            text-align: center;
+            margin-left: 10px;
+            margin-right: 10px;
+            margin-top: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="checkbox" id="menu-ctl">
+    <div class="side-menu">
+        <form action="javascript:;">
+            <input type="search" placeholder="請輸入關鍵字">
+            <button>
+                <i class="fas fa-search"></i>
+            </button>
+        </form>
+        <ul class="nav">
+            <li>
+                <a href="javascript:;">
+                    <i class="fas fa-users" aria-hidden="true"></i>
+                    鐵人賽
+                </a>
+                <ul>
+                    <li>
+                        <a href="javascript:;">主題一</a>
+                        <ul>
+                            <li>
+                                <a href="javascript:;">項目一</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">項目二</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">項目三</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;">主題二</a>
+                        <ul>
+                            <li>
+                                <a href="javascript:;">項目一</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">項目二</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">項目三</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;">主題三</a>
+                        <ul>
+                            <li>
+                                <a href="javascript:;">項目一</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">項目二</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">項目三</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <i class="fas fa-gavel" aria-hidden="true"></i>
+                    暴力班
+                </a>
+                <ul>
+                    <li>
+                        <a href="javascript:;">主題一</a>
+                        <ul>
+                            <li>
+                                <a href="javascript:;">項目一</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">項目二</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">項目三</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;">主題二</a>
+                        <ul>
+                            <li>
+                                <a href="javascript:;">項目一</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">項目二</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">項目三</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;">主題三</a>
+                        <ul>
+                            <li>
+                                <a href="javascript:;">項目一</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">項目二</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">項目三</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <i class="fas fa-object-group" aria-hidden="true"></i>
+                    金魚網頁
+                </a>
+                <ul>
+                    <li>
+                        <a href="javascript:;">主題一</a>
+                        <ul>
+                            <li>
+                                <a href="javascript:;">項目一</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">項目二</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">項目三</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;">主題二</a>
+                        <ul>
+                            <li>
+                                <a href="javascript:;">項目一</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">項目二</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">項目三</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;">主題三</a>
+                        <ul>
+                            <li>
+                                <a href="javascript:;">項目一</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">項目二</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">項目三</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <i class="fas fa-globe" aria-hidden="true"></i>
+                    RWD 醬子
+                </a>
+                <ul>
+                    <li>
+                        <a href="javascript:;">主題一</a>
+                        <ul>
+                            <li>
+                                <a href="javascript:;">項目一</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">項目二</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">項目三</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;">主題二</a>
+                        <ul>
+                            <li>
+                                <a href="javascript:;">項目一</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">項目二</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">項目三</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;">主題三</a>
+                        <ul>
+                            <li>
+                                <a href="javascript:;">項目一</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">項目二</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">項目三</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <i class="fas fa-utensils" aria-hidden="true"></i>
+                    金魚切版
+                </a>
+                <ul>
+                    <li>
+                        <a href="javascript:;">主題一</a>
+                        <ul>
+                            <li>
+                                <a href="javascript:;">項目一</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">項目二</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">項目三</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;">主題二</a>
+                        <ul>
+                            <li>
+                                <a href="javascript:;">項目一</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">項目二</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">項目三</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;">主題三</a>
+                        <ul>
+                            <li>
+                                <a href="javascript:;">項目一</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">項目二</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">項目三</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <label class="menu-ctlbtn" for="menu-ctl">
+            <i class="fas fa-angle-double-right"></i>
+        </label>
+        <div class="copyright">&copy copyright by csscoke</div>
+
+    </div>
+
+</body>
+
+</html>
