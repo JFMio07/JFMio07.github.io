@@ -51,11 +51,19 @@ li {
   width: 100%;
 }
 
-.libraries-content-header :not(:last-child) {
-  border-right: 1px solid #fff;
+.libraries-content-header :not(:first-child)::before {
+  content: "";
+  position: absolute;
+  display: block;
+  top: 0;
+  bottom: 0;
+  left: -1px;
+  width: 2px;
+  background-color: #fff;
 }
 
 .colHeader {
+  position: relative;
   background-color: #000;
   color: #fff;
   font-size: 0.8125rem;
@@ -120,9 +128,18 @@ li {
 }
 
 .item-action {
-  padding: 0 3px;
+  padding: 0 3px;  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  border: 0;
+}
+
+.item-action:focus {
   position: relative;
-  z-index: 100;
+  z-index: 101;
+  outline: 0;
 }
 
 .item-action > :first-child {
@@ -278,10 +295,13 @@ input[id^="menu-ctl"]:checked + .wrap label[for^="menu-ctl"] span {
   }
 
   .list .colGroupFirst {
+    position: relative;
     width: 72.5%;
   }
 
-  .list .colGroupLast {
+  .list .colGroupLast 
+  {
+    position: relative;
     width: 27.5%;
   }
 
@@ -299,6 +319,8 @@ input[id^="menu-ctl"]:checked + .wrap label[for^="menu-ctl"] span {
 
   .libraries-content.list .libraries-item {
     width: 100%;
+    margin: 0;
+    border-bottom: 1px solid #ededed;
   }
 
   .libraries-content.list .item-info {
@@ -322,10 +344,14 @@ input[id^="menu-ctl"]:checked + .wrap label[for^="menu-ctl"] span {
   .list .item-field.colAuthors,
   .list .item-field.colSeries,
   .list .item-field.colGenre,
-  
-  
-  {
+  .list .item-status.colStatus,
+  .list .item-added.colAdded {
+    padding: 5px;    
     font-size: 0.75rem;
+    font-weight: normal;
+    margin: 0;
+    display: flex;
+    align-items: center;
   }
 
   .list .colTitle {
@@ -379,7 +405,7 @@ input[id^="menu-ctl"]:checked + .wrap label[for^="menu-ctl"] span {
 
   .libraries-item {
     box-sizing: border-box;
-    margin-bottom: 20px;
+    margin-bottom: 35px;
     padding-top: 5px;
     padding-left: 0.3125rem;
     padding-right: 0.3125rem;
@@ -430,6 +456,7 @@ input[id^="menu-ctl"]:checked + .wrap label[for^="menu-ctl"] span {
     left: 0;
     right: 0;
     margin: auto;
+    z-index: 100;
   }
   .item-field.colAuthors a,
   .item-field.colSeries a {
@@ -460,7 +487,7 @@ input[id^="menu-ctl"]:checked + .wrap label[for^="menu-ctl"] span {
     width: 33.333333%;
   }
 
-  .list .colSeries {
+  .libraries-content.list .colSeries {
     display: none;
   }
 
