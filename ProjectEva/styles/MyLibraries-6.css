@@ -92,6 +92,10 @@ li {
   overflow: hidden;
 }
 
+.item-detail{
+  overflow: hidden;
+}
+
 .item-detail > * {
   overflow: hidden;
   line-height: 1.2;
@@ -103,7 +107,8 @@ li {
 
 .item-field.colSubtitle,
 .item-field.colAuthors,
-.item-field.colSeries {
+.item-field.colSeries,
+.item-field.colGenre {
   text-overflow: ellipsis;
   word-break: break-all;
   white-space: nowrap;
@@ -128,7 +133,7 @@ li {
 }
 
 .item-action {
-  padding: 0 3px;  
+  padding: 0 5px;  
   display: flex;
   justify-content: center;
   align-items: center;
@@ -233,6 +238,7 @@ input[id^="menu-ctl"]:checked + .wrap label[for^="menu-ctl"] span {
   }
 
   .item-detail {
+    
     min-height: 150px;
   }
 
@@ -296,13 +302,13 @@ input[id^="menu-ctl"]:checked + .wrap label[for^="menu-ctl"] span {
 
   .list .colGroupFirst {
     position: relative;
-    width: 72.5%;
+    width: 70%;
   }
 
   .list .colGroupLast 
   {
     position: relative;
-    width: 27.5%;
+    width: 30%;
   }
 
   .list .libraries-content-header > * {
@@ -346,16 +352,15 @@ input[id^="menu-ctl"]:checked + .wrap label[for^="menu-ctl"] span {
   .list .item-field.colGenre,
   .list .item-status.colStatus,
   .list .item-added.colAdded {
-    padding: 5px;    
+    padding: 0 5px;
+    line-height: 2rem;    
     font-size: 0.75rem;
     font-weight: normal;
     margin: 0;
-    display: flex;
-    align-items: center;
   }
 
   .list .colTitle {
-    width: 32.5%;
+    width: 32.5%;    
     text-overflow: ellipsis;
     word-break: break-all;
     white-space: nowrap;
@@ -374,7 +379,7 @@ input[id^="menu-ctl"]:checked + .wrap label[for^="menu-ctl"] span {
   }
 
   .list .colStatus {
-    width: 37.5%;
+    width: 32.5%;
   }
 
   .list .colAdded {
@@ -382,7 +387,7 @@ input[id^="menu-ctl"]:checked + .wrap label[for^="menu-ctl"] span {
   }
 
   .list .colActions {
-    width: 25%;
+    width: 30%;
   }
 
   /* libraries grid viewer */
@@ -487,8 +492,20 @@ input[id^="menu-ctl"]:checked + .wrap label[for^="menu-ctl"] span {
     width: 33.333333%;
   }
 
+  /* libraries list viewer */
+
+
   .libraries-content.list .colSeries {
     display: none;
+  }
+
+  .list .colGroupFirst {
+    width: 55%;
+  }
+
+  .list .colGroupLast 
+  {
+    width: 45%;
   }
 
   .list .colTitle {
