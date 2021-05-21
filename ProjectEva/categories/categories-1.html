@@ -11,6 +11,8 @@
         integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <link rel="stylesheet" href="/Common/fonts/fontawesome-free-5.15.3-web/css/all.css">
     <link rel="stylesheet" href="./styles/categories-1.css">
+    <link rel="stylesheet" href="./js/owl/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="./js/owl/assets/owl.theme.default.min.css">
     <title>Categories</title>
     <style>
 
@@ -18,20 +20,120 @@
 </head>
 
 <body>
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="#">首頁</a></li>
-          <li class="breadcrumb-item"><a href="#">電子書</a></li>
-          <li class="breadcrumb-item active" aria-current="page">小說與文學</li>
-        </ol>
-      </nav>
+    <div class="categories-detail-container">
+        <nav class="breadcrumb-wrap" aria-label="breadcrumb">
+            <ul class="breadcrumb breadcrumb-small">
+                <li class="breadcrumb-item">
+                    <a href="#">
+                        電子書
+                    </a>
+                </li>
+            </ul>
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">首頁</a></li>
+                <li class="breadcrumb-item"><a href="#">電子書</a></li>
+                <li class="breadcrumb-item active" aria-current="page">小說與文學</li>
+            </ul>
+        </nav>
+        <div class="categories-detail-title">
+            <h1></h1>
+            <p></p>
+
+        </div>
+        <div class="categories-detail-hot">
+
+        </div>
+        <div class="categories-detail-top">
+            <div class="categories-content-wrap">
+                <div class="carousel">
+                    <div class="carousel-badge">
+                        <span>電子書</span>
+                    </div>
+                    <div class="carousel-wrap">
+                        <header class="carousel-header">
+                            <h2 class="carousel-header-title">
+                                <a href="javascript:;">熱門新書</a>
+                            </h2>
+                            <div class="view-all">
+                                <a href="javascript:;">檢視全部</a>
+                            </div>
+                        </header>
+                        <div class="carousel-body">
+                            <div class="owl-carousel">
+                                <div class="book-item">
+                                    <div class="book-item-body">
+                                        <a href="javascript:;" class="">
+                                            <div class="book-item-img">
+                                                <img src="https://picsum.photos/140/220/?random=1">
+                                            </div>
+                                            <div class="book-item-details">
+                                                <div class="book-item-detail title"></div>
+                                                <div class="book-item-detail subtitle"></div>
+                                                <div class="book-item-detail rate"></div>
+                                                <div class="book-item-detail price"></div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="book-item-action">
+                                        <button class="add-to-cart">新增至購物車</button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div>
+                                        <a href="javascript:;">
+                                            <div>
+                                                <img src="https://picsum.photos/140/220/?random=2">
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div>
+                                        <button>新增至購物車</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="categories-spotlight-wrap">
+
+            </div>
+        </div>
+        <div class="categories-detail-bottom">
+        </div>
+    </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
         crossorigin="anonymous"></script>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="./js/owl/owl.carousel.min.js"></script>
+    </div>
     <script>
-
+        window.onload = function () {
+            $('.owl-carousel').owlCarousel({
+                loop: true,
+                margin: 10,
+                responsiveClass: true,
+                responsive: {
+                    0: {
+                        items: 1,
+                        nav: true
+                    },
+                    600: {
+                        items: 3,
+                        nav: false
+                    },
+                    1000: {
+                        items: 5,
+                        nav: true,
+                        loop: false
+                    }
+                }
+            })
+        }
     </script>
 </body>
 

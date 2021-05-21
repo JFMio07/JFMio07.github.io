@@ -1,0 +1,49 @@
+/* COMMON */
+
+ul {
+  list-style: none;
+}
+
+.categories-detail-container {
+  width: 100%;
+}
+
+.categories-detail-top,
+.categories-detail-bottom {
+  width: 1140px;
+}
+/* 麵包屑 */
+.breadcrumb-wrap {
+  font-size: 0.875rem;
+}
+.breadcrumb-small > .breadcrumb-item:first-child:before {
+  content: "<";
+}
+
+/* 手機 */
+/* x <= 568px */
+@media screen and (max-width: 568px) {
+  /* 麵包屑 */
+  .breadcrumb:not(.breadcrumb-small) {
+    display: none;
+  }
+}
+
+/* 平板以上 */
+/* x >= 569px */
+@media screen and (min-width: 569px) {
+  /* 麵包屑 */
+  .breadcrumb-small {
+    display: none;
+  }
+}
+
+/* 平板 */
+/* 569px <= x <= 880px */
+@media screen and (min-width: 569px) and (max-width: 880px) {
+}
+
+/* 桌機 */
+/* x >= 881px */
+@media screen and (min-width: 881px) {
+}
