@@ -72,8 +72,14 @@
                                             </div>
                                             <div class="book-item-details">
                                                 <h2 class="detail-list title">大港的女兒</h2>
-                                                <p class="detail-list authors">陳柔縉111111111111111111111</p>
-                                                <p class="detail-list rate"></p>
+                                                <p class="detail-list authors">陳柔縉</p>
+                                                <div class="detail-list rate star-rate-5" >
+                                                    <span class="star"></span>
+                                                    <span class="star"></span>
+                                                    <span class="star"></span>
+                                                    <span class="star"></span>
+                                                    <span class="star"></span>
+                                                </div>
                                                 <p class="detail-list price">NT$280</p>
                                             </div>
                                         </a>
@@ -212,10 +218,12 @@
     <script>
         window.onload = function () {
             $('.owl-carousel').owlCarousel({
-                // loop: true,
-                margin: 10,
-                // item:4,
+                // loop:true,
+                // autoplay:false,
+                // autoplayTimeout:5000,
+                // autoplayHoverPause:true,
                 responsiveClass: true,
+                margin:6,
                 nav: true,
                 responsive: {
                     0: {
