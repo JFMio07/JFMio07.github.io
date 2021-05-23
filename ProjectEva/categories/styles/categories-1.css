@@ -34,19 +34,49 @@ ul {
 .categories-detail-title :first-child {
   font-size: 1.5rem;
   font-weight: 600;
+  margin-top: 5px;
+  margin-bottom: 0;
+  color: #101010;
 }
 
 .categories-detail-title :last-child {
   font-size: 1rem;
+  color: #595959;
+  margin-top: 5px;
+  margin-bottom: 0;
 }
 
-/* 熱門新書  */
+/* #region 熱門新書  */
 .categories-detail-hot {
   background-image: url("/categories/images/prism-background.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   overflow: hidden;
 }
+
+.categories-detail-hot .carousel-header .view-all a {
+  color: #bf0000;
+}
+
+.categories-detail-hot .carousel-header .view-all a:hover {
+  color: #fff;
+}
+.categories-detail-hot .carousel-badge,
+.categories-detail-top .carousel-badge {
+  display: none;
+}
+
+/* #endregion 熱門新書  */
+
+/* #region 推薦書籍  */
+.categories-detail-top .content-wrap > :first-child {
+  height: 400px;
+  background-color: pink;
+}
+
+/* #endregion 推薦書籍  */
+
+categories-detail-top
 
 /* 書籍分類頁容器ˇ*/
 .categories-detail-container {
@@ -59,9 +89,9 @@ ul {
 }
 .breadcrumb-wrap,
 .categories-detail-title,
-.categories-detail-top,
-.categories-detail-bottom {
+.content-wrap {
   max-width: 1140px;
+  margin: auto;
 }
 
 /* #region rate star */
@@ -208,12 +238,12 @@ ul {
   margin-bottom: 20px;
 }
 
-.carousel-header .carousel-header-title {
-  font-size: 1.375rem;
-}
-
 .carousel-header-title a {
   text-decoration: none;
+}
+
+.carousel-header a:hover {
+  color: #bf0000;
 }
 
 .view-all a {
@@ -331,7 +361,7 @@ ul {
 }
 
 .add-to-cart {
-  /* font-size: 0.875rem; */
+  border-radius: 3px;
   color: #fff;
   background-color: #595959;
   padding: 5px 7px;
@@ -340,6 +370,15 @@ ul {
   text-decoration: none;
   border: 3px solid #595959;
   transition: 0.2s;
+}
+.add-to-cart>*{
+  display: inline-block;
+  
+}
+
+.add-to-cart :first-child{
+  padding-right: 5px;
+  transition: .2s;
 }
 
 /* #endregion 書籍分類頁的子分類內容*/
@@ -402,6 +441,24 @@ ul {
     padding: 5px 20px 0px 20px;
   }
 
+  /*#region carousel */
+  .carousel-header .carousel-header-title {
+    font-size: 1rem;
+  }
+
+  .carousel-header .view-all {
+    font-size: 0.875rem;
+  }
+
+  /*#endregion carousel */
+
+  /* #region 熱門新書  */
+  .categories-detail-hot .carousel-header .carousel-header-title {
+    font-size: 1.25rem;
+  }
+
+  /* #endregion 熱門新書  */
+
   /* #region 書籍分類頁的子分類內容*/
   /* boot-item */
   .book-item {
@@ -430,19 +487,32 @@ ul {
   }
   /* #endregion 麵包屑 */
 
+  /*#region carousel */
+  .carousel-header .carousel-header-title {
+    font-size: 1.375rem;
+  }
+
+  .carousel-header .view-all {
+    font-size: 1rem;
+  }
+
+  /*#endregion carousel */
+
+  /* #region 熱門新書  */
+  .categories-detail-hot .carousel-header .carousel-header-title {
+    font-size: 2rem;
+    flex-grow: 1;
+    text-align: center;
+  }
+
+  /* #endregion 熱門新書  */
+
+  /* #region 書籍分類頁的子分類內容*/
+
   .categories-detail-title {
     padding: 5px 30px 30px 30px;
   }
 
-  .book-item-body:hover img {
-    filter: brightness(0.8);
-  }
-
-  .book-item-body:hover a {
-    text-decoration: none;
-  }
-
-  /* #region 書籍分類頁的子分類內容*/
   .book-item {
     font-size: 0.875rem;
   }
@@ -463,6 +533,13 @@ ul {
   .add-to-cart:hover {
     background-color: #fff;
     color: #000;
+  }
+
+  .add-to-cart:hover :first-child {
+    background-color: #fff;
+    color: #000;
+    transform: rotate(-360deg);
+    /* transform: scale(1.5); */
   }
 
   /* #endregion 書籍分類頁的子分類內容*/
@@ -489,6 +566,21 @@ ul {
   /* #region 書籍分類頁的子分類內容*/
 
   /* #endregion 書籍分類頁的子分類內容*/
+
+  /* #region 推薦書籍  */
+  .categories-detail-top .content-wrap{
+    display: flex;
+    align-items: center;
+  }
+  .categories-detail-top .content-wrap > :first-child {
+    width: 20%;
+  }
+
+  .categories-detail-top .content-wrap > :last-child {
+    width: 80%;
+  }
+
+  /* #endregion 推薦書籍  */
 
   /* #region 書籍分類頁的spotlight */
   .spotlight {
