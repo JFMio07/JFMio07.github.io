@@ -54,6 +54,21 @@ ul {
   overflow: hidden;
 }
 
+.categories-detail-hot .book-item-img::after{
+  /* transform: rotate(-45deg); */
+  border-radius: 3px;
+  content: 'HOT!';
+  font-size: .5rem;
+  font-weight: bold;
+  background-color: #bf0000;
+  padding: 2px 5px;
+  color: #fff;
+  display: block;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
 .categories-detail-hot .carousel-header .view-all a {
   color: #bf0000;
 }
@@ -69,14 +84,24 @@ ul {
 /* #endregion 熱門新書  */
 
 /* #region 推薦書籍  */
+.categories-detail-top{
+  background-color: #ededed;
+  box-shadow: 0 3px 5px rgb(50 50 50 / 34%);
+}
+
 .categories-detail-top .content-wrap > :first-child {
   height: 400px;
   background-color: pink;
 }
 
+.categories-detail-top .categories-content-wrap{
+  border: none;
+}
+
+
 /* #endregion 推薦書籍  */
 
-categories-detail-top
+
 
 /* 書籍分類頁容器ˇ*/
 .categories-detail-container {
@@ -311,6 +336,7 @@ categories-detail-top
 }
 
 .book-item-img img {
+  border-radius: 3px;
   max-width: 100%;
   position: absolute;
   bottom: 0;
