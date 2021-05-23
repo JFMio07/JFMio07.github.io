@@ -168,7 +168,7 @@ ul {
 /* #region rate star */
 /* rate:5.0 */
 .detail-list.rate.star-rate-5 .star:nth-child(-n + 5) {
-  background-image: url("/categories/images/rate/star-full.svg");
+  background-image: url("/1categories/images/rate/star-full.svg");
 }
 
 /* rate:4.5 */
