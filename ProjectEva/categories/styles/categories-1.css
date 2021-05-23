@@ -6,23 +6,181 @@ ul {
 
 /* #region 麵包屑 */
 .breadcrumb-wrap {
-  font-size: 0.875rem;
+  padding: 20px 0 10px 0;
 }
+.breadcrumb {
+  padding-left: 30px;
+}
+
+.breadcrumb.breadcrumb-small {
+  padding-left: 20px;
+}
+
+.breadcrumb-item > a {
+  color: #000;
+}
+
+.breadcrumb-item.active {
+  color: #595959;
+}
+
 .breadcrumb-small > .breadcrumb-item:first-child:before {
   content: "<";
 }
 /* #endregion 麵包屑 */
 
+/* 書籍分類頁標題 */
+
+.categories-detail-title :first-child {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.categories-detail-title :last-child {
+  font-size: 1rem;
+}
+
+/* 熱門新書  */
+.categories-detail-hot {
+  background-image: url("/categories/images/prism-background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: hidden;
+}
+
 /* 書籍分類頁容器ˇ*/
+.categories-detail-container {
+  font-size: 0.875rem;
+}
+
 .categories-detail-container > * {
   margin: auto;
   width: 100%;
 }
-
+.breadcrumb-wrap,
+.categories-detail-title,
 .categories-detail-top,
 .categories-detail-bottom {
   max-width: 1140px;
 }
+
+/* #region rate star */
+/* rate:5.0 */
+.rate.star-rate-5 .star:nth-child(-n + 5) {
+  background-image: url("/categories/images/rate/star-full.svg");
+}
+
+/* rate:4.5 */
+.rate.star-rate-4-5 .star:nth-child(-n + 4) {
+  background-image: url("/categories/images/rate/star-full.svg");
+}
+
+.rate.star-rate-4-5 .star:nth-child(5) {
+  background-image: url("/categories/images/rate/star-half.svg");
+}
+
+/* rate:4.0 */
+.rate.star-rate-4 .star:nth-child(-n + 4) {
+  background-image: url("/categories/images/rate/star-full.svg");
+}
+
+.rate.star-rate-4 .star:nth-child(5) {
+  background-image: url("/categories/images/rate/star-empty.svg");
+}
+
+/* rate:3.5 */
+.rate.star-rate-3-5 .star:nth-child(-n + 3) {
+  background-image: url("/categories/images/rate/star-full.svg");
+}
+
+.rate.star-rate-3-5 .star:nth-child(4) {
+  background-image: url("/categories/images/rate/star-half.svg");
+}
+
+.rate.star-rate-3-5 .star:nth-child(5) {
+  background-image: url("/categories/images/rate/star-empty.svg");
+}
+
+/* rate:3.5 */
+.rate.star-rate-3-5 .star:nth-child(-n + 3) {
+  background-image: url("/categories/images/rate/star-full.svg");
+}
+
+.rate.star-rate-3-5 .star:nth-child(4) {
+  background-image: url("/categories/images/rate/star-half.svg");
+}
+
+.rate.star-rate-3-5 .star:nth-child(5) {
+  background-image: url("/categories/images/rate/star-empty.svg");
+}
+
+/* rate:3.0 */
+.rate.star-rate-3 .star:nth-child(-n + 3) {
+  background-image: url("/categories/images/rate/star-full.svg");
+}
+
+.rate.star-rate-3 .star:nth-child(n + 4):nth-child(-n + 5) {
+  background-image: url("/categories/images/rate/star-empty.svg");
+}
+
+/* rate:2.5 */
+.rate.star-rate-2-5 .star:nth-child(-n + 2) {
+  background-image: url("/categories/images/rate/star-full.svg");
+}
+
+.rate.star-rate-2-5 .star:nth-child(3) {
+  background-image: url("/categories/images/rate/star-half.svg");
+}
+
+.rate.star-rate-2-5 .star:nth-child(n + 4):nth-child(-n + 5) {
+  background-image: url("/categories/images/rate/star-empty.svg");
+}
+
+/* rate:2.0 */
+.rate.star-rate-2 .star:nth-child(-n + 2) {
+  background-image: url("/categories/images/rate/star-full.svg");
+}
+
+.rate.star-rate-2 .star:nth-child(n + 3):nth-child(-n + 5) {
+  background-image: url("/categories/images/rate/star-empty.svg");
+}
+
+/* rate:1.5 */
+.rate.star-rate-1-5 .star:nth-child(1) {
+  background-image: url("/categories/images/rate/star-full.svg");
+}
+
+.rate.star-rate-1-5 .star:nth-child(2) {
+  background-image: url("/categories/images/rate/star-half.svg");
+}
+
+.rate.star-rate-1-5 .star:nth-child(n + 3):nth-child(-n + 5) {
+  background-image: url("/categories/images/rate/star-empty.svg");
+}
+
+/* rate:1.0 */
+.rate.star-rate-1 .star:nth-child(1) {
+  background-image: url("/categories/images/rate/star-full.svg");
+}
+
+.rate.star-rate-1 .star:nth-child(n + 2):nth-child(-n + 5) {
+  background-image: url("/categories/images/rate/star-empty.svg");
+}
+
+/* rate:0.5 */
+.rate.star-rate-0-5 .star:nth-child(1) {
+  background-image: url("/categories/images/rate/star-half.svg");
+}
+
+.rate.star-rate-0-5 .star:nth-child(n + 2):nth-child(-n + 5) {
+  background-image: url("/categories/images/rate/star-empty.svg");
+}
+
+/* rate:0.0 */
+.rate.star-rate-0 .star:nth-child(-n + 5) {
+  background-image: url("/categories/images/rate/star-empty.svg");
+}
+/* #endregion rate star */
 
 /*#region carousel */
 
@@ -36,6 +194,7 @@ ul {
 }
 
 .carousel-badge :first-child {
+  border-radius: 3px;
   background-color: #006265;
   color: #fff;
   padding: 3px 6px;
@@ -98,6 +257,7 @@ ul {
 /* #region 書籍分類頁的子分類內容*/
 
 .categories-content-wrap {
+  border-bottom: 1px solid #d8d8d8;
 }
 
 /* boot-item */
@@ -132,7 +292,7 @@ ul {
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
-.detail-list {
+.book-item-details .detail-list {
   overflow: hidden;
   height: 1.125rem;
   margin: 3px 0 0 0;
@@ -141,21 +301,21 @@ ul {
   word-break: break-all;
 }
 
-.detail-list.title {
+.book-item-details .detail-list.title {
   color: #000;
   font-weight: 400;
 }
 
-.detail-list.authors {
+.book-item-details .detail-list.authors {
   color: #595959;
 }
 
-.detail-list.rate {
+.book-item-details .detail-list.rate {
   font-size: 0px;
   text-decoration: none;
 }
 
-.detail-list.rate .star {
+.book-item-details .detail-list.rate .star {
   margin: 0 2px;
   display: inline-block;
   width: 15px;
@@ -165,125 +325,7 @@ ul {
   white-space: nowrap;
 }
 
-/* #region rate star */
-/* rate:5.0 */
-.detail-list.rate.star-rate-5 .star:nth-child(-n + 5) {
-  background-image: url("/categories/images/rate/star-full.svg");
-}
-
-/* rate:4.5 */
-.detail-list.rate.star-rate-4-5 .star:nth-child(-n + 4) {
-  background-image: url("/categories/images/rate/star-full.svg");
-}
-
-.detail-list.rate.star-rate-4-5 .star:nth-child(5) {
-  background-image: url("/categories/images/rate/star-half.svg");
-}
-
-/* rate:4.0 */
-.detail-list.rate.star-rate-4 .star:nth-child(-n + 4) {
-  background-image: url("/categories/images/rate/star-full.svg");
-}
-
-.detail-list.rate.star-rate-4 .star:nth-child(5) {
-  background-image: url("/categories/images/rate/star-empty.svg");
-}
-
-/* rate:3.5 */
-.detail-list.rate.star-rate-3-5 .star:nth-child(-n + 3) {
-  background-image: url("/categories/images/rate/star-full.svg");
-}
-
-.detail-list.rate.star-rate-3-5 .star:nth-child(4) {
-  background-image: url("/categories/images/rate/star-half.svg");
-}
-
-.detail-list.rate.star-rate-3-5 .star:nth-child(5) {
-  background-image: url("/categories/images/rate/star-empty.svg");
-}
-
-/* rate:3.5 */
-.detail-list.rate.star-rate-3-5 .star:nth-child(-n + 3) {
-  background-image: url("/categories/images/rate/star-full.svg");
-}
-
-.detail-list.rate.star-rate-3-5 .star:nth-child(4) {
-  background-image: url("/categories/images/rate/star-half.svg");
-}
-
-.detail-list.rate.star-rate-3-5 .star:nth-child(5) {
-  background-image: url("/categories/images/rate/star-empty.svg");
-}
-
-/* rate:3.0 */
-.detail-list.rate.star-rate-3 .star:nth-child(-n + 3) {
-  background-image: url("/categories/images/rate/star-full.svg");
-}
-
-.detail-list.rate.star-rate-3 .star:nth-child(n + 4):nth-child(-n + 5) {
-  background-image: url("/categories/images/rate/star-empty.svg");
-}
-
-/* rate:2.5 */
-.detail-list.rate.star-rate-2-5 .star:nth-child(-n + 2) {
-  background-image: url("/categories/images/rate/star-full.svg");
-}
-
-.detail-list.rate.star-rate-2-5 .star:nth-child(3) {
-  background-image: url("/categories/images/rate/star-half.svg");
-}
-
-.detail-list.rate.star-rate-2-5 .star:nth-child(n + 4):nth-child(-n + 5) {
-  background-image: url("/categories/images/rate/star-empty.svg");
-}
-
-/* rate:2.0 */
-.detail-list.rate.star-rate-2 .star:nth-child(-n + 2) {
-  background-image: url("/categories/images/rate/star-full.svg");
-}
-
-.detail-list.rate.star-rate-2 .star:nth-child(n + 3):nth-child(-n + 5) {
-  background-image: url("/categories/images/rate/star-empty.svg");
-}
-
-/* rate:1.5 */
-.detail-list.rate.star-rate-1-5 .star:nth-child(1) {
-  background-image: url("/categories/images/rate/star-full.svg");
-}
-
-.detail-list.rate.star-rate-1-5 .star:nth-child(2) {
-  background-image: url("/categories/images/rate/star-half.svg");
-}
-
-.detail-list.rate.star-rate-1-5 .star:nth-child(n + 3):nth-child(-n + 5) {
-  background-image: url("/categories/images/rate/star-empty.svg");
-}
-
-/* rate:1.0 */
-.detail-list.rate.star-rate-1 .star:nth-child(1) {
-  background-image: url("/categories/images/rate/star-full.svg");
-}
-
-.detail-list.rate.star-rate-1 .star:nth-child(n + 2):nth-child(-n + 5) {
-  background-image: url("/categories/images/rate/star-empty.svg");
-}
-
-/* rate:0.5 */
-.detail-list.rate.star-rate-0-5 .star:nth-child(1) {
-  background-image: url("/categories/images/rate/star-half.svg");
-}
-
-.detail-list.rate.star-rate-0-5 .star:nth-child(n + 2):nth-child(-n + 5) {
-  background-image: url("/categories/images/rate/star-empty.svg");
-}
-
-/* rate:0.0 */
-.detail-list.rate.star-rate-0 .star:nth-child(-n + 5) {
-  background-image: url("/categories/images/rate/star-empty.svg");
-}
-/* #endregion rate star */
-
-.detail-list.price {
+.book-item-details .detail-list.price {
   color: #000;
   font-weight: 600;
 }
@@ -302,6 +344,51 @@ ul {
 
 /* #endregion 書籍分類頁的子分類內容*/
 
+/* #region 書籍分類頁的spotlight */
+.categories-spotlight-wrap {
+  padding: 20px 10px;
+  font-size: 0.875rem;
+}
+
+.spotlight {
+  background-image: url("/categories/images/prism-background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: hidden;
+}
+
+.spotlight a {
+  text-decoration: none;
+}
+
+.spotlight-body {
+  display: flex;
+  padding: 30px;
+}
+.spotlight-sidebar {
+  padding: 30px;
+  position: relative;
+}
+
+.spotlight .item-img img {
+  max-width: 100%;
+  filter: drop-shadow(0 -1px 0 #d8d8d8) drop-shadow(0 1px 0 #d8d8d8)
+    drop-shadow(-1px 0 0 #d8d8d8) drop-shadow(1px 0 0 #d8d8d8);
+}
+
+.spotlight .info-action a {
+  display: block;
+  padding: 5px 7px;
+  min-height: 35px;
+  color: #fff;
+  background-color: #bf0000;
+  font-weight: 600;
+  line-height: 2;
+  text-align: center;
+}
+
+/* #endregion 書籍分類頁的spotlight */
+
 /* 手機 */
 /* x <= 568px */
 @media screen and (max-width: 568px) {
@@ -311,16 +398,27 @@ ul {
   }
   /* #endregion 麵包屑 */
 
+  .categories-detail-title {
+    padding: 5px 20px 0px 20px;
+  }
+
   /* #region 書籍分類頁的子分類內容*/
   /* boot-item */
   .book-item {
     font-size: 0.75rem;
   }
-  .detail-list.title {
+  .book-item-details .detail-list.title {
     font-size: 0.75rem;
   }
 
   /* #endregion 書籍分類頁的子分類內容*/
+
+  /* #region 書籍分類頁的spotlight */
+
+  .spotlight .item-description {
+    display: none;
+  }
+  /* #endregion 書籍分類頁的spotlight */
 }
 
 /* 平板以上 */
@@ -332,9 +430,8 @@ ul {
   }
   /* #endregion 麵包屑 */
 
-  /* #region 書籍分類頁的子分類內容*/
-  .book-item {
-    font-size: 0.875rem;
+  .categories-detail-title {
+    padding: 5px 30px 30px 30px;
   }
 
   .book-item-body:hover img {
@@ -345,11 +442,22 @@ ul {
     text-decoration: none;
   }
 
-  .detail-list.title {
+  /* #region 書籍分類頁的子分類內容*/
+  .book-item {
     font-size: 0.875rem;
   }
 
-  .detail-list {
+  .book-item-body:hover img,
+  .spotlight .item-img:hover {
+    filter: brightness(0.8);
+  }
+
+  .book-item-body:hover a {
+    text-decoration: none;
+  }
+
+  .book-item-details .detail-list.title {
+    font-size: 0.875rem;
   }
 
   .add-to-cart:hover {
@@ -358,11 +466,21 @@ ul {
   }
 
   /* #endregion 書籍分類頁的子分類內容*/
+
+  /* #region 書籍分類頁的spotlight */
+
+  .spotlight .item-description {
+    display: block;
+  }
+  /* #endregion 書籍分類頁的spotlight */
 }
 
 /* 平板 */
 /* 569px <= x <= 880px */
 @media screen and (min-width: 569px) and (max-width: 880px) {
+  /* #region 書籍分類頁的spotlight */
+
+  /* #endregion 書籍分類頁的spotlight */
 }
 
 /* 桌機 */
@@ -371,4 +489,27 @@ ul {
   /* #region 書籍分類頁的子分類內容*/
 
   /* #endregion 書籍分類頁的子分類內容*/
+
+  /* #region 書籍分類頁的spotlight */
+  .spotlight {
+    display: flex;
+  }
+
+  .spotlight-body {
+    width: 70%;
+  }
+  .spotlight-sidebar {
+    width: 30%;
+  }
+
+  .spotlight-sidebar::before {
+    content: "";
+    position: absolute;
+    box-shadow: inset #b2b2b2 20px 0 40px -15px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+  }
+  /* #endregion 書籍分類頁的spotlight */
 }
