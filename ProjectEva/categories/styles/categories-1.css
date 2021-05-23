@@ -48,7 +48,7 @@ ul {
 
 /* #region 熱門新書  */
 .categories-detail-hot {
-  background-image: url("/categories/images/prism-background.jpg");
+  background-image: url("./images/prism-background.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   overflow: hidden;
