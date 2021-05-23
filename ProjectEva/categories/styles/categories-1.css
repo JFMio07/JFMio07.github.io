@@ -97,118 +97,118 @@ categories-detail-top
 /* #region rate star */
 /* rate:5.0 */
 .rate.star-rate-5 .star:nth-child(-n + 5) {
-  background-image: url("/categories/images/rate/star-full.svg");
+  background-image: url("/ProjectEva/categories/images/rate/star-full.svg");
 }
 
 /* rate:4.5 */
 .rate.star-rate-4-5 .star:nth-child(-n + 4) {
-  background-image: url("/categories/images/rate/star-full.svg");
+  background-image: url("/ProjectEva/categories/images/rate/star-full.svg");
 }
 
 .rate.star-rate-4-5 .star:nth-child(5) {
-  background-image: url("/categories/images/rate/star-half.svg");
+  background-image: url("/ProjectEva/categories/images/rate/star-half.svg");
 }
 
 /* rate:4.0 */
 .rate.star-rate-4 .star:nth-child(-n + 4) {
-  background-image: url("/categories/images/rate/star-full.svg");
+  background-image: url("/ProjectEva/categories/images/rate/star-full.svg");
 }
 
 .rate.star-rate-4 .star:nth-child(5) {
-  background-image: url("/categories/images/rate/star-empty.svg");
+  background-image: url("/ProjectEva/categories/images/rate/star-empty.svg");
 }
 
 /* rate:3.5 */
 .rate.star-rate-3-5 .star:nth-child(-n + 3) {
-  background-image: url("/categories/images/rate/star-full.svg");
+  background-image: url("/ProjectEva/categories/images/rate/star-full.svg");
 }
 
 .rate.star-rate-3-5 .star:nth-child(4) {
-  background-image: url("/categories/images/rate/star-half.svg");
+  background-image: url("/ProjectEva/categories/images/rate/star-half.svg");
 }
 
 .rate.star-rate-3-5 .star:nth-child(5) {
-  background-image: url("/categories/images/rate/star-empty.svg");
+  background-image: url("/ProjectEva/categories/images/rate/star-empty.svg");
 }
 
 /* rate:3.5 */
 .rate.star-rate-3-5 .star:nth-child(-n + 3) {
-  background-image: url("/categories/images/rate/star-full.svg");
+  background-image: url("/ProjectEva/categories/images/rate/star-full.svg");
 }
 
 .rate.star-rate-3-5 .star:nth-child(4) {
-  background-image: url("/categories/images/rate/star-half.svg");
+  background-image: url("/ProjectEva/categories/images/rate/star-half.svg");
 }
 
 .rate.star-rate-3-5 .star:nth-child(5) {
-  background-image: url("/categories/images/rate/star-empty.svg");
+  background-image: url("/ProjectEva/categories/images/rate/star-empty.svg");
 }
 
 /* rate:3.0 */
 .rate.star-rate-3 .star:nth-child(-n + 3) {
-  background-image: url("/categories/images/rate/star-full.svg");
+  background-image: url("/ProjectEva/categories/images/rate/star-full.svg");
 }
 
 .rate.star-rate-3 .star:nth-child(n + 4):nth-child(-n + 5) {
-  background-image: url("/categories/images/rate/star-empty.svg");
+  background-image: url("/ProjectEva/categories/images/rate/star-empty.svg");
 }
 
 /* rate:2.5 */
 .rate.star-rate-2-5 .star:nth-child(-n + 2) {
-  background-image: url("/categories/images/rate/star-full.svg");
+  background-image: url("/ProjectEva/categories/images/rate/star-full.svg");
 }
 
 .rate.star-rate-2-5 .star:nth-child(3) {
-  background-image: url("/categories/images/rate/star-half.svg");
+  background-image: url("/ProjectEva/categories/images/rate/star-half.svg");
 }
 
 .rate.star-rate-2-5 .star:nth-child(n + 4):nth-child(-n + 5) {
-  background-image: url("/categories/images/rate/star-empty.svg");
+  background-image: url("/ProjectEva/categories/images/rate/star-empty.svg");
 }
 
 /* rate:2.0 */
 .rate.star-rate-2 .star:nth-child(-n + 2) {
-  background-image: url("/categories/images/rate/star-full.svg");
+  background-image: url("/ProjectEva/categories/images/rate/star-full.svg");
 }
 
 .rate.star-rate-2 .star:nth-child(n + 3):nth-child(-n + 5) {
-  background-image: url("/categories/images/rate/star-empty.svg");
+  background-image: url("/ProjectEva/categories/images/rate/star-empty.svg");
 }
 
 /* rate:1.5 */
 .rate.star-rate-1-5 .star:nth-child(1) {
-  background-image: url("/categories/images/rate/star-full.svg");
+  background-image: url("/ProjectEva/categories/images/rate/star-full.svg");
 }
 
 .rate.star-rate-1-5 .star:nth-child(2) {
-  background-image: url("/categories/images/rate/star-half.svg");
+  background-image: url("/ProjectEva/categories/images/rate/star-half.svg");
 }
 
 .rate.star-rate-1-5 .star:nth-child(n + 3):nth-child(-n + 5) {
-  background-image: url("/categories/images/rate/star-empty.svg");
+  background-image: url("/ProjectEva/categories/images/rate/star-empty.svg");
 }
 
 /* rate:1.0 */
 .rate.star-rate-1 .star:nth-child(1) {
-  background-image: url("/categories/images/rate/star-full.svg");
+  background-image: url("/ProjectEva/categories/images/rate/star-full.svg");
 }
 
 .rate.star-rate-1 .star:nth-child(n + 2):nth-child(-n + 5) {
-  background-image: url("/categories/images/rate/star-empty.svg");
+  background-image: url("/ProjectEva/categories/images/rate/star-empty.svg");
 }
 
 /* rate:0.5 */
 .rate.star-rate-0-5 .star:nth-child(1) {
-  background-image: url("/categories/images/rate/star-half.svg");
+  background-image: url("/ProjectEva/categories/images/rate/star-half.svg");
 }
 
 .rate.star-rate-0-5 .star:nth-child(n + 2):nth-child(-n + 5) {
-  background-image: url("/categories/images/rate/star-empty.svg");
+  background-image: url("/ProjectEva/categories/images/rate/star-empty.svg");
 }
 
 /* rate:0.0 */
 .rate.star-rate-0 .star:nth-child(-n + 5) {
-  background-image: url("/categories/images/rate/star-empty.svg");
+  background-image: url("/ProjectEva/categories/images/rate/star-empty.svg");
 }
 /* #endregion rate star */
 
