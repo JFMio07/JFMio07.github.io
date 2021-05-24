@@ -50,7 +50,8 @@ ul {
 .categories-detail-hot {
   background-image: url("/ProjectEva/categories/images/prism-background.jpg");
   background-repeat: no-repeat;
-  background-size: cover;
+  background-position:top center;
+  background-size:cover;
   overflow: hidden;
 }
 
@@ -69,13 +70,20 @@ ul {
   bottom: 0;
 }
 
-.categories-detail-hot .carousel-header .view-all a {
+/* .categories-detail-hot .carousel-header .view-all a {
   color: #bf0000;
 }
 
 .categories-detail-hot .carousel-header .view-all a:hover {
   color: #fff;
+} */
+
+.categories-detail-hot .book-item .book-item-details,
+.categories-detail-hot .book-item .book-item-action{
+  display: none;
 }
+
+
 .categories-detail-hot .carousel-badge,
 .categories-detail-top .carousel-badge {
   display: none;
