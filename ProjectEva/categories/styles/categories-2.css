@@ -109,9 +109,14 @@ ul {
 /* #endregion 推薦書籍  */
 
 /* #region scroll-menu  */
+.scroll-menu{
+  font-size: .875rem;
+}
+
 .scroll-menu a {
   display: block;
   text-decoration: none;
+  white-space: nowrap;
 }
 
 .scroll-menu-header span{
@@ -189,18 +194,18 @@ ul {
   min-height: 35px;
 }
 
-.scroll-menu-nav button:hover{
+.scroll-menu-nav button:not(:disabled):hover{
   background-color: #f0f0f0;
 }
 
 .scroll-previous{
   background-image: url("/ProjectEva//categories/images/arrows/up_grey.svg");
-  order: 1;
+  order: -1;
 }
 
 .scroll-next{
   background-image: url("/ProjectEva//categories/images/arrows/down_grey.svg");
-  order: -1;
+  order: 1;
 }
 
 
@@ -684,8 +689,7 @@ ul {
 @media screen and (max-width: 880px) {
   /* #region scroll-menu  */
   .scroll-menu {
-    padding: 20px;
-    font-size: 1rem;
+    padding: 20px;    
   }
 
   .scroll-menu-header {
@@ -715,8 +719,7 @@ ul {
 @media screen and (min-width: 881px) {
   /* #region scroll-menu  */
   .scroll-menu {
-    padding: 20px 0 0 20px;
-    font-size: 1rem;
+    padding: 0px 0 20px 20px;
   }
 
   .scroll-menu-header {
