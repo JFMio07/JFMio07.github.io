@@ -124,6 +124,7 @@ ul {
   background-color: #fff;
   height:250px;
   position: relative;
+  overflow: hidden;
 }
 
 .scroll-menu .menu-list-wrap{
@@ -673,6 +674,11 @@ ul {
 /* x <= 880px */
 @media screen and (max-width: 880px) {
   /* #region scroll-menu  */
+  .scroll-menu {
+    padding: 20px;
+    font-size: 1rem;
+  }
+
   .scroll-menu-header {
     background-color: #8c8c8c;
     padding: 10px;
