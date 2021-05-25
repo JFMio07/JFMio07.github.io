@@ -34,28 +34,103 @@ window.onload = function () {
 class scrollMenu {
     constructor(IDName, pageHeight, itemsPerPage) {
         this.parentIDName = IDName;
-        this.parentDOM = null;
         this.currentPOS = 0;
         this.pageHeight = pageHeight;
         this.itemsPerPage = itemsPerPage;
+        this.parentDOM = null;
+        this.listItemWrapDOM = null;
+        this.navPrevDOM = null;
+        this.navNextDOM = null;
     }
 
     // Initialize parts of scrollMenu        
     Initialize() {
         this.parentDOM = document.getElementById(this.parentIDName);
+        this.listItemWrapDOM = this.parentDOM.querySelector(".menu-list-item-wrap");
+        this.navPrevDOM = this.parentDOM.querySelector(".scroll-previous");
+        this.navNextDOM = this.parentDOM.querySelector(".scroll-next");
+
         this.parentDOM.querySelector(".menu-list-wrap").style.height = this.pageHeight + "px";
         this.parentDOM.querySelectorAll(".menu-list-item").forEach(elm => elm.style.height = (this.pageHeight / this.itemsPerPage) + "px");
-        this.parentDOM.querySelector(".scroll-previous").addEventListener("click", () => this.ScrollingMenu(true));
-        this.parentDOM.querySelector(".scroll-next").addEventListener("click", () => this.ScrollingMenu(false));
-        this.ScrollElementByPositionY(".menu-list-item-wrap",0);
-        this.SetNavBtnStatus(".scroll-previous", false);
-        this.SetNavBtnStatus(".scroll-next", true);
+        this.navPrevDOM.addEventListener("click", () => this.ScrollingMenu(true));
+        this.navNextDOM.addEventListener("click", () => this.ScrollingMenu(false));
+        this.ScrollElementByPositionY(0);
+        this.SetNavBtnStatus(this.navPrevDOM, false);
+        this.SetNavBtnStatus(this.navNextDOM, true);
+
+
+        // mousedrap
+        this.listItemWrapDOM.addEventListener("mousedown", (e) => this.MouseDrag(e));
+        // this.listItemWrapDOM.addEventListener("click", (e) => e.preventDefault());
+
+        // this.parentDOM.querySelector(".menu-list-item-wrap").addEventListener("mousedown", this.MouseDrag);
+        // this.parentDOM.querySelector(".menu-list-item-wrap").addEventListener("mousedown", function (e) { 
+        //     console.log(e);
+        //     console.log(this);
+        //     this.MouseDrag(e);
+        // });
+        // this.parentDOM.querySelector(".menu-list-item-wrap").addEventListener("mousemove", this.MouseDrag);
     }
 
+    MouseDrag(e) {
+        // cancel default action
+        e.preventDefault();
+        // this.listItemWrapDOM.onclick = (e) => e.preventDefault();
+        // console.log(this);
+        console.log(e.pageY);
+        console.log(e.target);
+        let StartPointY = e.pageY;
+        let isMove = false;
+        document.onmousemove = (e1) => {
+            // console.log(e1.target);
+            // console.log(StartPointY);
+            console.log(e1.pageY);
+            this.listItemWrapDOM.style.top = (e1.pageY - StartPointY + this.currentPOS) + "px";
+
+            if (!isMove && (e1.pageY - StartPointY) != 0) {
+                console.log("reg");
+                isMove = true;
+                console.log(e.target);
+                e.target.onclick = (e2) => {
+                    console.log("hi");
+                    e2.preventDefault()
+                    e2.target.onclick = null;
+                    console.log(e2.target);
+                    console.log(e2);
+                };
+            }
+        };
+        document.onmouseup = (e1) => {
+            if (e1.target != e.target) {
+                e.target.onclick = null;
+            }
+            // console.log(e1);
+            // console.log(e1.target);
+            // console.log("doc");
+            // console.log(e1.target);
+            // console.dir(e1);
+            // console.log(e.target);
+            // console.dir(e);            
+
+            document.onmouseup = null;
+            document.onmousemove = null;
+            // e.target.onclick = null;
+        };
+        // console.log(StartPointY);
+        // e.target.onclick = (e1) => {
+        //     e1.preventDefault()
+        //     e1.target.onclick = null;
+        //     console.log(e1.target);
+        //     console.log(e1);
+        // };
+    }
+
+    // menu-list-wrap
+    // menu-list-item-wrap
     async ScrollingMenu(scrollDirection) {
         let destposition = 0, nextPOS = 0, scrolllimit = 0;
         let outOfRange = false;
-        let menuHeight = this.parentDOM.querySelector(".menu-list-item-wrap").getBoundingClientRect().height;
+        let menuHeight = this.listItemWrapDOM.getBoundingClientRect().height;
         let upperLimit = 0;
         let lowerLimit = (menuHeight - this.pageHeight) * -1;
         if (scrollDirection) {
@@ -74,24 +149,24 @@ class scrollMenu {
 
         destposition = outOfRange ? scrolllimit : nextPOS;
         this.currentPOS = destposition;
-        let result = await this.ScrollElementByPositionY(".menu-list-item-wrap", destposition);
+        let result = await this.ScrollElementByPositionY(destposition);
         // console.log(result);
 
-        this.SetNavBtnStatus(".scroll-previous", this.currentPOS < upperLimit);
-        this.SetNavBtnStatus(".scroll-next", this.currentPOS > lowerLimit);
+        this.SetNavBtnStatus(this.navPrevDOM, this.currentPOS < upperLimit);
+        this.SetNavBtnStatus(this.navNextDOM, this.currentPOS > lowerLimit);
     }
 
-    SetNavBtnStatus(navBtnName, EnStatus) {
+    SetNavBtnStatus(DOMElement, EnStatus) {
         if (EnStatus) {
-            this.parentDOM.querySelector(navBtnName).removeAttribute("disabled");
+            DOMElement.removeAttribute("disabled");
         } else {
-            this.parentDOM.querySelector(navBtnName).setAttribute("disabled", "");
+            DOMElement.setAttribute("disabled", "");
         }
     }
 
     //implement Scroll Element effect
-    ScrollElementByPositionY(menuClassName, destPosition, frame = 20, millSecondPerFrame = 15) {
-        let elem = this.parentDOM.querySelector(menuClassName);
+    ScrollElementByPositionY(destPosition, frame = 20, millSecondPerFrame = 15) {
+        let elem = this.listItemWrapDOM;
 
         if (elem == null || destPosition == null) { throw new Error("input parameter error."); }
 
