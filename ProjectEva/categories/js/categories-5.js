@@ -70,56 +70,39 @@ class scrollMenu {
     }
 
     TouchStart(e) {
-        // console.log(e);
-        // console.log(e.changedTouches[0].pageY);
         // get first touch point
         this.startPointY = e.changedTouches[0].pageY;
 
-        // console.log(e.target);
-        // console.log(e.target);
-        let isMove = false;
-
         let TouchMove = (e1) => {
-            // console.log("TouchMove");
-            // console.log(e1);
-            // console.log(this);
+            // console.log("TouchMove");            
 
             // cancel scroll default action
             e1.preventDefault();
 
             let currentPointY = e1.changedTouches[0].pageY;
-            let moveRange = Math.ceil(currentPointY - this.startPointY);
-
-            if (Math.abs(moveRange) > this.maxDragRange) {
-                moveRange = this.maxDragRange * (moveRange > 0 ? 1 : -1);
-            }
+            let moveRange = this.CoerceDraggingRange(Math.ceil(currentPointY - this.startPointY));
 
             this.listItemWrapDOM.style.top = moveRange + this.currentPOS + "px";
         }
 
         let TouchEnd = (e1) => {
-            // console.log("TouchEnd");
-            // console.log(e1);
-            // console.log(this);
+            // console.log("TouchEnd");            
 
             let currentPointY = e1.changedTouches[0].pageY;
             let moveRange = currentPointY - this.startPointY;
-            if (Math.abs(moveRange) > this.maxDragRange) {
-                this.ScrollingMenuContext(this.GetNextPagePos((moveRange > 0) ? true : false));
-            }
-            else {
-                this.ScrollingMenuContext(this.currentPOS);
-            }
+
+            this.DraggingAction(moveRange);         
 
             //this document event is only for TouchDrag
             this.listItemWrapDOM.removeEventListener("touchmove", TouchMove);
             this.listItemWrapDOM.removeEventListener("touchend", TouchEnd);
-
         }
 
         this.listItemWrapDOM.addEventListener("touchmove", TouchMove);
         this.listItemWrapDOM.addEventListener("touchend", TouchEnd);
     }
+
+
 
     MouseDrag(e) {
         // cancel drag default action
@@ -139,12 +122,8 @@ class scrollMenu {
             // console.log("mousemove");
             // console.log(e1.target);
             let currentPointY = e1.pageY;
-            let moveRange = Math.ceil(currentPointY - this.startPointY);
-
-            if (Math.abs(moveRange) > this.maxDragRange) {
-                moveRange = this.maxDragRange * (moveRange > 0 ? 1 : -1);
-            }
-
+            let moveRange = this.CoerceDraggingRange(Math.ceil(currentPointY - this.startPointY));
+        
             this.listItemWrapDOM.style.top = moveRange + this.currentPOS + "px";
 
             // cancel dclick efault action if moved
@@ -160,13 +139,8 @@ class scrollMenu {
             // console.log("mouseup");
             let currentPointY = e1.pageY;
             let moveRange = currentPointY - this.startPointY;
-            if (Math.abs(moveRange) > this.maxDragRange) {
-                this.ScrollingMenuContext(this.GetNextPagePos((moveRange > 0) ? true : false));
-            }
-            else {
-                this.ScrollingMenuContext(this.currentPOS);
-            }
 
+            this.DraggingAction(moveRange);            
             if (this.isMove && e.target != e1.target) {
                 // console.log("removeclick");
                 this.listItemWrapDOM.removeEventListener("click", Click);
@@ -178,6 +152,24 @@ class scrollMenu {
 
         document.addEventListener("mousemove", MouseMove);
         document.addEventListener("mouseup", MouseUp);
+    }
+
+    DraggingAction(moveRange) {
+        // if move Range of dragging is over maxDragRange > next page
+        // if move Range of dragging is not over maxDragRange > keeping page
+        if (Math.abs(moveRange) > this.maxDragRange) {
+            this.ScrollingMenuContext(this.GetNextPagePos((moveRange > 0) ? true : false));
+        }
+        else {
+            this.ScrollingMenuContext(this.currentPOS);
+        }
+    }
+
+    CoerceDraggingRange(moveRange) {
+        if (Math.abs(moveRange) > this.maxDragRange) {
+            moveRange = this.maxDragRange * (moveRange > 0 ? 1 : -1);
+        }
+        return moveRange;
     }
 
     GetNextPagePos(scrollDirection) {
