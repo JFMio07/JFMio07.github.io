@@ -37,6 +37,7 @@ class scrollMenu {
         this.currentPOS = 0;
         this.pageHeight = pageHeight;
         this.itemsPerPage = itemsPerPage;
+        this.maxDragRange = null;
         this.parentDOM = null;
         this.listItemWrapDOM = null;
         this.navPrevDOM = null;
@@ -49,6 +50,7 @@ class scrollMenu {
         this.listItemWrapDOM = this.parentDOM.querySelector(".menu-list-item-wrap");
         this.navPrevDOM = this.parentDOM.querySelector(".scroll-previous");
         this.navNextDOM = this.parentDOM.querySelector(".scroll-next");
+        this.maxDragRange = Math.ceil(this.pageHeight / 6);
 
         this.parentDOM.querySelector(".menu-list-wrap").style.height = this.pageHeight + "px";
         this.parentDOM.querySelectorAll(".menu-list-item").forEach(elm => elm.style.height = (this.pageHeight / this.itemsPerPage) + "px");
@@ -73,56 +75,47 @@ class scrollMenu {
     }
 
     MouseDrag(e) {
-        // cancel default action
+        // cancel drag default action
         e.preventDefault();
-        // this.listItemWrapDOM.onclick = (e) => e.preventDefault();
-        // console.log(this);
-        console.log(e.pageY);
-        console.log(e.target);
+
         let StartPointY = e.pageY;
         let isMove = false;
-        document.onmousemove = (e1) => {
-            // console.log(e1.target);
-            // console.log(StartPointY);
-            console.log(e1.pageY);
-            this.listItemWrapDOM.style.top = (e1.pageY - StartPointY + this.currentPOS) + "px";
 
-            if (!isMove && (e1.pageY - StartPointY) != 0) {
-                console.log("reg");
+        document.onmousemove = (e1) => {
+            let currentPointY = e1.pageY;
+            let moveRange = Math.ceil(currentPointY - StartPointY);
+
+            if (Math.abs(moveRange) > this.maxDragRange) {
+                moveRange = this.maxDragRange * (moveRange > 0 ? 1 : -1);
+            }
+
+            this.listItemWrapDOM.style.top = moveRange + this.currentPOS + "px";
+
+            // cancel dclick efault action if moved
+            if (!isMove && moveRange != 0) {
+                // console.log("reg");
                 isMove = true;
-                console.log(e.target);
-                e.target.onclick = (e2) => {
-                    console.log("hi");
+
+                this.listItemWrapDOM.onclick = (e2) => {
                     e2.preventDefault()
-                    e2.target.onclick = null;
-                    console.log(e2.target);
-                    console.log(e2);
+
+                    //clear preventDefault event
+                    this.listItemWrapDOM.onclick = null;
                 };
             }
         };
-        document.onmouseup = (e1) => {
-            if (e1.target != e.target) {
-                e.target.onclick = null;
-            }
-            // console.log(e1);
-            // console.log(e1.target);
-            // console.log("doc");
-            // console.log(e1.target);
-            // console.dir(e1);
-            // console.log(e.target);
-            // console.dir(e);            
 
+        document.onmouseup = (e1) => {
+            let currentPointY = e1.pageY;
+            let moveRange = currentPointY - StartPointY;
+            if (Math.abs(moveRange) > this.maxDragRange) {
+                this.ScrollingMenu((moveRange > 0) ? true : false);
+            }
+
+            //this document event is only for MouseDrag
             document.onmouseup = null;
             document.onmousemove = null;
-            // e.target.onclick = null;
         };
-        // console.log(StartPointY);
-        // e.target.onclick = (e1) => {
-        //     e1.preventDefault()
-        //     e1.target.onclick = null;
-        //     console.log(e1.target);
-        //     console.log(e1);
-        // };
     }
 
     // menu-list-wrap
