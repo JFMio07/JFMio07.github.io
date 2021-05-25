@@ -184,6 +184,7 @@ ul {
 
 
 .scroll-menu-nav .wrap{
+  padding: 1px;
   box-sizing: border-box;
   background-color: #fff;
   flex-grow: 1;
@@ -215,6 +216,7 @@ ul {
 
 .scroll-menu-nav button:not(:disabled):hover{
   background-color: #f0f0f0;
+  /* background-color: #8c8c8c; */
 }
 
 .scroll-previous{
