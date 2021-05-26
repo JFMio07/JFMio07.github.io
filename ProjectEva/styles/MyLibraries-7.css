@@ -74,10 +74,6 @@ li {
   padding: 5px;
 }
 
-.item-field.colSubtitle {
-  display: none;
-}
-
 .item-image {
   position: relative;
 }
@@ -94,7 +90,7 @@ li {
     drop-shadow(-1px 0 0 #d8d8d8) drop-shadow(1px 0 0 #d8d8d8);
 }
 
-.item-detail{
+.item-detail {
   overflow: hidden;
 }
 
@@ -125,6 +121,9 @@ li {
 }
 
 .item-bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
   border-bottom: 1px solid #595959;
   position: relative;
 }
@@ -135,32 +134,34 @@ li {
 }
 
 .item-action {
-  padding: 0 5px;  
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: transparent;
-  border: 0;
+  /* z-index: 0; */
 }
 
-.item-action:focus {
+.item-action.open {
   position: relative;
-  z-index: 101;
-  outline: 0;
+  z-index: 2;
 }
+/* .item-action .item-action-trigger:focus{
+  outline: 1px solid #bf0000;
+} */
 
-.item-action > :first-child {
+.item-action-trigger {
   display: flex;
-  border: none;
-  background-color: transparent;
   align-items: center;
   justify-content: space-evenly;
+  padding: 0;
+  background-color: transparent;
+  border: none;
   width: 2rem;
   height: 2rem;
 }
 
-.item-action > :first-child :not(:last-child) {
-  margin: 0 3px 0 0;
+.item-action-trigger:focus .item-action-dot,
+.item-action:hover .item-action-dot {
+  background-color: #bf0000;
 }
 
 .item-action-dot {
@@ -201,19 +202,6 @@ li {
   color: #bf0000;
 }
 
-/* checktest */
-input[id^="menu-ctl"] {
-  display: none;
-}
-
-input[id^="menu-ctl"]:checked ~ .item-actionItems {
-  display: block;
-}
-
-input[id^="menu-ctl"]:checked + .wrap label[for^="menu-ctl"] span {
-  background-color: #bf0000;
-}
-
 @media screen and (max-width: 568px) {
   /* x <= 568px */
 
@@ -240,7 +228,6 @@ input[id^="menu-ctl"]:checked + .wrap label[for^="menu-ctl"] span {
   }
 
   .item-detail {
-    
     min-height: 150px;
   }
 
@@ -284,9 +271,15 @@ input[id^="menu-ctl"]:checked + .wrap label[for^="menu-ctl"] span {
     display: none;
   }
   .item-actionItems {
+    width: 100%;
     padding: 2rem 0.5rem 0 0.5rem;
     position: relative;
     margin-top: -2rem;
+  }
+
+  .item-action.open + .item-actionItems {
+    display: block;
+    z-index: 1;
   }
 }
 
@@ -307,8 +300,7 @@ input[id^="menu-ctl"]:checked + .wrap label[for^="menu-ctl"] span {
     width: 70%;
   }
 
-  .list .colGroupLast 
-  {
+  .list .colGroupLast {
     position: relative;
     width: 30%;
   }
@@ -355,17 +347,27 @@ input[id^="menu-ctl"]:checked + .wrap label[for^="menu-ctl"] span {
   .list .item-status.colStatus,
   .list .item-added.colAdded {
     padding: 0 5px;
-    line-height: 2rem;    
+    line-height: 2rem;
     font-size: 0.75rem;
     font-weight: normal;
     margin: 0;
   }
 
+  .list .colTitle:hover a,
+  .list .colAuthors:hover a,
+  .list .colSeries:hover a {
+    color: #bf0000;
+  }
+
   .list .colTitle {
-    width: 32.5%;    
+    width: 32.5%;
     text-overflow: ellipsis;
     word-break: break-all;
     white-space: nowrap;
+  }
+
+  .list .colSubtitle {
+    display: none;
   }
 
   .list .colAuthors {
@@ -393,6 +395,16 @@ input[id^="menu-ctl"]:checked + .wrap label[for^="menu-ctl"] span {
   }
 
   /* libraries grid viewer */
+  .grid .colTitle:hover a,
+  .grid .colSubtitle:hover a {
+    text-decoration: none;
+  }
+
+  .grid .colAuthors:hover a,
+  .grid .colSeries:hover a {
+    color: #bf0000;
+  }
+
   .grid .colAdded {
     display: none;
   }
@@ -463,8 +475,13 @@ input[id^="menu-ctl"]:checked + .wrap label[for^="menu-ctl"] span {
     left: 0;
     right: 0;
     margin: auto;
-    z-index: 100;
   }
+
+  .item-action.open + .item-actionItems {
+    display: block;
+    z-index: 1;
+  }
+
   .item-field.colAuthors a,
   .item-field.colSeries a {
     color: black;
@@ -496,7 +513,6 @@ input[id^="menu-ctl"]:checked + .wrap label[for^="menu-ctl"] span {
 
   /* libraries list viewer */
 
-
   .libraries-content.list .colSeries {
     display: none;
   }
@@ -505,8 +521,7 @@ input[id^="menu-ctl"]:checked + .wrap label[for^="menu-ctl"] span {
     width: 55%;
   }
 
-  .list .colGroupLast 
-  {
+  .list .colGroupLast {
     width: 45%;
   }
 
