@@ -1,0 +1,822 @@
+/* COMMON */
+
+ul {
+  list-style: none;
+}
+
+/* #region 麵包屑組件 */
+.breadcrumb-wrap {
+  padding: 20px 0 10px 0;
+}
+.breadcrumb {
+  padding-left: 30px;
+}
+
+.breadcrumb.breadcrumb-small {
+  padding-left: 20px;
+}
+
+.breadcrumb-item > a {
+  color: #000;
+}
+
+.breadcrumb-item.active {
+  color: #595959;
+}
+
+.breadcrumb-small > .breadcrumb-item:first-child:before {
+  content: "<";
+}
+/* #endregion 麵包屑組件 */
+
+/* #region scroll-menu 組件 */
+.scroll-menu {
+  font-size: 0.875rem;
+}
+
+.scroll-menu a {
+  display: block;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.scroll-menu-header span {
+  vertical-align: middle;
+}
+
+.scroll-menu-list {
+  padding: 5px 0;
+  box-sizing: border-box;
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.scroll-menu-list .menu-list-wrap {
+  position: relative;
+  overflow: hidden;
+}
+
+.scroll-menu .menu-list-item-wrap {
+  position: absolute;
+  left: 9px;
+  right: 9px;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-list-item-wrap > .menu-list-item {
+  box-sizing: border-box;
+  padding: 2px 0;
+  border-bottom: 1px solid #cccccc;
+}
+
+.scroll-menu-list a {
+  width: 100%;
+  height: 100%;
+  padding: 8px 10px;
+  display: block;
+  color: #000;
+  display: flex;
+  align-items: center;
+}
+
+.menu-list-item-wrap > .menu-list-item:hover a {
+  background-color: #ededed;
+}
+
+.scroll-menu-list a:hover {
+  color: #bf0000;
+}
+
+.scroll-menu-nav {
+  margin-top: 2px;
+  padding-bottom: 2px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.scroll-menu-nav::after {
+  content: "";
+  width: 1px;
+  background-color: transparent;
+}
+
+.scroll-menu-nav .wrap {
+  padding: 1px;
+  box-sizing: border-box;
+  background-color: #fff;
+  flex-grow: 1;
+  min-height: 35px;
+}
+
+.scroll-menu-nav .wrap:first-child {
+  order: -1;
+}
+
+.scroll-menu-nav .wrap:last-child {
+  order: 1;
+}
+.scroll-menu-nav button {
+  box-sizing: border-box;
+  background-size: 11px;
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  outline: none;
+  border: none;
+  width: 100%;
+  height: 100%;
+}
+
+.scroll-menu-nav button:disabled {
+  visibility: hidden;
+}
+
+.scroll-menu-nav button:not(:disabled):hover {
+  background-color: #f0f0f0;
+  /* background-color: #8c8c8c; */
+}
+
+.scroll-previous {
+  background-image: url("/ProjectEva//categories/images/arrows/up_grey.svg");
+}
+
+.scroll-next {
+  background-image: url("/ProjectEva//categories/images/arrows/down_grey.svg");
+}
+
+/* #endregion scroll-menu 組件 */
+
+/* #region rate star 組件 */
+/* rate:5.0 */
+.rate.star-rate-5 .star:nth-child(-n + 5) {
+  background-image: url("/ProjectEva/categories/images/rate/star-full.svg");
+}
+
+/* rate:4.5 */
+.rate.star-rate-4-5 .star:nth-child(-n + 4) {
+  background-image: url("/ProjectEva/categories/images/rate/star-full.svg");
+}
+
+.rate.star-rate-4-5 .star:nth-child(5) {
+  background-image: url("/ProjectEva/categories/images/rate/star-half.svg");
+}
+
+/* rate:4.0 */
+.rate.star-rate-4 .star:nth-child(-n + 4) {
+  background-image: url("/ProjectEva/categories/images/rate/star-full.svg");
+}
+
+.rate.star-rate-4 .star:nth-child(5) {
+  background-image: url("/ProjectEva/categories/images/rate/star-empty.svg");
+}
+
+/* rate:3.5 */
+.rate.star-rate-3-5 .star:nth-child(-n + 3) {
+  background-image: url("/ProjectEva/categories/images/rate/star-full.svg");
+}
+
+.rate.star-rate-3-5 .star:nth-child(4) {
+  background-image: url("/ProjectEva/categories/images/rate/star-half.svg");
+}
+
+.rate.star-rate-3-5 .star:nth-child(5) {
+  background-image: url("/ProjectEva/categories/images/rate/star-empty.svg");
+}
+
+/* rate:3.5 */
+.rate.star-rate-3-5 .star:nth-child(-n + 3) {
+  background-image: url("/ProjectEva/categories/images/rate/star-full.svg");
+}
+
+.rate.star-rate-3-5 .star:nth-child(4) {
+  background-image: url("/ProjectEva/categories/images/rate/star-half.svg");
+}
+
+.rate.star-rate-3-5 .star:nth-child(5) {
+  background-image: url("/ProjectEva/categories/images/rate/star-empty.svg");
+}
+
+/* rate:3.0 */
+.rate.star-rate-3 .star:nth-child(-n + 3) {
+  background-image: url("/ProjectEva/categories/images/rate/star-full.svg");
+}
+
+.rate.star-rate-3 .star:nth-child(n + 4):nth-child(-n + 5) {
+  background-image: url("/ProjectEva/categories/images/rate/star-empty.svg");
+}
+
+/* rate:2.5 */
+.rate.star-rate-2-5 .star:nth-child(-n + 2) {
+  background-image: url("/ProjectEva/categories/images/rate/star-full.svg");
+}
+
+.rate.star-rate-2-5 .star:nth-child(3) {
+  background-image: url("/ProjectEva/categories/images/rate/star-half.svg");
+}
+
+.rate.star-rate-2-5 .star:nth-child(n + 4):nth-child(-n + 5) {
+  background-image: url("/ProjectEva/categories/images/rate/star-empty.svg");
+}
+
+/* rate:2.0 */
+.rate.star-rate-2 .star:nth-child(-n + 2) {
+  background-image: url("/ProjectEva/categories/images/rate/star-full.svg");
+}
+
+.rate.star-rate-2 .star:nth-child(n + 3):nth-child(-n + 5) {
+  background-image: url("/ProjectEva/categories/images/rate/star-empty.svg");
+}
+
+/* rate:1.5 */
+.rate.star-rate-1-5 .star:nth-child(1) {
+  background-image: url("/ProjectEva/categories/images/rate/star-full.svg");
+}
+
+.rate.star-rate-1-5 .star:nth-child(2) {
+  background-image: url("/ProjectEva/categories/images/rate/star-half.svg");
+}
+
+.rate.star-rate-1-5 .star:nth-child(n + 3):nth-child(-n + 5) {
+  background-image: url("/ProjectEva/categories/images/rate/star-empty.svg");
+}
+
+/* rate:1.0 */
+.rate.star-rate-1 .star:nth-child(1) {
+  background-image: url("/ProjectEva/categories/images/rate/star-full.svg");
+}
+
+.rate.star-rate-1 .star:nth-child(n + 2):nth-child(-n + 5) {
+  background-image: url("/ProjectEva/categories/images/rate/star-empty.svg");
+}
+
+/* rate:0.5 */
+.rate.star-rate-0-5 .star:nth-child(1) {
+  background-image: url("/ProjectEva/categories/images/rate/star-half.svg");
+}
+
+.rate.star-rate-0-5 .star:nth-child(n + 2):nth-child(-n + 5) {
+  background-image: url("/ProjectEva/categories/images/rate/star-empty.svg");
+}
+
+/* rate:0.0 */
+.rate.star-rate-0 .star:nth-child(-n + 5) {
+  background-image: url("/ProjectEva/categories/images/rate/star-empty.svg");
+}
+/* #endregion rate star 組件 */
+
+/*#region carousel 組件*/
+
+.carousel {
+  padding: 10px 30px;
+  font-size: 0.875rem;
+}
+
+.carousel-badge {
+  margin: 20px 3% 10px 3%;
+}
+
+.carousel-badge :first-child {
+  border-radius: 3px;
+  background-color: #006265;
+  color: #fff;
+  padding: 3px 6px;
+}
+
+.carousel-header {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 3%;
+  margin-right: 3%;
+  margin-bottom: 20px;
+}
+
+.carousel-header-title a {
+  text-decoration: none;
+}
+
+.carousel-header a:hover {
+  color: #bf0000;
+}
+
+.view-all a {
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.carousel-header a {
+  color: #000;
+}
+
+.owl-carousel > .owl-nav button {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+}
+
+.owl-carousel > .owl-nav button.owl-prev span,
+.owl-carousel > .owl-nav button.owl-next span {
+  font-size: 60px;
+}
+
+.owl-carousel .owl-nav button:hover span {
+  color: #bf0000;
+}
+
+.owl-carousel > .owl-nav button.owl-prev {
+  left: -25px;
+}
+
+.owl-carousel > .owl-nav button.owl-next {
+  right: -25px;
+}
+
+.owl-carousel > .owl-nav button[class*="disabled"] {
+  display: none;
+}
+/* #endregion carousel 組件 */
+
+
+/* 書籍分類頁容器ˇ*/
+.categories-detail-container {
+  font-size: 0.875rem;
+}
+
+/* 書籍分類頁外層結構容器 */
+.categories-detail-header,
+.categories-detail-subheader,
+.categories-detail-body,
+.categories-detail-footer {
+  width: 100%;
+}
+
+/* 書籍分類頁內層結構容器 */
+.breadcrumb-wrap,
+.categories-detail-title,
+.content-wrap {
+  max-width: 1140px;
+  margin: auto;
+}
+
+/* #region 書籍分類頁標題 */
+.categories-detail-title :first-child {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 5px;
+  margin-bottom: 0;
+  color: #101010;
+}
+
+.categories-detail-title :last-child {
+  font-size: 1rem;
+  color: #595959;
+  margin-top: 5px;
+  margin-bottom: 0;
+}
+/* #endregion 書籍分類頁標題 */
+
+/* #region 熱門新書  */
+.categories-detail-hot {
+  background-image: url("/ProjectEva/categories/images/prism-background.jpg");
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: cover;
+  overflow: hidden;
+}
+
+.categories-detail-hot .book-item-img::after {
+  /* transform: rotate(-45deg); */
+  border-radius: 3px;
+  content: "HOT!";
+  font-size: 0.5rem;
+  font-weight: bold;
+  background-color: #bf0000;
+  padding: 2px 5px;
+  color: #fff;
+  display: block;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+/* .categories-detail-hot .carousel-header .view-all a {
+  color: #bf0000;
+}
+
+.categories-detail-hot .carousel-header .view-all a:hover {
+  color: #fff;
+} */
+
+.categories-detail-hot .book-item .book-item-details,
+.categories-detail-hot .book-item .book-item-action {
+  display: none;
+}
+
+.categories-detail-hot .carousel-badge,
+.categories-detail-recommend .carousel-badge {
+  display: none;
+}
+
+/* #endregion 熱門新書  */
+
+/* #region 書籍分類頁subheader */
+.categories-detail-subheader {
+  background-color: #ededed;
+  box-shadow: 0 3px 5px rgb(50 50 50 / 34%);
+}
+
+.categories-detail-subheader .content-wrap > :first-child {
+  height: 400px;
+  /* background-color: pink; */
+}
+
+.categories-detail-subheader .categories-content-wrap {
+  border: none;
+}
+
+.categories-detail-subheader::after{  
+  content: "";
+  display: block;
+  height: 6px;
+}
+
+/* #endregion 書籍分類頁subheader */
+
+/* #region 書籍分類頁的子分類內容*/
+
+.categories-content-wrap {
+  border-bottom: 1px solid #d8d8d8;
+}
+
+/* boot-item */
+.book-item {
+  font-size: 0.875rem;
+  max-width: 140px;
+  margin: auto;
+}
+
+.book-item-body a {
+  display: block;
+  color: #595959;
+}
+
+.book-item-img {
+  /* width: 140px; */
+  width: 100%;
+  height: 0;
+  padding-bottom: 157.142857%;
+  /* height: 220px; */
+  position: relative;
+}
+
+.book-item-img img {
+  border-radius: 3px;
+  max-width: 100%;
+  position: absolute;
+  bottom: 0;
+  filter: drop-shadow(0 -1px 0 #d8d8d8) drop-shadow(0 1px 0 #d8d8d8)
+    drop-shadow(-1px 0 0 #d8d8d8) drop-shadow(1px 0 0 #d8d8d8);
+}
+
+.book-item-details {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.book-item-details .detail-list {
+  overflow: hidden;
+  height: 1.125rem;
+  margin: 3px 0 0 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-break: break-all;
+}
+
+.book-item-details .detail-list.title {
+  color: #000;
+  font-weight: 400;
+}
+
+.book-item-details .detail-list.authors {
+  color: #595959;
+}
+
+.book-item-details .detail-list.rate {
+  font-size: 0px;
+  text-decoration: none;
+}
+
+.book-item-details .detail-list.rate .star {
+  margin: 0 2px;
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  background-repeat: no-repeat;
+  /* background-size: contain; */
+  white-space: nowrap;
+}
+
+.book-item-details .detail-list.price {
+  color: #000;
+  font-weight: 600;
+}
+
+.add-to-cart {
+  border-radius: 3px;
+  color: #fff;
+  background-color: #595959;
+  padding: 5px 7px;
+  box-sizing: border-box;
+  width: 100%;
+  text-decoration: none;
+  border: 3px solid #595959;
+  transition: 0.2s;
+}
+.add-to-cart > * {
+  display: inline-block;
+}
+
+.add-to-cart :first-child {
+  padding-right: 5px;
+  transition: 0.2s;
+}
+
+/* #endregion 書籍分類頁的子分類內容*/
+
+/* #region 書籍分類頁的spotlight */
+.categories-spotlight-wrap {
+  padding: 20px 10px;
+  font-size: 0.875rem;
+}
+
+.spotlight {
+  background-image: url("/categories/images/prism-background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: hidden;
+}
+
+.spotlight a {
+  text-decoration: none;
+}
+
+.spotlight-body {
+  display: flex;
+  padding: 30px;
+}
+.spotlight-sidebar {
+  padding: 30px;
+  position: relative;
+}
+
+.spotlight .item-img img {
+  max-width: 100%;
+  filter: drop-shadow(0 -1px 0 #d8d8d8) drop-shadow(0 1px 0 #d8d8d8)
+    drop-shadow(-1px 0 0 #d8d8d8) drop-shadow(1px 0 0 #d8d8d8);
+}
+
+.spotlight .info-action a {
+  display: block;
+  padding: 5px 7px;
+  min-height: 35px;
+  color: #fff;
+  background-color: #bf0000;
+  font-weight: 600;
+  line-height: 2;
+  text-align: center;
+}
+
+/* #endregion 書籍分類頁的spotlight */
+
+/* 手機 */
+/* x <= 568px */
+@media screen and (max-width: 568px) {
+  /* #region 麵包屑組件 */
+  .breadcrumb:not(.breadcrumb-small) {
+    display: none;
+  }
+  /* #endregion 麵包屑組件 */
+
+  /* #region 書籍分類頁標題 */
+  .categories-detail-title {
+    padding: 5px 20px 0px 20px;
+  }
+  /* #endregion 書籍分類頁標題 */
+
+  /*#region carousel 組件*/
+  .carousel-header .carousel-header-title {
+    font-size: 1rem;
+  }
+
+  .carousel-header .view-all {
+    font-size: 0.875rem;
+  }
+
+  /*#endregion carousel 組件*/
+
+  /* #region 熱門新書  */
+  .categories-detail-hot .carousel-header .carousel-header-title {
+    font-size: 1.25rem;
+  }
+
+  /* #endregion 熱門新書  */
+
+  /* #region 書籍分類頁的子分類內容*/
+  /* boot-item */
+  .book-item {
+    font-size: 0.75rem;
+  }
+  .book-item-details .detail-list.title {
+    font-size: 0.75rem;
+  }
+
+  /* #endregion 書籍分類頁的子分類內容*/
+
+  /* #region 書籍分類頁的spotlight */
+
+  .spotlight .item-description {
+    display: none;
+  }
+  /* #endregion 書籍分類頁的spotlight */
+}
+
+/* 平板以上 */
+/* x >= 569px */
+@media screen and (min-width: 569px) {
+  /* #region 麵包屑組件 */
+  .breadcrumb-small {
+    display: none;
+  }
+  /* #endregion 麵包屑組件 */
+  
+  /* #region 書籍分類頁標題 */
+  .categories-detail-title {
+    padding: 5px 30px 30px 30px;
+  }
+  /* #endregion 書籍分類頁標題 */
+
+  /*#region carousel 組件*/
+  .carousel-header .carousel-header-title {
+    font-size: 1.375rem;
+  }
+
+  .carousel-header .view-all {
+    font-size: 1rem;
+  }
+
+  /*#endregion carousel 組件*/
+
+  /* #region 熱門新書  */
+  .categories-detail-hot .carousel-header .carousel-header-title {
+    font-size: 2rem;
+    flex-grow: 1;
+    text-align: center;
+  }
+
+  /* #endregion 熱門新書  */
+  
+  /* #region 書籍分類頁的子分類內容*/
+
+  .book-item {
+    font-size: 0.875rem;
+  }
+
+  .book-item-body:hover img,
+  .spotlight .item-img:hover {
+    filter: brightness(0.8);
+  }
+
+  .book-item-body:hover a {
+    text-decoration: none;
+  }
+
+  .book-item-details .detail-list.title {
+    font-size: 0.875rem;
+  }
+
+  .add-to-cart:hover {
+    background-color: #fff;
+    color: #000;
+  }
+
+  .add-to-cart:hover :first-child {
+    background-color: #fff;
+    color: #000;
+    transform: rotate(-360deg);
+    /* transform: scale(1.5); */
+  }
+
+  /* #endregion 書籍分類頁的子分類內容*/
+
+  /* #region 書籍分類頁的spotlight */
+
+  .spotlight .item-description {
+    display: block;
+  }
+  /* #endregion 書籍分類頁的spotlight */
+}
+
+/* x <= 880px */
+@media screen and (max-width: 880px) {
+  /* #region scroll-menu  組件*/
+  .scroll-menu {
+    padding: 20px;
+  }
+
+  .scroll-menu-header {
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    background-color: #8c8c8c;
+    padding: 10px;
+    font-size: 0.875rem;
+  }
+
+  .scroll-menu-header a {
+    font-weight: bold;
+    color: #fff;
+  }
+
+  /* #endregion scroll-menu  */
+}
+
+/* 平板 */
+/* 569px <= x <= 880px */
+@media screen and (min-width: 569px) and (max-width: 880px) {
+  /* #region 書籍分類頁的spotlight */
+
+  /* #endregion 書籍分類頁的spotlight */
+}
+
+/* 桌機 */
+/* x >= 881px */
+@media screen and (min-width: 881px) {
+  /* #region scroll-menu 組件 */
+  .scroll-menu {
+    padding: 0px 0 20px 20px;
+  }
+
+  .scroll-menu-header {
+    padding: 10px 0;
+    font-size: 1rem;
+  }
+
+  .scroll-menu-header a {
+    font-weight: bold;
+    color: #101010;
+  }
+
+  /* #endregion scroll-menu  */
+
+  /* #region 書籍分類頁subheader */
+  .categories-detail-subheader .content-wrap {
+    display: flex;
+    align-items: center;
+  }
+
+  .categories-detail-subheader .content-wrap > :first-child {
+    width: 20%;
+  }
+
+  .categories-detail-subheader .content-wrap > :last-child {
+    width: 80%;
+  }
+
+  .categories-detail-subheader .scroll-menu-header a::after {
+    vertical-align: middle;
+    content: "";
+    width: 1rem;
+    height: 1rem;
+    background-image: url("/ProjectEva//categories/images/arrows/right_red.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .categories-detail-subheader .scroll-menu-header:hover a::after {
+    background-image: url("/ProjectEva//categories/images/arrows/right_grey.svg");
+  }
+
+  /* #endregion 書籍分類頁subheader */
+
+  /* #region 書籍分類頁的spotlight */
+  .spotlight {
+    display: flex;
+  }
+
+  .spotlight-body {
+    width: 70%;
+  }
+  .spotlight-sidebar {
+    width: 30%;
+  }
+
+  .spotlight-sidebar::before {
+    content: "";
+    position: absolute;
+    box-shadow: inset #b2b2b2 20px 0 40px -15px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+  }
+  /* #endregion 書籍分類頁的spotlight */
+}
