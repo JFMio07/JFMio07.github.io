@@ -378,7 +378,7 @@ ul {
 
 /* #region 熱門新書  */
 .categories-detail-hot {
-  background-image: url("/ProjectEva/categories/images/prism-background.jpg");
+  background-image: url("https://kbstatic1-a.akamaihd.net/1.0.0.967/Images/backgrounds/hero-widget-background.jpg");
   background-repeat: no-repeat;
   background-position: top center;
   background-size: cover;
@@ -786,13 +786,13 @@ ul {
     content: "";
     width: 1rem;
     height: 1rem;
-    background-image: url("/ProjectEva//categories/images/arrows/right_red.svg");
+    background-image: url("https://kbstatic1-a.akamaihd.net/1.0.0.967/Images/chevron_right_red_icon.svg");
     background-repeat: no-repeat;
     background-position: center;
   }
 
   .categories-detail-subheader .scroll-menu-header:hover a::after {
-    background-image: url("/ProjectEva//categories/images/arrows/right_grey.svg");
+    background-image: url("https://kbstatic1-a.akamaihd.net/1.0.0.967/Images/chevron_right_grey_icon.svg");
   }
 
   /* #endregion 書籍分類頁subheader */
