@@ -8,6 +8,7 @@ window.onload = function () {
         responsiveClass: true,
         margin: 6,
         nav: true,
+        lazyLoad: true,
         responsive: {
             0: {
                 items: 2,
@@ -25,8 +26,12 @@ window.onload = function () {
         }
     })
 
-    let scrollMenuObj = new scrollMenu("scroll-menu", 280, 7);
-    scrollMenuObj.Initialize();
+    
+    if (document.querySelector(".scroll-menu") !== null) {
+        let scrollMenuObj = new scrollMenu("scroll-menu", 280, 7);
+        scrollMenuObj.Initialize();
+    }
+
 
 }
 
@@ -91,7 +96,7 @@ class scrollMenu {
             let currentPointY = e1.changedTouches[0].pageY;
             let moveRange = currentPointY - this.startPointY;
 
-            this.DraggingAction(moveRange);         
+            this.DraggingAction(moveRange);
 
             //this document event is only for TouchDrag
             this.listItemWrapDOM.removeEventListener("touchmove", TouchMove);
@@ -123,7 +128,7 @@ class scrollMenu {
             // console.log(e1.target);
             let currentPointY = e1.pageY;
             let moveRange = this.CoerceDraggingRange(Math.ceil(currentPointY - this.startPointY));
-        
+
             this.listItemWrapDOM.style.top = moveRange + this.currentPOS + "px";
 
             // cancel dclick efault action if moved
@@ -140,7 +145,7 @@ class scrollMenu {
             let currentPointY = e1.pageY;
             let moveRange = currentPointY - this.startPointY;
 
-            this.DraggingAction(moveRange);            
+            this.DraggingAction(moveRange);
             if (this.isMove && e.target != e1.target) {
                 // console.log("removeclick");
                 this.listItemWrapDOM.removeEventListener("click", Click);

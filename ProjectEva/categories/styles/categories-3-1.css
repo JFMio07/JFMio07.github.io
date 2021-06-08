@@ -1,4 +1,7 @@
 /* COMMON */
+a{
+  text-decoration: underline;
+}
 
 ul {
   list-style: none;
@@ -9,7 +12,8 @@ ul {
   padding: 20px 0 10px 0;
 }
 .breadcrumb {
-  padding-left: 30px;
+  padding: 0 0 0 30px;
+  background-color: transparent;
 }
 
 .breadcrumb.breadcrumb-small {
