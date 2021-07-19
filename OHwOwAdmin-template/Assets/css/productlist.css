@@ -1,3 +1,8 @@
 [v-cloak] {
   display: none;
 }
+
+/* Busy table styling */
+table.b-table[aria-busy="true"] {
+  opacity: 0.6;
+}

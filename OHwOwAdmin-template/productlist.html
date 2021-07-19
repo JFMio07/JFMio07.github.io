@@ -381,74 +381,15 @@
                                             <strong>上架中商品</strong>
                                         </template>
                                         <b-row>
-                                            <!-- <b-col lg="6" class="my-1">
-                                                <b-form-group label="Sort" label-for="sort-by-select" label-cols-sm="3"
-                                                    label-align-sm="right" label-size="sm" class="mb-0"
-                                                    v-slot="{ ariaDescribedby }">
-                                                    <b-input-group size="sm">
-                                                        <b-form-select id="sort-by-select" v-model="sortBy"
-                                                            :options="sortOptions" :aria-describedby="ariaDescribedby"
-                                                            class="w-75">
-                                                            <template #first>
-                                                                <option value="">-- none --</option>
-                                                            </template>
-                                                        </b-form-select>
-
-                                                        <b-form-select v-model="sortDesc" :disabled="!sortBy"
-                                                            :aria-describedby="ariaDescribedby" size="sm" class="w-25">
-                                                            <option :value="false">Asc</option>
-                                                            <option :value="true">Desc</option>
-                                                        </b-form-select>
-                                                    </b-input-group>
-                                                </b-form-group>
-                                            </b-col> -->
-
-                                            <!-- <b-col lg="6" class="my-1">
-                                                <b-form-group label="Initial sort" label-for="initial-sort-select"
-                                                    label-cols-sm="3" label-align-sm="right" label-size="sm"
-                                                    class="mb-0">
-                                                    <b-form-select id="initial-sort-select" v-model="sortDirection"
-                                                        :options="['asc', 'desc', 'last']" size="sm"></b-form-select>
-                                                </b-form-group>
-                                            </b-col> -->
-
-                                            <!-- <b-col lg="6" class="my-1">
-                                                <b-form-group label="Filter" label-for="filter-input" label-cols-sm="3"
-                                                    label-align-sm="right" label-size="sm" class="mb-0">
-                                                    <b-input-group size="sm">
-                                                        <b-form-input id="filter-input" v-model="filter" type="search"
-                                                            placeholder="Type to Search"></b-form-input>
-
-                                                        <b-input-group-append>
-                                                            <b-button :disabled="!filter" @click="filter = ''">Clear
-                                                            </b-button>
-                                                        </b-input-group-append>
-                                                    </b-input-group>
-                                                </b-form-group>
-                                            </b-col> -->
-
-                                            <!-- <b-col lg="6" class="my-1">
-                                                <b-form-group v-model="sortDirection" label="Filter On"
-                                                    description="Leave all unchecked to filter on all data"
-                                                    label-cols-sm="3" label-align-sm="right" label-size="sm"
-                                                    class="mb-0" v-slot="{ ariaDescribedby }">
-                                                    <b-form-checkbox-group v-model="filterOn"
-                                                        :aria-describedby="ariaDescribedby" class="mt-1">
-                                                        <b-form-checkbox value="name">Name</b-form-checkbox>
-                                                        <b-form-checkbox value="age">Age</b-form-checkbox>
-                                                        <b-form-checkbox value="isActive">Active</b-form-checkbox>
-                                                    </b-form-checkbox-group>
-                                                </b-form-group>
-                                            </b-col> -->
-                                            <b-col class="col-9 my-1">
+                                            <b-col lg="9" class="my-1">
                                                 <b-button-group>
-                                                    <b-button>
+                                                    <b-button @click="toggleBusy">
                                                         <b-icon icon="plus-square" aria-hidden="true"></b-icon>
                                                         新增商品
                                                     </b-button>
                                                 </b-button-group>
                                             </b-col>
-                                            <b-col class="col-3 my-1">
+                                            <b-col lg="3" class="my-1">
                                                 <b-form-group label="關鍵字搜尋" label-for="filter-input" label-cols-sm="3"
                                                     label-align-sm="right" label-size="sm" class="mb-0">
                                                     <b-input-group size="sm">
@@ -469,10 +410,13 @@
                                         <b-table :items="items" :fields="fields" :current-page="currentPage"
                                             :per-page="perPage" :filter="filter" :filter-included-fields="filterOn"
                                             :sort-by.sync="sortBy" :sort-desc.sync="sortDesc"
-                                            :sort-direction="sortDirection" stacked="md" show-empty small
+                                            :sort-direction="sortDirection" stacked="md" show-empty small :busy="isBusy"
                                             @filtered="onFiltered">
-                                            <template #cell(name)="row">
-                                                {{ row.value.first }} {{ row.value.last }}
+                                            <template #table-busy>
+                                                <div class="text-center text-danger my-2">
+                                                    <b-spinner class="align-middle"></b-spinner>
+                                                    <strong>Loading...</strong>
+                                                </div>
                                             </template>
 
                                             <template #cell(actions)="row">
@@ -495,29 +439,20 @@
                                             </template>
                                         </b-table>
                                         <b-row class="justify-content-center">
-                                            <b-col class="col-3 my-1">
+                                            <b-col lg="3" class="my-1">
                                                 <b-pagination v-model="currentPage" :total-rows="totalRows"
-                                                    :per-page="perPage" align="right" size="md" class="my-0">
+                                                    :per-page="perPage" align="fill" size="md" class="my-0">
                                                 </b-pagination>
                                             </b-col>
-                                            <b-col class="col-2 my-1">
-                                                <b-form-group label="每頁顯示筆數" label-for="per-page-select" label-cols="5"
-                                                    content-cols="5" label-align-sm="right" label-size="sm"
-                                                    class="mb-0">
+                                            <b-col lg="2" class="my-1">
+                                                <b-form-group label="每頁顯示筆數" label-for="per-page-select"
+                                                    label-cols-sm="3" label-cols-lg="7" content-cols="5" label-align-sm="right"
+                                                    label-size="sm" class="mb-0">
                                                     <b-form-select id="per-page-select" v-model="perPage"
                                                         :options="pageOptions" size="sm"></b-form-select>
                                                 </b-form-group>
                                             </b-col>
-
                                         </b-row>
-                                        <!-- <div class="mt-3">
-                                            <h6 class="text-center">Center alignment</h6>
-                                            <b-pagination v-model="currentPage" :total-rows="rows" align="center"></b-pagination>
-                                          </div> -->
-
-
-
-
                                         <!-- Info modal -->
                                         <b-modal :id="infoModal.id" :title="infoModal.title" ok-only
                                             @hide="resetInfoModal">
@@ -629,9 +564,14 @@
         </div>
     </div>
 
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+        integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+        crossorigin="anonymous"></script>
+
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
 
     <!-- Core plugin JavaScript-->
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
