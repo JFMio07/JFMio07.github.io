@@ -196,7 +196,8 @@ class scrollMenu {
         let upperLimit = 0;
         // position of scroll up is negative
         // max of position of scroll down : (menuHeight - this.pageHeight)
-        let lowerLimit = (menuHeight - this.pageHeight) * -1;
+        //let lowerLimit = (menuHeight - this.pageHeight) * -1;
+        let lowerLimit = (menuHeight > this.pageHeight)?(menuHeight - this.pageHeight) * -1:0;
 
         this.ScrollingMenu(destPosition, upperLimit, lowerLimit);
     }

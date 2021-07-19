@@ -313,6 +313,10 @@ ul {
   color: #000;
 }
 
+.carousel-body > .owl-carousel{
+  z-index: 0; 
+}
+
 .owl-carousel > .owl-nav button {
   position: absolute;
   top: 0;
