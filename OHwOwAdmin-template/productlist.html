@@ -377,7 +377,7 @@
                     <div id="productlist" v-cloak>
                         <div class="row">
                             <div class="col-12">
-                                <b-tabs content-class="mt-3" fill>
+                                <b-tabs content-class="mt-3" fill v-model="tabIndex">
                                     <b-tab active>
                                         <template #title>
                                             <b-icon icon="arrow-up-square-fill" aria-hidden="true"></b-icon>
@@ -386,7 +386,7 @@
                                         <b-row>
                                             <b-col lg="9" class="my-1">
                                                 <b-button-group>
-                                                    <b-button @click="toggleBusy">
+                                                    <b-button variant="success" @click="">
                                                         <b-icon icon="plus-square" aria-hidden="true"></b-icon>
                                                         新增商品
                                                     </b-button>
@@ -409,11 +409,11 @@
                                             </b-col>
                                         </b-row>
                                         <!-- Main table element -->
-                                        <b-table :items="onSaleItems" :fields="fields" :current-page="currentPage"
+                                        <b-table :items="items" :fields="fields" :current-page="currentPage"
                                             :per-page="perPage" :filter="filter" :filter-included-fields="filterOn"
                                             :sort-by.sync="sortBy" :sort-desc.sync="sortDesc" responsive="sm"
-                                            :sort-direction="sortDirection" stacked="md" show-empty small :busy="isBusy"
-                                            @filtered="onFiltered">
+                                            :sort-direction="sortDirection" stacked="md" show-empty small
+                                            :busy="isOnSaleBusy.PageBusy" @filtered="onFiltered">
                                             <template #table-busy>
                                                 <div class="text-center text-danger my-2">
                                                     <b-spinner class="align-middle"></b-spinner>
@@ -422,31 +422,28 @@
                                             </template>
 
                                             <template #cell(productImg)="row">
-                                                <img :src="row.item.productImg" class="pdimg">
+                                                <!-- <img :src="row.item.productImg" class="pdimg"> -->
+                                                <b-img-lazy v-bind="simplifyproductimgProps" class="pdimg" :src="row.item.productImg"></b-img-lazy>
+                                            </template>
+
+                                            <template #head(date)="row">
+                                                <div>{{tabIndex==0?'上架日期':'下架日期'}}</div>
                                             </template>
 
                                             <template #cell(actions)="row">
-                                                <b-button size="sm" @click="info(row.item, row.index, $event.target)"
+                                                <b-button variant="info" size="sm" @click="info(row.item, row.index, $event.target)"
                                                     class="mr-1">
-                                                    Info modal
+                                                    商品明細
                                                 </b-button>
-                                                <b-button size="sm" @click="row.toggleDetails">
-                                                    {{ row.detailsShowing ? 'Hide' : 'Show' }} Details
+                                                <b-button size="sm" @click=""
+                                                    class="mr-1">
+                                                    商品下架
                                                 </b-button>
-                                            </template>
-
-                                            <template #row-details="row">
-                                                <b-card>
-                                                    <ul>
-                                                        <li v-for="(value, key) in row.item" :key="key">{{ key }}: {{
-                                                            value }}</li>
-                                                    </ul>
-                                                </b-card>
                                             </template>
                                         </b-table>
                                         <b-row class="">
                                             <b-col lg="6" class="ml-auto">
-                                                <b-pagination v-model="currentPage" :total-rows="totalOnSaleRows"
+                                                <b-pagination v-model="currentPage" :total-rows="totalRows"
                                                     :per-page="perPage" align="fill" size="md" class="my-0">
                                                 </b-pagination>
                                             </b-col>
@@ -462,7 +459,13 @@
                                         <!-- Info modal -->
                                         <b-modal :id="infoModal.id" :title="infoModal.title" ok-only
                                             @hide="resetInfoModal">
-                                            <pre>{{ infoModal.content }}</pre>
+                                            <!-- <template #default> -->
+                                                <div v-if="isOnSaleBusy.DetailsBusy" class="busy text-center text-danger my-2">
+                                                    <b-spinner class="align-middle"></b-spinner>
+                                                    <strong>Loading...</strong>
+                                                </div>
+                                                <pre v-if="!isOnSaleBusy.DetailsBusy">{{ infoModal.content }}</pre>
+                                            <!-- </template> -->
                                         </b-modal>
                                     </b-tab>
                                     <b-tab>
@@ -490,11 +493,11 @@
                                             </b-col>
                                         </b-row>
                                         <!-- Main table element -->
-                                        <b-table :items="nonSaleItems" :fields="fields" :current-page="currentPage"
+                                        <b-table :items="items" :fields="fields" :current-page="currentPage"
                                             :per-page="perPage" :filter="filter" :filter-included-fields="filterOn"
                                             :sort-by.sync="sortBy" :sort-desc.sync="sortDesc" responsive="sm"
-                                            :sort-direction="sortDirection" stacked="md" show-empty small :busy="isBusy"
-                                            @filtered="onFiltered">
+                                            :sort-direction="sortDirection" stacked="md" show-empty small
+                                            :busy="isNonSaleBusy.PageBusy" @filtered="onFiltered">
                                             <template #table-busy>
                                                 <div class="text-center text-danger my-2">
                                                     <b-spinner class="align-middle"></b-spinner>
@@ -506,28 +509,24 @@
                                                 <img :src="row.item.productImg" class="pdimg">
                                             </template>
 
-                                            <template #cell(actions)="row">
-                                                <b-button size="sm" @click="info(row.item, row.index, $event.target)"
-                                                    class="mr-1">
-                                                    Info modal
-                                                </b-button>
-                                                <b-button size="sm" @click="row.toggleDetails">
-                                                    {{ row.detailsShowing ? 'Hide' : 'Show' }} Details
-                                                </b-button>
+                                            <template #head(date)="row">
+                                                <div>{{tabIndex==0?'上架日期':'下架日期'}}</div>
                                             </template>
 
-                                            <template #row-details="row">
-                                                <b-card>
-                                                    <ul>
-                                                        <li v-for="(value, key) in row.item" :key="key">{{ key }}: {{
-                                                            value }}</li>
-                                                    </ul>
-                                                </b-card>
+                                            <template #cell(actions)="row">
+                                                <b-button variant="primary" size="sm" @click=""
+                                                    class="mr-1">
+                                                    商品編輯
+                                                </b-button>
+                                                <b-button variant="success" size="sm" @click="" 
+                                                    class="mr-1">
+                                                    商品上架
+                                                </b-button>
                                             </template>
                                         </b-table>
                                         <b-row class="">
                                             <b-col lg="6" class="ml-auto">
-                                                <b-pagination v-model="currentPage" :total-rows="totalNonSaleRows"
+                                                <b-pagination v-model="currentPage" :total-rows="totalRows"
                                                     :per-page="perPage" align="fill" size="md" class="my-0">
                                                 </b-pagination>
                                             </b-col>
@@ -540,12 +539,6 @@
                                                 </b-form-group>
                                             </b-col>
                                         </b-row>
-                                        <!-- Info modal -->
-                                        <b-modal :id="infoModal.id" :title="infoModal.title" ok-only
-                                            @hide="resetInfoModal">
-                                            <pre>{{ infoModal.content }}</pre>
-                                        </b-modal>
-
                                     </b-tab>
                                 </b-tabs>
 

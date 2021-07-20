@@ -8,6 +8,11 @@ table.b-table[aria-busy="true"] {
   opacity: 0.6;
 }
 
+#info-modal .busy{
+  opacity: 0.6;
+}
+
+
 /* 產品清單的圖片格式 */
 #productlist .pdimg {
   max-height: 60px;

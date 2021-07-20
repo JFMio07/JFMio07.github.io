@@ -2,9 +2,7 @@ let app = new Vue({
     el: "#productlist",
     data() {
         return {
-            isBusy: false,
-            onSaleItems: [],
-            nonSaleItems: [],
+            items: [],
             fields: [
                 { key: 'productId', label: '商品編號', sortable: true, sortDirection: 'desc' },
                 {
@@ -54,12 +52,10 @@ let app = new Vue({
                     sortDirection: 'desc'
                 },
                 {
-                    key: 'shelfDate',
-                    label: '上架日期',
+                    key: 'date',
                     formatter: (value, key, item) => {
                         if (value == null) { return "" }
                         return DateFormat(value)
-                        // return moment(value).format('YYYY-MM-DD HH:mm:ss');
                     },
                     sortable: true,
                     sortByFormatted: true,
@@ -67,7 +63,9 @@ let app = new Vue({
                 },
                 { key: 'actions', label: '商品管理' }
             ],
-            totalOnSaleRows: 1,
+            currentitem: null,
+            tabIndex: 0,
+            totalRows: 1,
             currentPage: 1,
             perPage: 5,
             pageOptions: [5, 10, 15],
@@ -81,72 +79,139 @@ let app = new Vue({
                 title: '',
                 content: ''
             },
+
+            //描述頁面是否忙碌中，EX:進行非同步作業
+            isOnSaleBusy: { PageBusy: false, DetailsBusy: false },
+            isNonSaleBusy: { PageBusy: false, DetailsBusy: false },
+
+            //url列表
             urllist: {
                 simplifyproductsOnSale: 'https://localhost:5001/api/Product/GetSimplifyProductsOnSale',
                 simplifyproductsNonSale: 'https://localhost:5001/api/Product/GetSimplifyProductsNonSale',
+                productDetails: 'https://localhost:5001/api/Product/GetProductDetails',
+            },
+
+            //產品精簡清單圖片延遲載入的參數
+            simplifyproductimgProps: {
+                blank: true,
+                blankColor: '#bbb',
+                height: 60,
             }
         }
     },
     computed: {
-        sortOptions() {
-            // Create an options list from our fields
-            return this.fields
-                .filter(f => f.sortable)
-                .map(f => {
-                    return { text: f.label, value: f.key }
-                })
-        }
+
     },
     watch: {
-        onSaleItems: function () {
-            this.totalOnSaleRows = this.onSaleItems.length
+        items: function () {
+            this.totalRows = this.items.length
         },
+        tabIndex: function () {
+            switch (this.tabIndex) {
+                case 0:
+                    this.OnSalePage();
+                    break;
+                case 1:
+                    this.NonSalePage();
+                    break;
+                default:
+                    break;
+            }
+        }
     },
     created() {
-        this.getSimplifyProductssOnSale(this.urllist.simplifyproductsOnSale);
+        this.tabIndex = 0;
+        this.OnSalePage();
     },
     mounted() {
-       
+
     },
     methods: {
-        getSimplifyProductssOnSale(uri) {
-            // console.log(uri);
+        SetPageDefault() {
+            this.items = [];
+            this.totalRows = 1;
+            this.currentPage = 1;
+            this.perPage = 5;
+            this.sortBy = '';
+            this.sortDesc = false;
+            this.filter = null;
+        },
+        OnSalePage() {
+            // console.log('onsalepage');
+            this.SetPageDefault();
+            this.getSimplifyProducts(this.urllist.simplifyproductsOnSale, this.isOnSaleBusy);
+        },
+        NonSalePage() {
+            // console.log('Nonsalepage');
+            this.SetPageDefault();
+            this.getSimplifyProducts(this.urllist.simplifyproductsNonSale, this.isNonSaleBusy);
+        },
+        //將API回傳的產品簡化版清單的格式轉成Vue物件所需的格式
+        SimplifyProductDataProc(raw) {
+            return raw.map((item, index) => {
+                return {
+                    productId: item.productID,
+                    productName: item.productName,
+                    // productImg: item.imagePath,
+                    productImg: './Assets/image/book-sm-pic.jpg',
+                    authorName: item.authorName,
+                    publisherName: item.publisherName,
+                    mainCategory: item.mainCategoryName,
+                    subCategory: item.subCategoryName,
+                    fixedPrice: item.fixedPrice,
+                    date: item.shelfDate
+                }
+            });
+        },
+        //取得產品簡化版清單
+        getSimplifyProducts(uri, busyobj) {
+            busyobj.PageBusy = true;
             let cfg = {
                 methods: 'get',
                 headers: { 'Content-type': 'application/json' },
                 url: uri
             };
-
             axios(cfg)
                 .then(res => {
-                    console.log(res);
+                    // console.log(res);
                     if (Array.isArray(res.data.result) && res.status == 200) {
-                        this.isBusy = false;
-                        this.onSaleItems = res.data.result.map((item, index) => {
-                            return {
-                                productId: item.productID,
-                                productName: item.productName,
-                                // productImg: item.imagePath,
-                                productImg: './Assets/image/book-sm-pic.jpg',
-                                authorName: item.authorName,
-                                publisherName: item.publisherName,
-                                mainCategory: item.mainCategoryName,
-                                subCategory: item.subCategoryName,
-                                fixedPrice: item.fixedPrice,
-                                shelfDate: item.shelfDate
-                            }
-                        });
+
+                        this.items = this.SimplifyProductDataProc(res.data.result);
                     }
                 })
                 .catch(err => {
                     console.log(err);
+                })
+                .finally(() => {
+                    busyobj.PageBusy = false;
                 });
-            this.isBusy = true;
         },
-        info(item, index, button) {
-            this.infoModal.title = `Row index: ${index}`
-            this.infoModal.content = JSON.stringify(item, null, 2)
-            this.$root.$emit('bv::show::modal', this.infoModal.id, button)
+        //取得產品明細
+        getProductDetails(uri, id) {
+            let cfg = {
+                methods: 'get',
+                headers: { 'Content-type': 'application/json' },
+                url: `${uri}/${id}`
+            };
+
+            return axios(cfg);
+        },
+        async info(item, index, button) {
+            try {
+                this.isOnSaleBusy.DetailsBusy = true;
+
+                this.infoModal.title = `Row index: ${index}`
+                this.$root.$emit('bv::show::modal', this.infoModal.id, button);
+                let response = await this.getProductDetails(this.urllist.productDetails, item.productId);
+                
+                if (response.status == 200) {
+                    this.infoModal.content = JSON.stringify(response.data.result, null, 2);
+                }
+            } catch (err) {
+                console.log(err);
+            } finally {
+                this.isOnSaleBusy.DetailsBusy = false;
+            }
         },
         resetInfoModal() {
             this.infoModal.title = ''
@@ -154,11 +219,11 @@ let app = new Vue({
         },
         onFiltered(filteredItems) {
             // Trigger pagination to update the number of buttons/pages due to filtering
-            this.totalOnSaleRows = filteredItems.length
+            this.totalRows = filteredItems.length
             this.currentPage = 1
         },
         toggleBusy() {
-            this.isBusy = !this.isBusy
+            this.isOnSaleBusy.PageBusy = !this.isOnSaleBusy.PageBusy;
         }
     }
 });
