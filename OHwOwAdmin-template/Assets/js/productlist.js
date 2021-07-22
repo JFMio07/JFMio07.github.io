@@ -89,14 +89,23 @@ let app = new Vue({
                 simplifyproductsOnSale: 'https://localhost:5001/api/Product/GetSimplifyProductsOnSale',
                 simplifyproductsNonSale: 'https://localhost:5001/api/Product/GetSimplifyProductsNonSale',
                 productDetails: 'https://localhost:5001/api/Product/GetProductDetails',
+                UpdateProductSalesStatus: 'https://localhost:5001/api/Product/UpdateProductSalesStatus',
             },
 
-            //產品精簡清單圖片延遲載入的參數
+            //商品精簡清單圖片延遲載入的參數
             simplifyproductimgProps: {
                 blank: true,
                 blankColor: '#bbb',
                 height: 60,
+            },
+
+            //商品上下架MessageBox參數
+            SalesConfirmBoxProps: {
+                onSale: { message: '請再次確認是否要上架商品', data: { SaleStatus: true } },
+                nonSale: { message: '請再次確認是否要下架商品', data: { SaleStatus: false } }
             }
+
+
         }
     },
     computed: {
@@ -120,13 +129,32 @@ let app = new Vue({
         }
     },
     created() {
+        //初始化頁面
         this.tabIndex = 0;
         this.OnSalePage();
+
+
+
     },
     mounted() {
 
     },
     methods: {
+        SetProductOnSales(id) {
+            let data = {
+                ID: id,
+                SaleStatus: true,
+            }
+            this.UpdateProductSalesStatus(this.urllist.UpdateProductSalesStatus, data)
+        },
+        SetProductNonSales(id) {
+            let data = {
+                ID: id,
+                SaleStatus: false,
+            }
+            this.UpdateProductSalesStatus(this.urllist.UpdateProductSalesStatus, data)
+        },
+
         SetPageDefault() {
             this.items = [];
             this.totalRows = 1;
@@ -146,7 +174,7 @@ let app = new Vue({
             this.SetPageDefault();
             this.getSimplifyProducts(this.urllist.simplifyproductsNonSale, this.isNonSaleBusy);
         },
-        //將API回傳的產品簡化版清單的格式轉成Vue物件所需的格式
+        //將API回傳的商品簡化版清單的格式轉成Vue物件所需的格式
         SimplifyProductDataProc(raw) {
             return raw.map((item, index) => {
                 return {
@@ -163,20 +191,26 @@ let app = new Vue({
                 }
             });
         },
-        //取得產品簡化版清單
+        //取得商品簡化版清單
         getSimplifyProducts(uri, busyobj) {
             busyobj.PageBusy = true;
             let cfg = {
-                methods: 'get',
+                method: 'get',
                 headers: { 'Content-type': 'application/json' },
                 url: uri
             };
             axios(cfg)
                 .then(res => {
-                    // console.log(res);
                     if (Array.isArray(res.data.result) && res.status == 200) {
 
-                        this.items = this.SimplifyProductDataProc(res.data.result);
+                        switch (res.data.status) {
+                            case 0:
+                                this.items = this.SimplifyProductDataProc(res.data.result);
+                                break;
+                            default:
+                                console.log(res);
+                                break;
+                        }
                     }
                 })
                 .catch(err => {
@@ -186,10 +220,10 @@ let app = new Vue({
                     busyobj.PageBusy = false;
                 });
         },
-        //取得產品明細
+        //取得商品明細
         getProductDetails(uri, id) {
             let cfg = {
-                methods: 'get',
+                method: 'get',
                 headers: { 'Content-type': 'application/json' },
                 url: `${uri}/${id}`
             };
@@ -203,7 +237,58 @@ let app = new Vue({
                 this.infoModal.title = `Row index: ${index}`
                 this.$root.$emit('bv::show::modal', this.infoModal.id, button);
                 let response = await this.getProductDetails(this.urllist.productDetails, item.productId);
-                
+
+                if (response.status == 200) {
+                    this.infoModal.content = JSON.stringify(response.data.result, null, 2);
+                }
+            } catch (err) {
+                console.log(err);
+            } finally {
+                this.isOnSaleBusy.DetailsBusy = false;
+            }
+        },
+        //更新商品銷售狀態
+        UpdateProductSalesStatus(uri, data) {
+            let cfg = {
+                method: 'put',
+                headers: { 'Content-type': 'application/json' },
+                data: {
+                    ID: data.ID,
+                    SaleStatus: data.SaleStatus
+                },
+                url: uri
+            };
+
+            axios(cfg)
+                .then(res => {
+                    if (res.status == 200) {
+                        switch (res.data.status) {
+                            case 0:
+                                let index = this.items.findIndex(x => x.productId === data.ID)
+                                if (index >= 0) {
+                                    this.items.splice(index, 1);
+                                }
+                                break;
+                            default:
+                                console.log(res);
+                                break;
+                        }
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+                .finally(() => {
+                });
+        },
+        async info(item, index, button) {
+            try {
+                this.isOnSaleBusy.DetailsBusy = true;
+
+                this.infoModal.title = `Row index: ${index}`
+                this.$root.$emit('bv::show::modal', this.infoModal.id, button);
+                let response = await this.getProductDetails(this.urllist.productDetails, item.productId);
+
                 if (response.status == 200) {
                     this.infoModal.content = JSON.stringify(response.data.result, null, 2);
                 }
@@ -224,6 +309,34 @@ let app = new Vue({
         },
         toggleBusy() {
             this.isOnSaleBusy.PageBusy = !this.isOnSaleBusy.PageBusy;
+        },
+        ShowUpdateSaleConfirm(productId, cfg) {
+            this.$bvModal.msgBoxConfirm(cfg.message, {
+                title: '操作確認',
+                size: 'md',
+                buttonSize: 'md',
+                okVariant: 'warning ',
+                okTitle: '確認',
+                cancelTitle: '取消',
+                footerClass: 'p-2',
+                hideHeaderClose: true,
+                centered: true,
+                noCloseOnEsc: true,
+                noCloseOnBackdrop: true
+            })
+                .then(value => {
+                    if (value) {
+                        let data = {
+                            ID: productId,
+                            SaleStatus: cfg.data.SaleStatus,
+                        }
+                        this.UpdateProductSalesStatus(this.urllist.UpdateProductSalesStatus, data)
+                    }
+                })
+                .catch(err => {
+                    // An error occurred
+                })
         }
     }
 });
+

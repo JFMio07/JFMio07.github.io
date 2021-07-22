@@ -7,7 +7,7 @@ function CurrencyFormat(num) {
 
 //日期時間格式化
 function DateFormat(value, format) {
-    return moment(value).format(format || 'YYYY-MM-DD');
+    return moment(value).format(format || 'YYYY/MM/DD');
 }
 
 //超過指定內容長度以...取代

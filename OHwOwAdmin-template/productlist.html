@@ -386,7 +386,7 @@
                                         <b-row>
                                             <b-col lg="9" class="my-1">
                                                 <b-button-group>
-                                                    <b-button variant="success" @click="">
+                                                    <b-button variant="success" v-on:click="">
                                                         <b-icon icon="plus-square" aria-hidden="true"></b-icon>
                                                         新增商品
                                                     </b-button>
@@ -400,7 +400,7 @@
                                                             placeholder="請輸入關鍵字"></b-form-input>
 
                                                         <b-input-group-append>
-                                                            <b-button :disabled="!filter" @click="filter = ''">Clear
+                                                            <b-button :disabled="!filter" v-on:click="filter = ''">Clear
                                                             </b-button>
                                                         </b-input-group-append>
                                                     </b-input-group>
@@ -409,11 +409,11 @@
                                             </b-col>
                                         </b-row>
                                         <!-- Main table element -->
-                                        <b-table :items="items" :fields="fields" :current-page="currentPage"
+                                        <b-table v-if="tabIndex==0" :items="items" :fields="fields" :current-page="currentPage"
                                             :per-page="perPage" :filter="filter" :filter-included-fields="filterOn"
                                             :sort-by.sync="sortBy" :sort-desc.sync="sortDesc" responsive="sm"
                                             :sort-direction="sortDirection" stacked="md" show-empty small
-                                            :busy="isOnSaleBusy.PageBusy" @filtered="onFiltered">
+                                            :busy="isOnSaleBusy.PageBusy" v-on:filtered="onFiltered">
                                             <template #table-busy>
                                                 <div class="text-center text-danger my-2">
                                                     <b-spinner class="align-middle"></b-spinner>
@@ -423,7 +423,8 @@
 
                                             <template #cell(productImg)="row">
                                                 <!-- <img :src="row.item.productImg" class="pdimg"> -->
-                                                <b-img-lazy v-bind="simplifyproductimgProps" class="pdimg" :src="row.item.productImg"></b-img-lazy>
+                                                <b-img-lazy v-bind="simplifyproductimgProps" class="pdimg"
+                                                    :src="row.item.productImg"></b-img-lazy>
                                             </template>
 
                                             <template #head(date)="row">
@@ -431,11 +432,12 @@
                                             </template>
 
                                             <template #cell(actions)="row">
-                                                <b-button variant="info" size="sm" @click="info(row.item, row.index, $event.target)"
-                                                    class="mr-1">
+                                                <b-button variant="info" size="sm"
+                                                    v-on:click="info(row.item, row.index, $event.target)" class="mr-1">
                                                     商品明細
                                                 </b-button>
-                                                <b-button size="sm" @click=""
+                                                <b-button size="sm"
+                                                    v-on:click="ShowUpdateSaleConfirm(row.item.productId,SalesConfirmBoxProps.nonSale)"
                                                     class="mr-1">
                                                     商品下架
                                                 </b-button>
@@ -458,13 +460,14 @@
                                         </b-row>
                                         <!-- Info modal -->
                                         <b-modal :id="infoModal.id" :title="infoModal.title" ok-only
-                                            @hide="resetInfoModal">
+                                            v-on:hide="resetInfoModal">
                                             <!-- <template #default> -->
-                                                <div v-if="isOnSaleBusy.DetailsBusy" class="busy text-center text-danger my-2">
-                                                    <b-spinner class="align-middle"></b-spinner>
-                                                    <strong>Loading...</strong>
-                                                </div>
-                                                <pre v-if="!isOnSaleBusy.DetailsBusy">{{ infoModal.content }}</pre>
+                                            <div v-if="isOnSaleBusy.DetailsBusy"
+                                                class="busy text-center text-danger my-2">
+                                                <b-spinner class="align-middle"></b-spinner>
+                                                <strong>Loading...</strong>
+                                            </div>
+                                            <pre v-if="!isOnSaleBusy.DetailsBusy">{{ infoModal.content }}</pre>
                                             <!-- </template> -->
                                         </b-modal>
                                     </b-tab>
@@ -484,7 +487,7 @@
                                                             placeholder="請輸入關鍵字"></b-form-input>
 
                                                         <b-input-group-append>
-                                                            <b-button :disabled="!filter" @click="filter = ''">Clear
+                                                            <b-button :disabled="!filter" v-on:click="filter = ''">Clear
                                                             </b-button>
                                                         </b-input-group-append>
                                                     </b-input-group>
@@ -493,11 +496,11 @@
                                             </b-col>
                                         </b-row>
                                         <!-- Main table element -->
-                                        <b-table :items="items" :fields="fields" :current-page="currentPage"
+                                        <b-table v-if="tabIndex==1" :items="items" :fields="fields" :current-page="currentPage"
                                             :per-page="perPage" :filter="filter" :filter-included-fields="filterOn"
                                             :sort-by.sync="sortBy" :sort-desc.sync="sortDesc" responsive="sm"
                                             :sort-direction="sortDirection" stacked="md" show-empty small
-                                            :busy="isNonSaleBusy.PageBusy" @filtered="onFiltered">
+                                            :busy="isNonSaleBusy.PageBusy" v-on:filtered="onFiltered">
                                             <template #table-busy>
                                                 <div class="text-center text-danger my-2">
                                                     <b-spinner class="align-middle"></b-spinner>
@@ -514,11 +517,11 @@
                                             </template>
 
                                             <template #cell(actions)="row">
-                                                <b-button variant="primary" size="sm" @click=""
-                                                    class="mr-1">
+                                                <b-button variant="primary" size="sm" v-on:click="" class="mr-1">
                                                     商品編輯
                                                 </b-button>
-                                                <b-button variant="success" size="sm" @click="" 
+                                                <b-button variant="success" size="sm"
+                                                    v-on:click="ShowUpdateSaleConfirm(row.item.productId,SalesConfirmBoxProps.onSale)"
                                                     class="mr-1">
                                                     商品上架
                                                 </b-button>
@@ -638,17 +641,27 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
+    <!-- <script src="vendor/jquery/jquery.min.js"></script> -->
+
     <!-- <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
+
     <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous"></script> -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
-        crossorigin="anonymous"></script> -->
+        crossorigin="anonymous"></script>
 
     <!-- Core plugin JavaScript-->
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"
+        integrity="sha512-0QbL0ph8Tc8g5bLhfVzSqxe9GERORsKhIn1IrpxDAgUsbBGz/V7iSav2zzW325XGd1OMLdL4UiqRJj702IeqnQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
 
     <!-- Axios plugin -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
