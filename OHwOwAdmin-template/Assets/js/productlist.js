@@ -132,29 +132,12 @@ let app = new Vue({
         //初始化頁面
         this.tabIndex = 0;
         this.OnSalePage();
-
-
-
     },
     mounted() {
 
     },
     methods: {
-        SetProductOnSales(id) {
-            let data = {
-                ID: id,
-                SaleStatus: true,
-            }
-            this.UpdateProductSalesStatus(this.urllist.UpdateProductSalesStatus, data)
-        },
-        SetProductNonSales(id) {
-            let data = {
-                ID: id,
-                SaleStatus: false,
-            }
-            this.UpdateProductSalesStatus(this.urllist.UpdateProductSalesStatus, data)
-        },
-
+        //設定頁面預設狀態
         SetPageDefault() {
             this.items = [];
             this.totalRows = 1;
@@ -164,11 +147,13 @@ let app = new Vue({
             this.sortDesc = false;
             this.filter = null;
         },
+        //切換上架商品頁
         OnSalePage() {
             // console.log('onsalepage');
             this.SetPageDefault();
             this.getSimplifyProducts(this.urllist.simplifyproductsOnSale, this.isOnSaleBusy);
         },
+        //切換下架商品頁
         NonSalePage() {
             // console.log('Nonsalepage');
             this.SetPageDefault();
@@ -230,6 +215,60 @@ let app = new Vue({
 
             return axios(cfg);
         },
+        //更新商品銷售狀態
+        UpdateProductSalesStatus(uri, data) {
+            let cfg = {
+                method: 'put',
+                headers: { 'Content-type': 'application/json' },
+                data: {
+                    ID: data.ID,
+                    SaleStatus: data.SaleStatus
+                },
+                url: uri
+            };
+            let successMsg = data.SaleStatus ? '已成功將商品上架' : '已成功將商品下架';
+            let errorMsg = data.SaleStatus ? '商品上架請求失敗' : '商品下架請求失敗';
+
+            axios(cfg)
+                .then(res => {
+                    if (res.status == 200) {
+                        switch (res.data.status) {
+                            case 0:
+                                let index = this.items.findIndex(x => x.productId === data.ID)
+                                if (index >= 0) {
+                                    this.$bvToast.toast(successMsg, {
+                                        title: `商品操作成功`,
+                                        variant: "success",
+                                        autoHideDelay: 1200,
+                                        appendToast: true
+                                    });
+                                    this.items.splice(index, 1);
+                                }
+                                break;
+                            default:
+                                console.log(res);
+                                this.$bvToast.toast(errorMsg, {
+                                    title: `商品操作失敗`,
+                                    variant: "danger",
+                                    autoHideDelay: 1200,
+                                    appendToast: true
+                                });
+                                break;
+                        }
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                    this.$bvToast.toast(errorMsg, {
+                        title: `商品操作失敗`,
+                        variant: "danger",
+                        autoHideDelay: 1200,
+                        appendToast: true
+                    });
+                })
+                .finally(() => {
+                });
+        },
         async info(item, index, button) {
             try {
                 this.isOnSaleBusy.DetailsBusy = true;
@@ -246,40 +285,6 @@ let app = new Vue({
             } finally {
                 this.isOnSaleBusy.DetailsBusy = false;
             }
-        },
-        //更新商品銷售狀態
-        UpdateProductSalesStatus(uri, data) {
-            let cfg = {
-                method: 'put',
-                headers: { 'Content-type': 'application/json' },
-                data: {
-                    ID: data.ID,
-                    SaleStatus: data.SaleStatus
-                },
-                url: uri
-            };
-
-            axios(cfg)
-                .then(res => {
-                    if (res.status == 200) {
-                        switch (res.data.status) {
-                            case 0:
-                                let index = this.items.findIndex(x => x.productId === data.ID)
-                                if (index >= 0) {
-                                    this.items.splice(index, 1);
-                                }
-                                break;
-                            default:
-                                console.log(res);
-                                break;
-                        }
-                    }
-                })
-                .catch(err => {
-                    console.log(err);
-                })
-                .finally(() => {
-                });
         },
         async info(item, index, button) {
             try {
@@ -306,10 +311,8 @@ let app = new Vue({
             // Trigger pagination to update the number of buttons/pages due to filtering
             this.totalRows = filteredItems.length
             this.currentPage = 1
-        },
-        toggleBusy() {
-            this.isOnSaleBusy.PageBusy = !this.isOnSaleBusy.PageBusy;
-        },
+        },       
+        //顯示上下架確認視窗
         ShowUpdateSaleConfirm(productId, cfg) {
             this.$bvModal.msgBoxConfirm(cfg.message, {
                 title: '操作確認',
