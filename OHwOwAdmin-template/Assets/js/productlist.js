@@ -53,6 +53,7 @@ let app = new Vue({
                 },
                 {
                     key: 'date',
+                    label:'',
                     formatter: (value, key, item) => {
                         if (value == null) { return "" }
                         return DateFormat(value)
@@ -74,8 +75,8 @@ let app = new Vue({
             sortDirection: 'asc',
             filter: null,
             filterOn: [],
-            infoModal: {
-                id: 'info-modal',
+            productDetailsModel: {
+                id: 'product-details-modal',
                 title: '',
                 content: ''
             },
@@ -96,7 +97,12 @@ let app = new Vue({
             simplifyproductimgProps: {
                 blank: true,
                 blankColor: '#bbb',
-                height: 60,
+            },
+
+            //商品明細圖片延遲載入的參數
+            productDetailsimgProps:{
+                blank: true,
+                blankColor: '#bbb',
             },
 
             //商品上下架MessageBox參數
@@ -151,12 +157,14 @@ let app = new Vue({
         OnSalePage() {
             // console.log('onsalepage');
             this.SetPageDefault();
+            this.fields.filter(x=>x.key=='date')[0].label='上架日期';
             this.getSimplifyProducts(this.urllist.simplifyproductsOnSale, this.isOnSaleBusy);
         },
         //切換下架商品頁
         NonSalePage() {
             // console.log('Nonsalepage');
             this.SetPageDefault();
+            this.fields.filter(x=>x.key=='date')[0].label='下架日期';
             this.getSimplifyProducts(this.urllist.simplifyproductsNonSale, this.isNonSaleBusy);
         },
         //將API回傳的商品簡化版清單的格式轉成Vue物件所需的格式
@@ -269,16 +277,36 @@ let app = new Vue({
                 .finally(() => {
                 });
         },
+        // async info(item, index, button) {
+        //     try {
+        //         this.isOnSaleBusy.DetailsBusy = true;
+
+        //         this.productDetailsModel.title = `Row index: ${index}`
+        //         this.$root.$emit('bv::show::modal', this.productDetailsModel.id, button);
+        //         let response = await this.getProductDetails(this.urllist.productDetails, item.productId);
+
+        //         if (response.status == 200) {
+        //             this.productDetailsModel.content = JSON.stringify(response.data.result, null, 2);
+        //         }
+        //     } catch (err) {
+        //         console.log(err);
+        //     } finally {
+        //         this.isOnSaleBusy.DetailsBusy = false;
+        //     }
+        // },
         async info(item, index, button) {
             try {
                 this.isOnSaleBusy.DetailsBusy = true;
 
-                this.infoModal.title = `Row index: ${index}`
-                this.$root.$emit('bv::show::modal', this.infoModal.id, button);
+                this.productDetailsModel.title = `Row index: ${index}`
+                this.$root.$emit('bv::show::modal', this.productDetailsModel.id, button);
                 let response = await this.getProductDetails(this.urllist.productDetails, item.productId);
 
                 if (response.status == 200) {
-                    this.infoModal.content = JSON.stringify(response.data.result, null, 2);
+                    // this.productDetailsModel.content = JSON.stringify(response.data.result, null, 2);
+                    this.productDetailsModel.content = response.data.result;
+                    this.productDetailsModel.content.imagePath = './Assets/image/book-xl-pic.jpg';
+
                 }
             } catch (err) {
                 console.log(err);
@@ -286,26 +314,9 @@ let app = new Vue({
                 this.isOnSaleBusy.DetailsBusy = false;
             }
         },
-        async info(item, index, button) {
-            try {
-                this.isOnSaleBusy.DetailsBusy = true;
-
-                this.infoModal.title = `Row index: ${index}`
-                this.$root.$emit('bv::show::modal', this.infoModal.id, button);
-                let response = await this.getProductDetails(this.urllist.productDetails, item.productId);
-
-                if (response.status == 200) {
-                    this.infoModal.content = JSON.stringify(response.data.result, null, 2);
-                }
-            } catch (err) {
-                console.log(err);
-            } finally {
-                this.isOnSaleBusy.DetailsBusy = false;
-            }
-        },
-        resetInfoModal() {
-            this.infoModal.title = ''
-            this.infoModal.content = ''
+        resetProductDetailsModel() {
+            this.productDetailsModel.title = ''
+            this.productDetailsModel.content = ''
         },
         onFiltered(filteredItems) {
             // Trigger pagination to update the number of buttons/pages due to filtering

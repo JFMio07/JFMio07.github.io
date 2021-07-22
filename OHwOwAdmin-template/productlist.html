@@ -409,11 +409,12 @@
                                             </b-col>
                                         </b-row>
                                         <!-- Main table element -->
-                                        <b-table v-if="tabIndex==0" :items="items" :fields="fields" :current-page="currentPage"
-                                            :per-page="perPage" :filter="filter" :filter-included-fields="filterOn"
-                                            :sort-by.sync="sortBy" :sort-desc.sync="sortDesc" responsive="sm"
-                                            :sort-direction="sortDirection" stacked="md" show-empty small
-                                            :busy="isOnSaleBusy.PageBusy" v-on:filtered="onFiltered">
+                                        <b-table v-if="tabIndex==0" :items="items" :fields="fields"
+                                            :current-page="currentPage" :per-page="perPage" :filter="filter"
+                                            :filter-included-fields="filterOn" :sort-by.sync="sortBy"
+                                            :sort-desc.sync="sortDesc" responsive="sm" :sort-direction="sortDirection"
+                                            stacked="md" show-empty small :busy="isOnSaleBusy.PageBusy"
+                                            v-on:filtered="onFiltered">
                                             <template #table-busy>
                                                 <div class="text-center text-danger my-2">
                                                     <b-spinner class="align-middle"></b-spinner>
@@ -423,12 +424,8 @@
 
                                             <template #cell(productImg)="row">
                                                 <!-- <img :src="row.item.productImg" class="pdimg"> -->
-                                                <b-img-lazy v-bind="simplifyproductimgProps" class="pdimg"
+                                                <b-img-lazy v-bind="simplifyproductimgProps" class="pdlistimg"
                                                     :src="row.item.productImg"></b-img-lazy>
-                                            </template>
-
-                                            <template #head(date)="row">
-                                                <div>{{tabIndex==0?'上架日期':'下架日期'}}</div>
                                             </template>
 
                                             <template #cell(actions)="row">
@@ -459,15 +456,42 @@
                                             </b-col>
                                         </b-row>
                                         <!-- Info modal -->
-                                        <b-modal :id="infoModal.id" :title="infoModal.title" ok-only
-                                            v-on:hide="resetInfoModal">
+                                        <b-modal :id="productDetailsModel.id" :title="productDetailsModel.title" ok-only
+                                            v-on:hide="resetProductDetailsModel" scrollable>
                                             <!-- <template #default> -->
                                             <div v-if="isOnSaleBusy.DetailsBusy"
                                                 class="busy text-center text-danger my-2">
                                                 <b-spinner class="align-middle"></b-spinner>
                                                 <strong>Loading...</strong>
                                             </div>
-                                            <pre v-if="!isOnSaleBusy.DetailsBusy">{{ infoModal.content }}</pre>
+                                            <pre
+                                                v-if="!isOnSaleBusy.DetailsBusy">{{ productDetailsModel.content }}</pre>
+                                            <div v-if="!isOnSaleBusy.DetailsBusy">
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <b-img-lazy v-bind="productDetailsimgProps"
+                                                            :src="productDetailsModel.content.imagePath"
+                                                            class="pddetailsimg"></b-img-lazy>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <h2>標題1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+                                                        </h2>
+                                                        <h2>商品ID</h2>
+                                                        <p>作者</p>
+                                                        <p>出版社</p>
+                                                        <p>分類</p>
+                                                        <p>系列作</p>
+                                                        <p>語言</p>
+                                                        <p>ISBN</p>
+                                                        <p>定價</p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <p>簡介</p>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <!-- </template> -->
                                         </b-modal>
                                     </b-tab>
@@ -496,11 +520,12 @@
                                             </b-col>
                                         </b-row>
                                         <!-- Main table element -->
-                                        <b-table v-if="tabIndex==1" :items="items" :fields="fields" :current-page="currentPage"
-                                            :per-page="perPage" :filter="filter" :filter-included-fields="filterOn"
-                                            :sort-by.sync="sortBy" :sort-desc.sync="sortDesc" responsive="sm"
-                                            :sort-direction="sortDirection" stacked="md" show-empty small
-                                            :busy="isNonSaleBusy.PageBusy" v-on:filtered="onFiltered">
+                                        <b-table v-if="tabIndex==1" :items="items" :fields="fields"
+                                            :current-page="currentPage" :per-page="perPage" :filter="filter"
+                                            :filter-included-fields="filterOn" :sort-by.sync="sortBy"
+                                            :sort-desc.sync="sortDesc" responsive="sm" :sort-direction="sortDirection"
+                                            stacked="md" show-empty small :busy="isNonSaleBusy.PageBusy"
+                                            v-on:filtered="onFiltered">
                                             <template #table-busy>
                                                 <div class="text-center text-danger my-2">
                                                     <b-spinner class="align-middle"></b-spinner>
@@ -509,11 +534,8 @@
                                             </template>
 
                                             <template #cell(productImg)="row">
-                                                <img :src="row.item.productImg" class="pdimg">
-                                            </template>
-
-                                            <template #head(date)="row">
-                                                <div>{{tabIndex==0?'上架日期':'下架日期'}}</div>
+                                                <b-img-lazy v-bind="simplifyproductimgProps" class="pdlistimg"
+                                                    :src="row.item.productImg"></b-img-lazy>
                                             </template>
 
                                             <template #cell(actions)="row">
@@ -544,55 +566,9 @@
                                         </b-row>
                                     </b-tab>
                                 </b-tabs>
-
-
-
                             </div>
                         </div>
                     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 </div>
                 <!-- /.container-fluid -->
 
