@@ -423,7 +423,6 @@
                                             </template>
 
                                             <template #cell(productImg)="row">
-                                                <!-- <img :src="row.item.productImg" class="pdimg"> -->
                                                 <b-img-lazy v-bind="simplifyproductimgProps" class="pdlistimg"
                                                     :src="row.item.productImg"></b-img-lazy>
                                             </template>
@@ -456,7 +455,8 @@
                                             </b-col>
                                         </b-row>
                                         <!-- Info modal -->
-                                        <b-modal :id="productDetailsModel.id" :title="productDetailsModel.title" ok-only
+                                        <b-modal :id="productDetailsModel.id" :title="productDetailsModel.title"  header-bg-variant="info"
+                                            header-text-variant="light" hide-footer
                                             v-on:hide="resetProductDetailsModel" scrollable>
                                             <!-- <template #default> -->
                                             <div v-if="isOnSaleBusy.DetailsBusy"
@@ -464,33 +464,18 @@
                                                 <b-spinner class="align-middle"></b-spinner>
                                                 <strong>Loading...</strong>
                                             </div>
-                                            <pre
-                                                v-if="!isOnSaleBusy.DetailsBusy">{{ productDetailsModel.content }}</pre>
-                                            <div v-if="!isOnSaleBusy.DetailsBusy">
-                                                <div class="row">
-                                                    <div class="col-6">
-                                                        <b-img-lazy v-bind="productDetailsimgProps"
-                                                            :src="productDetailsModel.content.imagePath"
-                                                            class="pddetailsimg"></b-img-lazy>
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <h2>標題1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
-                                                        </h2>
-                                                        <h2>商品ID</h2>
-                                                        <p>作者</p>
-                                                        <p>出版社</p>
-                                                        <p>分類</p>
-                                                        <p>系列作</p>
-                                                        <p>語言</p>
-                                                        <p>ISBN</p>
-                                                        <p>定價</p>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-12">
-                                                        <p>簡介</p>
-                                                    </div>
-                                                </div>
+                                            <div class="details-body" v-if="!isOnSaleBusy.DetailsBusy">
+                                                <div class="row">                                                   
+                                                    <div v-for="item in productDetailsModel.fields" class="col-12 field">
+                                                        <h2 class="title">{{item.title}}</h2>
+                                                        <div v-if="item.key==='imagePath'" class="d-flex justify-content-center">
+                                                            <b-img-lazy v-bind="productDetailsimgProps"
+                                                                :src="item.value"
+                                                                class="pddetailsimg"></b-img-lazy>                                                        
+                                                        </div>
+                                                        <p v-else class="content">{{item.value}}</p>
+                                                    </div>                                                    
+                                                </div>                                               
                                             </div>
                                             <!-- </template> -->
                                         </b-modal>

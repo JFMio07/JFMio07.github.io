@@ -53,7 +53,7 @@ let app = new Vue({
                 },
                 {
                     key: 'date',
-                    label:'',
+                    label: '',
                     formatter: (value, key, item) => {
                         if (value == null) { return "" }
                         return DateFormat(value)
@@ -78,7 +78,19 @@ let app = new Vue({
             productDetailsModel: {
                 id: 'product-details-modal',
                 title: '',
-                content: ''
+                content: '',
+                fields: [
+                    { key: 'imagePath', title: '商品圖片', value: '' },
+                    { key: 'productName', title: '商品名稱', value: '' },
+                    { key: 'authorName', title: '作者', value: '' },
+                    { key: 'publisherName', title: '出版社', value: '' },
+                    { key: 'categoryName', title: '分類', value: '' },
+                    { key: 'seriesName', title: '系列作', value: '' },
+                    { key: 'language', title: '語言', value: '' },
+                    { key: 'isbn', title: 'ISBN', value: '' },
+                    { key: 'fixedPrice', title: '定價', value: '' },
+                    { key: 'description', title: '簡介', value: '' },
+                ]
             },
 
             //描述頁面是否忙碌中，EX:進行非同步作業
@@ -86,6 +98,7 @@ let app = new Vue({
             isNonSaleBusy: { PageBusy: false, DetailsBusy: false },
 
             //url列表
+            //for live server
             urllist: {
                 simplifyproductsOnSale: 'https://localhost:5001/api/Product/GetSimplifyProductsOnSale',
                 simplifyproductsNonSale: 'https://localhost:5001/api/Product/GetSimplifyProductsNonSale',
@@ -97,12 +110,15 @@ let app = new Vue({
             simplifyproductimgProps: {
                 blank: true,
                 blankColor: '#bbb',
+                height: 60
             },
 
             //商品明細圖片延遲載入的參數
-            productDetailsimgProps:{
+            productDetailsimgProps: {
                 blank: true,
                 blankColor: '#bbb',
+                width: 240,
+                height: 340
             },
 
             //商品上下架MessageBox參數
@@ -157,14 +173,14 @@ let app = new Vue({
         OnSalePage() {
             // console.log('onsalepage');
             this.SetPageDefault();
-            this.fields.filter(x=>x.key=='date')[0].label='上架日期';
+            this.fields.filter(x => x.key == 'date')[0].label = '上架日期';
             this.getSimplifyProducts(this.urllist.simplifyproductsOnSale, this.isOnSaleBusy);
         },
         //切換下架商品頁
         NonSalePage() {
             // console.log('Nonsalepage');
             this.SetPageDefault();
-            this.fields.filter(x=>x.key=='date')[0].label='下架日期';
+            this.fields.filter(x => x.key == 'date')[0].label = '下架日期';
             this.getSimplifyProducts(this.urllist.simplifyproductsNonSale, this.isNonSaleBusy);
         },
         //將API回傳的商品簡化版清單的格式轉成Vue物件所需的格式
@@ -298,15 +314,30 @@ let app = new Vue({
             try {
                 this.isOnSaleBusy.DetailsBusy = true;
 
-                this.productDetailsModel.title = `Row index: ${index}`
+                this.productDetailsModel.title = `商品明細 - ID：${item.productId}`
                 this.$root.$emit('bv::show::modal', this.productDetailsModel.id, button);
                 let response = await this.getProductDetails(this.urllist.productDetails, item.productId);
 
                 if (response.status == 200) {
                     // this.productDetailsModel.content = JSON.stringify(response.data.result, null, 2);
-                    this.productDetailsModel.content = response.data.result;
-                    this.productDetailsModel.content.imagePath = './Assets/image/book-xl-pic.jpg';
+                    let data = response.data.result;
+                    //for live server
+                    data.imagePath = './Assets/image/book-xl-pic.jpg';
 
+
+                    for (let item of this.productDetailsModel.fields) {
+                        if (item.key === 'categoryName') {
+                            item.value = `${data['mainCategoryName']} - ${data['subCategoryName']}`;
+                            continue;
+                        }
+
+                        if (item.key === 'fixedPrice') {
+                            item.value = `NT$${CurrencyFormat(data[item.key])}`;
+                            continue;
+                        }
+
+                        item.value = data[`${item.key}`];
+                    }
                 }
             } catch (err) {
                 console.log(err);
@@ -322,7 +353,7 @@ let app = new Vue({
             // Trigger pagination to update the number of buttons/pages due to filtering
             this.totalRows = filteredItems.length
             this.currentPage = 1
-        },       
+        },
         //顯示上下架確認視窗
         ShowUpdateSaleConfirm(productId, cfg) {
             this.$bvModal.msgBoxConfirm(cfg.message, {
