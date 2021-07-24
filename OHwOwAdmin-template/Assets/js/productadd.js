@@ -112,8 +112,8 @@ let app = new Vue({
                 height: 60
             },
 
-            //商品明細圖片延遲載入的參數
-            productDetailsimgProps: {
+            //商品圖片延遲載入的參數
+            productimgProps: {
                 blank: true,
                 blankColor: '#bbb',
                 width: 240,
@@ -140,7 +140,8 @@ let app = new Vue({
                     text: '商品新增',
                     active: true
                 }
-            ]
+            ],
+            quill: ''
 
 
         }
@@ -152,25 +153,34 @@ let app = new Vue({
         items: function () {
             this.totalRows = this.items.length
         },
-        tabIndex: function () {
-            switch (this.tabIndex) {
-                case 0:
-                    this.OnSalePage();
-                    break;
-                case 1:
-                    this.NonSalePage();
-                    break;
-                default:
-                    break;
-            }
-        }
+        // tabIndex: function () {
+        //     switch (this.tabIndex) {
+        //         case 0:
+        //             this.OnSalePage();
+        //             break;
+        //         case 1:
+        //             this.NonSalePage();
+        //             break;
+        //         default:
+        //             break;
+        //     }
+        // }
     },
     created() {
         //初始化頁面
-        this.tabIndex = 0;
+        this.tabIndex = 1;
         // this.OnSalePage();
-        GetQuillInstance('#description-editor');
-       
+        this.quill = GetQuillInstance('#description-editor');
+
+
+        quill.on('text-change', function (delta, oldDelta, source) {
+            if (source == 'api') {
+                console.log("An API call triggered this change.");
+            } else if (source == 'user') {
+                console.log("A user action triggered this change.");
+            }
+        });
+
     },
     mounted() {
 
@@ -385,3 +395,110 @@ let app = new Vue({
     }
 });
 
+
+
+
+window.onload = function () {
+    let fileUpload = document.getElementById("fileUpload");
+    let uploadZone = document.getElementById("uploadZone");
+};
+
+
+function HandleFileSelect(e) {
+    e.stopPropagation();
+    e.preventDefault();
+
+    //simulates a mouse click
+    fileUpload.click();
+}
+
+function HandleFiles(files) {
+
+    const imageType = /image.*/;
+
+    if (!files || files.length === 0) {
+        document.getElementById("img").src = "";
+        return;
+    }
+
+    if (!files[0].type.match(imageType)) {
+        alert("檔案類型無效")
+        document.getElementById("img").src = "";
+        fileUpload.value = "";
+        document.querySelector(".imgInfo").textContent = "";
+        document.getElementById("ImagePath").value = "";
+        return;
+    }
+
+    var reader = new FileReader();
+    reader.onload = async function (e) {
+        //console.log(e.target.result);
+        document.getElementById("img").src = e.target.result;
+        document.getElementById("ImagePath").value = files[0].name;
+        let imgDimensions = await GetImageDimensions(e.target.result);
+
+        document.querySelector(".imgInfo").textContent = `Name：${files[0].name}，
+                            Size：${Math.floor((files[0].size) / 1024)}KB，Dimensions： ${imgDimensions.width} x ${imgDimensions.height}`;
+
+    }
+    reader.readAsDataURL(files[0]);
+}
+
+function GetImageDimensions(imageData) {
+    return new Promise((resovle, reject) => {
+        let img = new Image();
+        img.onload = () => {
+            resovle({ width: img.width, height: img.height })
+        }
+        img.src = imageData;
+    });
+}
+
+let counter = 0;
+
+function Dragenter(e) {
+    // uploadZone.classList.add("uploadZone-enter");
+    uploadZone.classList.remove("bg-info");
+    uploadZone.classList.add("bg-secondary");
+    counter++;
+    console.log(counter);
+    e.stopPropagation();
+    e.preventDefault();
+}
+
+function Dragleave(e) {
+    counter--;
+    console.log(counter);
+    if (counter === 0) {
+        uploadZone.classList.remove("uploadZone-enter");
+        uploadZone.classList.add("bg-info");
+    }
+}
+
+function Dragover(e) {
+    e.stopPropagation();
+    e.preventDefault();
+}
+
+function Drop(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    console.log('drop' + counter);
+    counter = 0;
+    console.log(counter);
+    uploadZone.classList.remove("uploadZone-enter");
+    uploadZone.classList.add("bg-info");
+
+
+
+    fileUpload.files = e.dataTransfer.files;
+    HandleFiles(e.dataTransfer.files);
+    uploadZone.classList.remove("uploadZone-enter");
+}
+
+fileUpload.addEventListener("change", function (e) { HandleFiles(this.files) });
+uploadZone.addEventListener("click", HandleFileSelect);
+uploadZone.addEventListener("dragenter", Dragenter);
+uploadZone.addEventListener("dragleave", Dragleave);
+uploadZone.addEventListener("dragover", Dragover);
+uploadZone.addEventListener("drop", Drop);

@@ -38,7 +38,10 @@
     <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.min.js"></script>
 
     <!-- Load Quill stylesheet -->
-    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <!-- <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/quill/1.3.7/quill.snow.min.css"
+        integrity="sha512-/FHUK/LsH78K9XTqsR9hbzr21J8B8RwHR/r8Jv9fzry6NVAOVIGFKQCNINsbhK7a1xubVu2r5QZcz2T9cKpubw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <link rel="stylesheet" href="./Assets/css/productadd.css">
     <title>SB Admin 2 - Blank</title>
@@ -393,7 +396,7 @@
                                                 商品發布
                                             </b-button>
                                         </b-button-group>
-                                    </b-col>                                    
+                                    </b-col>
                                 </b-row>
                             </div>
                             <div class="col-12">
@@ -405,7 +408,7 @@
                                             <strong>商品資訊</strong>
                                         </template>
                                         <!-- Main table element -->
-                                                                              
+
                                         <b-modal :id="productDetailsModel.id" :title="productDetailsModel.title"
                                             header-bg-variant="info" header-text-variant="light" hide-footer
                                             v-on:hide="resetProductDetailsModel" scrollable>
@@ -436,8 +439,42 @@
                                     <b-tab>
                                         <template #title>
                                             <b-icon icon="images" aria-hidden="true"></b-icon>
-                                            <strong>圖片、檔案設定</strong>
+                                            <strong>圖片設定</strong>
                                         </template>
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-12 col-lg-3">
+                                                <div class="mx-auto">
+                                                    <input type="file" id="fileUpload" name="fileUpload"
+                                                        accept="image/png, image/gif, image/jpeg" />
+                                                    <div id="uploadZone" class="bg-info">
+                                                        <b-icon icon="cloud-arrow-up-fill" aria-hidden="true"
+                                                            font-scale="5"></b-icon>
+                                                        <span>請將圖片拖曳至此區塊</span>
+                                                        <span>或是</span>
+                                                        <span>點擊此區塊開啟檔案視窗</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-12 col-lg-3">
+                                                <!-- <div class="col-6 mx-auto">
+                                                    <img id="img" src="" alt="">
+                                                </div> -->
+                                                <b-img-lazy id="img" v-bind="productimgProps" src="" class="" thumbnail
+                                                    center >
+                                                </b-img-lazy>
+                                                <b-tooltip target="img" placement="bottom" custom-class="d-flex justify-content-start">
+                                                    <p class="m-0">檔案大小：38KB</p>
+                                                    <p class="m-0">檔案尺寸：1920 x 1080</p>
+                                                </b-tooltip>
+                                            </div>
+                                            <div class="col-12">
+                                                <p class="imgInfo"></p>
+                                                <input class="form-control text-box single-line" data-val="true"
+                                                    data-val-length="欄位 ImagePath 必須是最大長度為 200 的字串。"
+                                                    data-val-length-max="200" data-val-required="ImagePath 欄位是必要項。"
+                                                    id="ImagePath" name="ImagePath" type="text" value="">
+                                            </div>
+                                        </div>
                                     </b-tab>
                                     <b-tab>
                                         <template #title>
@@ -446,11 +483,11 @@
                                         </template>
                                         <div class="row">
                                             <div class="col-12">
-                                                    <div class="editor-wrap">
-                                                        <div id="description-editor">
-                                                            <p>請在這裡編輯商品簡介</p>
-                                                        </div>                                                        
+                                                <div class="editor-wrap">
+                                                    <div id="description-editor">
+                                                        <p>請在這裡編輯商品簡介</p>
                                                     </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </b-tab>
@@ -539,7 +576,10 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <!-- Quill plugin  -->
-    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <!-- <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/quill/1.3.7/quill.min.js"
+        integrity="sha512-P2W2rr8ikUPfa31PLBo5bcBQrsa+TNj8jiKadtaIrHQGMo6hQM6RdPjQYxlNguwHz8AwSQ28VkBK6kHBLgd/8g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
