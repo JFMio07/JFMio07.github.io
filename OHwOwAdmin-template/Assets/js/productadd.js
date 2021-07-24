@@ -134,6 +134,10 @@ let app = new Vue({
                 },
                 {
                     text: '商品列表',
+                    href: '/Product/Index'
+                },
+                {
+                    text: '商品新增',
                     active: true
                 }
             ]
@@ -164,7 +168,9 @@ let app = new Vue({
     created() {
         //初始化頁面
         this.tabIndex = 0;
-        this.OnSalePage();
+        // this.OnSalePage();
+        GetQuillInstance('#description-editor');
+       
     },
     mounted() {
 

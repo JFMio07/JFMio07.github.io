@@ -70,3 +70,13 @@ table.b-table[aria-busy="true"] {
   padding-left: 1rem;
   word-break: break-all;
 }
+
+
+
+/* --------------------------- */
+#description-editor.ql-container {
+  height: 600px;
+}
+
+
+/* editor-wrap */
