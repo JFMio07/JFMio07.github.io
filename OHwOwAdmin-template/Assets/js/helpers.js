@@ -20,6 +20,16 @@ function StringContentFormat(content, maxlength = 1) {
     }
 }
 
+//取得圖片的解析度
+function GetImageDimensions(imageData) {
+    return new Promise((resovle, reject) => {
+        let img = new Image();
+        img.onload = () => {
+            resovle({ width: img.width, height: img.height })
+        }
+        img.src = imageData;
+    });
+}
 
 //取得Quill Instance
 function GetQuillInstance(selector) {

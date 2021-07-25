@@ -380,7 +380,7 @@
                 <!-- Begin Page Content -->
                 <!-- Page Heading -->
                 <div class="container-fluid">
-                    <div id="productlist" v-cloak>
+                    <div id="productadd" v-cloak>
                         <div class="row">
                             <div class="col-12">
                                 <template>
@@ -389,11 +389,15 @@
                             </div>
                             <div class="col-12">
                                 <b-row>
-                                    <b-col lg="2" class="my-1 ml-auto">
-                                        <b-button-group size="md" class="d-flex justify-content-end">
+                                    <b-col lg="3" class="my-1 ml-auto d-flex align-content-center">
+                                        <div class="checkboxOnSale">
+                                            <b-form-checkbox switch size="lg" v-model="inputData.onSale">立即上架
+                                            </b-form-checkbox>
+                                        </div>
+                                        <b-button-group size="md" class="d-flex justify-content-end flex-grow-1">
                                             <b-button variant="success" v-on:click="">
                                                 <b-icon icon="arrow-up-square-fill" aria-hidden="true"></b-icon>
-                                                商品發布
+                                                商品發佈
                                             </b-button>
                                         </b-button-group>
                                     </b-col>
@@ -444,9 +448,18 @@
                                         <div class="row">
                                             <div class="col-sm-12 col-md-12 col-lg-3">
                                                 <div class="mx-auto">
-                                                    <input type="file" id="fileUpload" name="fileUpload"
-                                                        accept="image/png, image/gif, image/jpeg" />
-                                                    <div id="uploadZone" class="bg-info">
+                                                    <input ref="imgFileInput" type="file" id="imgFileInput"
+                                                        name="fileUpload" accept="image/png, image/gif, image/jpeg"
+                                                        v-on:change="(e)=>ImgFilesInput(e.target.files)" />
+                                                    <div ref="imgUploadZone" id="uploadZone"
+                                                        v-on:click="ImgUploadZoneClick"
+                                                        v-on:dragenter="ImgUploadZoneDragenter"
+                                                        v-on:dragover="ImgUploadZoneDragover"
+                                                        v-on:dragleave="ImgUploadZoneDragleave"
+                                                        v-on:drop="ImgUploadZoneDrop" :class="{
+                                                            'bg-info':!imgFileUpload.isDragEnter,
+                                                            'bg-secondary':imgFileUpload.isDragEnter,
+                                                        }">
                                                         <b-icon icon="cloud-arrow-up-fill" aria-hidden="true"
                                                             font-scale="5"></b-icon>
                                                         <span>請將圖片拖曳至此區塊</span>
@@ -455,21 +468,29 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-12 col-md-12 col-lg-3">
+                                            <div v-show="imgFileUpload.isValid" class="col-sm-12 col-md-12 col-lg-3">
                                                 <!-- <div class="col-6 mx-auto">
                                                     <img id="img" src="" alt="">
                                                 </div> -->
-                                                <b-img-lazy id="img" v-bind="productimgProps" src="" class="" thumbnail
-                                                    center >
+                                                <b-img-lazy id="img" v-bind="productimgProps" :src="productimg" class=""
+                                                    thumbnail center>
                                                 </b-img-lazy>
-                                                <b-tooltip target="img" placement="bottom" custom-class="d-flex justify-content-start">
-                                                    <p class="m-0">檔案大小：38KB</p>
-                                                    <p class="m-0">檔案尺寸：1920 x 1080</p>
+                                                <b-tooltip target="img" placement="bottom"
+                                                    custom-class="d-flex justify-content-start">
+                                                    <p class="m-0">檔案大小：{{imgFileUpload.imageInfo.size}}KB</p>
+                                                    <p class="m-0">檔案尺寸：{{imgFileUpload.imageInfo.width}} x
+                                                        {{imgFileUpload.imageInfo.height}}</p>
                                                 </b-tooltip>
                                             </div>
-                                            <div class="col-12">
-                                                <p class="imgInfo"></p>
-                                                <input class="form-control text-box single-line" data-val="true"
+                                            <div v-show="imgFileUpload.isValid" class="col-12">
+                                                <p ref="imageInfo" class="imgInfo">
+                                                    Name：{{imgFileUpload.imageInfo.name}} &ensp;
+                                                    Size：{{imgFileUpload.imageInfo.size}}KB &ensp;
+                                                    Dimensions：{{imgFileUpload.imageInfo.width}} x
+                                                    {{imgFileUpload.imageInfo.height}}
+                                                </p>
+                                                <input ref="imagepath" v-model="imgFileUpload.imageInfo.name"
+                                                    class="form-control text-box single-line" data-val="true"
                                                     data-val-length="欄位 ImagePath 必須是最大長度為 200 的字串。"
                                                     data-val-length-max="200" data-val-required="ImagePath 欄位是必要項。"
                                                     id="ImagePath" name="ImagePath" type="text" value="">

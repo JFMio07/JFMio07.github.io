@@ -71,6 +71,24 @@ table.b-table[aria-busy="true"] {
 }
 
 /* --------------------------- */
+/* 發佈後立即上架區塊 */
+.checkboxOnSale{
+  padding: .375rem 12px;
+}
+
+.checkboxOnSale .custom-control .custom-control-label{
+  line-height: 1.5rem;
+  font-size: 1rem;
+}
+
+.checkboxOnSale .custom-control .custom-control-label::before{
+  top:0.25rem;
+}
+
+.checkboxOnSale .custom-control .custom-control-label::after{
+  top:calc( .25rem + 2px)
+}
+
 #description-editor.ql-container {
   height: 600px;
 }
@@ -88,17 +106,11 @@ table.b-table[aria-busy="true"] {
   justify-content: center;
   align-items: center;
   color: #fff;
-  border-radius: 5px;  
+  border-radius: 5px;
 }
 #uploadZone > div {
   overflow: hidden;
   position: relative;
-}
-
-.uploadZone-enter {
-  /* border: 10px dashed black; */
-  /* background-clip: content-box; */
-
 }
 
 #uploadZone img {
@@ -109,6 +121,6 @@ table.b-table[aria-busy="true"] {
   max-width: 300px;
 }
 
-#fileUpload {
+#imgFileInput {
   display: none;
 }

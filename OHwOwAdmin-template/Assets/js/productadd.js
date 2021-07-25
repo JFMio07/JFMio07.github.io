@@ -1,69 +1,16 @@
 let app = new Vue({
-    el: "#productlist",
+    el: "#productadd",
     data() {
         return {
+            inputData: {
+                onSale:false,
+            },
+
+
+
+
+
             items: [],
-            fields: [
-                { key: 'productId', label: '商品編號', sortable: true, sortDirection: 'desc' },
-                {
-                    key: 'productName',
-                    label: '商品名稱',
-                    formatter: (value, key, item) => {
-                        return StringContentFormat(value, 10);
-                    },
-                    sortable: false,
-                    sortDirection: 'desc'
-                },
-                { key: 'productImg', label: '商品圖片' },
-                {
-                    key: 'authorName',
-                    label: '作者',
-                    formatter: (value, key, item) => {
-                        return StringContentFormat(value, 10);
-                    },
-                    sortable: false,
-                    sortDirection: 'desc'
-                },
-                {
-                    key: 'publisherName',
-                    label: '出版社',
-                    formatter: (value, key, item) => {
-                        return StringContentFormat(value, 10);
-                    },
-                    sortable: true,
-                    sortDirection: 'desc'
-                },
-                {
-                    key: 'mainCategory',
-                    label: '主分類',
-                    formatter: (value, key, item) => {
-                        return StringContentFormat(value, 10);
-                    },
-                    sortable: true,
-                    sortDirection: 'desc'
-                },
-                {
-                    key: 'fixedPrice',
-                    label: '單價',
-                    formatter: (value, key, item) => {
-                        return 'NT$' + CurrencyFormat(value);
-                    },
-                    sortable: true,
-                    sortDirection: 'desc'
-                },
-                {
-                    key: 'date',
-                    label: '',
-                    formatter: (value, key, item) => {
-                        if (value == null) { return "" }
-                        return DateFormat(value)
-                    },
-                    sortable: true,
-                    sortByFormatted: true,
-                    filterByFormatted: true
-                },
-                { key: 'actions', label: '商品管理' }
-            ],
             currentitem: null,
             tabIndex: 0,
             totalRows: 1,
@@ -112,6 +59,14 @@ let app = new Vue({
                 height: 60
             },
 
+
+            productDetailsimgProps: {
+                blank: true,
+                blankColor: '#bbb',
+                width: 240,
+                height: 340
+            },
+
             //商品圖片延遲載入的參數
             productimgProps: {
                 blank: true,
@@ -141,7 +96,21 @@ let app = new Vue({
                     active: true
                 }
             ],
-            quill: ''
+            quill: '',
+            productimg: '',
+            // 處理圖片上傳相關的狀態
+            imgFileUpload: {
+                dragEnterCounter: 0,
+                isDragEnter: false,
+                isValid: false,
+                imageInfo: {
+                    name: '',
+                    data: '',
+                    size: '',
+                    width: '',
+                    height: '',
+                },
+            }
 
 
         }
@@ -170,10 +139,13 @@ let app = new Vue({
         //初始化頁面
         this.tabIndex = 1;
         // this.OnSalePage();
+
+        this.imgFileUpload.imageInfo = this.CreateImgUploadImgInfo();
+
         this.quill = GetQuillInstance('#description-editor');
 
 
-        quill.on('text-change', function (delta, oldDelta, source) {
+        this.quill.on('text-change', function (delta, oldDelta, source) {
             if (source == 'api') {
                 console.log("An API call triggered this change.");
             } else if (source == 'user') {
@@ -391,114 +363,93 @@ let app = new Vue({
                 .catch(err => {
                     // An error occurred
                 })
+        },
+        //處理input type="file" 內容改變的事件
+        ImgFilesInput(files) {
+            const imageType = /image.*/;
+
+            if (!files || files.length === 0) {
+                this.productimg = '';
+                this.imgFileUpload.isValid = false;
+                this.imgFileUpload.imageInfo = this.CreateImgUploadImgInfo();
+                return;
+            }
+
+            if (!files[0].type.match(imageType)) {
+                alert("檔案類型無效")
+                this.productimg = '';
+                this.imgFileUpload.isValid = false;
+                this.$refs.imgFileInput.value = '';
+                this.$refs.imgFileInput.files = null;
+                this.imgFileUpload.imageInfo = this.CreateImgUploadImgInfo();
+                return;
+            }
+
+            var reader = new FileReader();
+            reader.onload = async (e) => {
+                this.imgFileUpload.isValid = true;
+                this.productimg = e.target.result;
+                let imgDimensions = await GetImageDimensions(e.target.result);
+                this.imgFileUpload.imageInfo = this.CreateImgUploadImgInfo(
+                    files[0].name,
+                    e.target.result,
+                    Math.floor((files[0].size) / 1024),
+                    imgDimensions.width,
+                    imgDimensions.height,
+                )
+            }
+            reader.readAsDataURL(files[0]);
+        },
+        //處理圖片上傳區域的Click事件
+        ImgUploadZoneClick(e) {
+            e.stopPropagation();
+            e.preventDefault();
+
+            //觸發input type file的click事件
+            this.$refs.imgFileInput.click();
+        },
+        //處理圖片拖曳進入
+        ImgUploadZoneDragenter(e) {
+            e.stopPropagation();
+            e.preventDefault();
+
+            this.imgFileUpload.dragEnterCounter++;
+            this.imgFileUpload.isDragEnter = true;
+
+        },
+        //處理圖片拖曳經過
+        ImgUploadZoneDragover(e) {
+            e.stopPropagation();
+            e.preventDefault();
+        },
+        //處理圖片拖曳離開
+        ImgUploadZoneDragleave(e) {
+            this.imgFileUpload.dragEnterCounter--;
+            // console.log(this.imgFileUpload.dragEnterCounter);
+
+            if (this.imgFileUpload.dragEnterCounter === 0) {
+                this.imgFileUpload.isDragEnter = false;
+            }
+        },
+        //處理圖片拖曳後放開
+        ImgUploadZoneDrop(e) {
+            e.stopPropagation();
+            e.preventDefault();
+
+            this.imgFileUpload.dragEnterCounter = 0;
+            this.imgFileUpload.isDragEnter = false;
+            this.$refs.imgFileInput.files = e.dataTransfer.files;
+            this.ImgFilesInput(e.dataTransfer.files);
+        },
+        //建立上傳後圖片資訊的物件
+        CreateImgUploadImgInfo(name = '', data = '', size = '', width = '', height = '') {
+            return {
+                name: name,
+                data: data,
+                size: size,
+                width: width,
+                height: height,
+            };
         }
     }
 });
-
-
-
-
-window.onload = function () {
-    let fileUpload = document.getElementById("fileUpload");
-    let uploadZone = document.getElementById("uploadZone");
-};
-
-
-function HandleFileSelect(e) {
-    e.stopPropagation();
-    e.preventDefault();
-
-    //simulates a mouse click
-    fileUpload.click();
-}
-
-function HandleFiles(files) {
-
-    const imageType = /image.*/;
-
-    if (!files || files.length === 0) {
-        document.getElementById("img").src = "";
-        return;
-    }
-
-    if (!files[0].type.match(imageType)) {
-        alert("檔案類型無效")
-        document.getElementById("img").src = "";
-        fileUpload.value = "";
-        document.querySelector(".imgInfo").textContent = "";
-        document.getElementById("ImagePath").value = "";
-        return;
-    }
-
-    var reader = new FileReader();
-    reader.onload = async function (e) {
-        //console.log(e.target.result);
-        document.getElementById("img").src = e.target.result;
-        document.getElementById("ImagePath").value = files[0].name;
-        let imgDimensions = await GetImageDimensions(e.target.result);
-
-        document.querySelector(".imgInfo").textContent = `Name：${files[0].name}，
-                            Size：${Math.floor((files[0].size) / 1024)}KB，Dimensions： ${imgDimensions.width} x ${imgDimensions.height}`;
-
-    }
-    reader.readAsDataURL(files[0]);
-}
-
-function GetImageDimensions(imageData) {
-    return new Promise((resovle, reject) => {
-        let img = new Image();
-        img.onload = () => {
-            resovle({ width: img.width, height: img.height })
-        }
-        img.src = imageData;
-    });
-}
-
-let counter = 0;
-
-function Dragenter(e) {
-    // uploadZone.classList.add("uploadZone-enter");
-    uploadZone.classList.remove("bg-info");
-    uploadZone.classList.add("bg-secondary");
-    counter++;
-    console.log(counter);
-    e.stopPropagation();
-    e.preventDefault();
-}
-
-function Dragleave(e) {
-    counter--;
-    console.log(counter);
-    if (counter === 0) {
-        uploadZone.classList.remove("uploadZone-enter");
-        uploadZone.classList.add("bg-info");
-    }
-}
-
-function Dragover(e) {
-    e.stopPropagation();
-    e.preventDefault();
-}
-
-function Drop(e) {
-    e.stopPropagation();
-    e.preventDefault();
-    console.log('drop' + counter);
-    counter = 0;
-    console.log(counter);
-    uploadZone.classList.remove("uploadZone-enter");
-    uploadZone.classList.add("bg-info");
-
-
-
-    fileUpload.files = e.dataTransfer.files;
-    HandleFiles(e.dataTransfer.files);
-    uploadZone.classList.remove("uploadZone-enter");
-}
-
-fileUpload.addEventListener("change", function (e) { HandleFiles(this.files) });
-uploadZone.addEventListener("click", HandleFileSelect);
-uploadZone.addEventListener("dragenter", Dragenter);
-uploadZone.addEventListener("dragleave", Dragleave);
-uploadZone.addEventListener("dragover", Dragover);
-uploadZone.addEventListener("drop", Drop);
