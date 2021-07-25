@@ -19,12 +19,6 @@ table.b-table[aria-busy="true"] {
   color: #000;
 }
 
-/* 商品清單的圖片格式 */
-#productlist .pdlistimg {
-  max-height: 60px;
-  max-width: 60px;
-}
-
 /* 商品清單的分頁 */
 .nav-tabs .nav-item.show .nav-link,
 .nav-tabs .nav-link.active {
@@ -32,7 +26,7 @@ table.b-table[aria-busy="true"] {
 }
 
 /* 商品清單分頁的內容框 */
-#productlist .tab-content {
+#productadd .tab-content {
   background-color: #fff;
   border-left: 1px solid #dee2e6;
   border-right: 1px solid #dee2e6;
@@ -71,24 +65,38 @@ table.b-table[aria-busy="true"] {
 }
 
 /* --------------------------- */
+
 /* 發佈後立即上架區塊 */
-.checkboxOnSale{
-  padding: .375rem 12px;
+.checkboxOnSale {
+  padding: 0.375rem 12px;
 }
 
-.checkboxOnSale .custom-control .custom-control-label{
+.checkboxOnSale .custom-control .custom-control-label {
   line-height: 1.5rem;
   font-size: 1rem;
 }
 
-.checkboxOnSale .custom-control .custom-control-label::before{
-  top:0.25rem;
+.checkboxOnSale .custom-control .custom-control-label::before {
+  top: 0.25rem;
 }
 
-.checkboxOnSale .custom-control .custom-control-label::after{
-  top:calc( .25rem + 2px)
+.checkboxOnSale .custom-control .custom-control-label::after {
+  top: calc(0.25rem + 2px);
 }
 
+/* ElementUI Select 組件 */
+#productadd .el-select {
+  display: block;
+}
+
+#productadd .el-select .el-input__inner:focus {
+  background-color: #fff;
+  border-color: #80bdff;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgb(0 123 255 / 25%);
+}
+
+/* 富文本編輯器區塊 */
 #description-editor.ql-container {
   height: 600px;
 }

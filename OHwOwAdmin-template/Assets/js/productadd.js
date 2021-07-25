@@ -4,11 +4,64 @@ let app = new Vue({
         return {
             inputData: {
                 onSale:false,
+                account: "",
+                password: "",
+                checkPassword: "",
+                name: "",
+                tel: "",
+                address: "",
+                author:'',
+                publisher:'',
+                mainCategory:'',
+                subCategory:'',
             },
+            
+            inputDataCheck: {
+                accountError: false,
+                accountErrorMsg: "",
+                passwordError: false,
+                passwordErrprMsg: "",
+                checkPasswordError: false,
+                checkPasswordErrorMsg: ""
+            },
+            authorlist:{
+                busy:false,
+                // options:[],
+                options:[{value:'1',lable:'AA'}],
+            },
+            publisherlist:{
+                busy:false,
+                // options:[],
+                options:[{value:'1',lable:'AA'}],
 
+            },
+            mainCategorylist:{
+                busy:false,
+                // options:[],
+                options:[{value:'1',lable:'AA'}],
 
-
-
+            },
+            subCategorylist:{
+                busy:false,
+                // options:[],
+                options:[{value:'1',lable:'AA'}],
+            },
+            props: {
+                lazy: true,
+                lazyLoad(node, resolve) {
+                    const { level } = node;
+                    setTimeout(() => {
+                        const nodes = Array.from({ length: level + 1 })
+                            .map(item => ({
+                                value: ++id,
+                                label: `选项${id}`,
+                                leaf: level >= 2
+                            }));
+                        // 通过调用resolve将子节点数据返回，通知组件数据加载完成
+                        resolve(nodes);
+                    }, 1000);
+                }
+            },
 
             items: [],
             currentitem: null,
@@ -450,6 +503,12 @@ let app = new Vue({
                 width: width,
                 height: height,
             };
+        },
+        visible(){
+
+        },
+        change(){
+
         }
     }
 });

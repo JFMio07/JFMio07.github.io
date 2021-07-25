@@ -43,7 +43,12 @@
         integrity="sha512-/FHUK/LsH78K9XTqsR9hbzr21J8B8RwHR/r8Jv9fzry6NVAOVIGFKQCNINsbhK7a1xubVu2r5QZcz2T9cKpubw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
     <link rel="stylesheet" href="./Assets/css/productadd.css">
+
+
     <title>SB Admin 2 - Blank</title>
 </head>
 
@@ -405,13 +410,86 @@
                             </div>
                             <div class="col-12">
                                 <b-tabs content-class="pt-2 pb-2 px-2" fill v-model="tabIndex">
-
                                     <b-tab active>
                                         <template #title>
                                             <b-icon icon="book" aria-hidden="true"></b-icon>
                                             <strong>商品資訊</strong>
                                         </template>
                                         <!-- Main table element -->
+                                        <div class="row justify-content-center">
+                                            <div class="col-12 col-md-6 mb-3">
+                                                <label for="">商品名稱</label>
+                                                <input v-model="inputData.account"
+                                                    :class="{'is-invalid':inputDataCheck.accountError}"
+                                                    class="form-control" type="text">
+                                                <div class="text-danger small mt-1">
+                                                    {{inputDataCheck.accountErrorMsg}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row justify-content-center">
+                                            <div class="col-12 col-md-3 mb-3">
+                                                <label for="">作者</label>
+                                                <el-select v-model="inputData.author" :loading="authorlist.busy" filterable
+                                                    placeholder="請選擇作者"  loading-text="載入中" no-data-text="無資料" no-match-text="找不到可匹配的內容" clearable>
+                                                    <el-option v-for="item in authorlist.options" :key="item.value"
+                                                        :label="item.label" :value="item.value">
+                                                    </el-option>
+                                                </el-select>
+                                                <!-- <input v-model="inputData.password"
+                                                    :class="{'is-invalid':inputDataCheck.passwordError}"
+                                                    class="form-control" type="text"> -->
+                                            </div>
+                                            <div class="col-12 col-md-3 mb-3">
+                                                <label for="">出版社</label>
+                                                <el-select v-model="inputData.publisher" :loading="publisherlist.busy" filterable
+                                                    placeholder="請選擇出版社" loading-text="載入中" no-data-text="無資料" no-match-text="找不到可匹配的內容" clearable>
+                                                    <el-option v-for="item in publisherlist.options" :key="item.value"
+                                                        :label="item.label" :value="item.value">
+                                                    </el-option>
+                                                </el-select>
+                                                <!-- <input v-model="inputData.checkPassword" :class="{'is-invalid':inputDataCheck.checkPasswordError}" class="form-control" type="text"> -->
+                                            </div>
+                                        </div>
+                                        <div class="row justify-content-center">
+                                            <div class="col-12 col-md-3 mb-3">
+                                                <label for="">主分類</label>
+                                                <el-select v-model="inputData.mainCategory" :loading="mainCategorylist.busy" filterable
+                                                    placeholder="請選擇主分類" v-on:change="change"
+                                                    v-on:visible-change="visible" loading-text="載入中" no-data-text="無資料" no-match-text="找不到可匹配的內容" clearable>
+                                                    <el-option v-for="item in mainCategorylist.options" :key="item.value"
+                                                        :label="item.label" :value="item.value">
+                                                    </el-option>
+                                                </el-select>
+                                            </div>
+                                            <div class="col-12 col-md-3 mb-3">
+                                                <label for="">子分類</label>
+                                                <el-select v-model="inputData.subCategory" :loading="subCategorylist.busy" filterable
+                                                    placeholder="請選擇子分類" v-on:visible-change="visible" loading-text="載入中" no-data-text="無資料" no-match-text="找不到可匹配的內容" clearable>
+                                                    <el-option v-for="item in subCategorylist.options" :key="item.value"
+                                                        :label="item.label" :value="item.value">
+                                                    </el-option>
+                                                </el-select>
+                                            </div>
+                                        </div>
+                                        <div class="row justify-content-center">
+                                            <div class="col-12 col-md-3 mb-3">
+                                                <label for="">ISBN</label>
+                                                <input class="form-control" type="text">
+                                            </div>
+                                            <div class="col-12 col-md-3 mb-3">
+                                                <label for="">定價</label>
+                                                <input class="form-control" type="number" min="0">
+                                            </div>
+                                        </div>
+                                        <!-- <div class="col-12">
+                                                <div class="editor-wrap">
+                                                    <div id="description-editor">
+                                                        <p>請在這裡編輯商品簡介</p>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+
 
                                         <b-modal :id="productDetailsModel.id" :title="productDetailsModel.title"
                                             header-bg-variant="info" header-text-variant="light" hide-footer
@@ -445,7 +523,7 @@
                                             <b-icon icon="images" aria-hidden="true"></b-icon>
                                             <strong>圖片設定</strong>
                                         </template>
-                                        <div class="row">
+                                        <div class="row justify-content-center">
                                             <div class="col-sm-12 col-md-12 col-lg-3">
                                                 <div class="mx-auto">
                                                     <input ref="imgFileInput" type="file" id="imgFileInput"
