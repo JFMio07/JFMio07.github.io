@@ -14,6 +14,7 @@ let app = new Vue({
                 publisher:'',
                 mainCategory:'',
                 subCategory:'',
+                file: null,
             },
             
             inputDataCheck: {
