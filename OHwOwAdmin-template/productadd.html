@@ -399,11 +399,15 @@
                                             <b-form-checkbox switch size="lg" v-model="inputData.onSale">立即上架
                                             </b-form-checkbox>
                                         </div>
-                                        <b-button-group size="md" class="d-flex justify-content-end flex-grow-1">
-                                            <b-button variant="success" v-on:click="">
-                                                <b-icon icon="arrow-up-square-fill" aria-hidden="true"></b-icon>
-                                                商品發佈
-                                            </b-button>
+                                        <b-button-group size="md" class="d-flex justify-content-end flex-grow-1">                                        
+                                            <span class="flex-grow-1" tabindex="0" v-b-tooltip.top
+                                                    :title="allValidation.errorMsg">
+                                                    <b-button variant="success" :disabled="allValidation.error" class="w-100"
+                                                        v-on:click="">
+                                                        <b-icon icon="arrow-up-square-fill" aria-hidden="true"></b-icon>
+                                                        商品發佈
+                                                    </b-button>
+                                                </span>
                                         </b-button-group>
                                     </b-col>
                                 </b-row>
@@ -420,7 +424,7 @@
                                             <div class="col-12 col-md-6 mb-3">
                                                 <label for="">商品名稱</label>
                                                 <input v-model="inputData.productName"
-                                                    :class="{'is-invalid':inputDataCheck.productName.error,'is-valid':!inputDataCheck.productName.error}"
+                                                    :class="{'is-invalid':inputDataCheck.productName.error}"
                                                     class="form-control" type="text">
                                                 <div class="text-danger small mt-1">
                                                     {{inputDataCheck.productName.errorMsg}}
@@ -431,32 +435,37 @@
                                             <div class="col-12 col-md-3 mb-3">
                                                 <label for="">作者</label>
                                                 <el-select v-model="inputData.author" :loading="authorlist.busy"
-                                                    filterable placeholder="請選擇作者" loading-text="載入中" no-data-text="無資料"
+                                                    :class="{'is-invalid':inputDataCheck.author.error}" filterable
+                                                    placeholder="請選擇作者" loading-text="載入中" no-data-text="無資料"
                                                     no-match-text="找不到可匹配的內容" clearable>
                                                     <el-option v-for="item in authorlist.options" :key="item.value"
                                                         :label="item.label" :value="item.value">
                                                     </el-option>
                                                 </el-select>
-                                                <!-- <input v-model="inputData.password"
-                                                    :class="{'is-invalid':inputDataCheck.passwordError}"
-                                                    class="form-control" type="text"> -->
+                                                <div class="text-danger small mt-1">
+                                                    {{inputDataCheck.author.errorMsg}}
+                                                </div>
                                             </div>
                                             <div class="col-12 col-md-3 mb-3">
                                                 <label for="">出版社</label>
                                                 <el-select v-model="inputData.publisher" :loading="publisherlist.busy"
-                                                    filterable placeholder="請選擇出版社" loading-text="載入中"
-                                                    no-data-text="無資料" no-match-text="找不到可匹配的內容" clearable>
+                                                    :class="{'is-invalid':inputDataCheck.publisher.error}" filterable
+                                                    placeholder="請選擇出版社" loading-text="載入中" no-data-text="無資料"
+                                                    no-match-text="找不到可匹配的內容" clearable>
                                                     <el-option v-for="item in publisherlist.options" :key="item.value"
                                                         :label="item.label" :value="item.value">
                                                     </el-option>
                                                 </el-select>
-                                                <!-- <input v-model="inputData.checkPassword" :class="{'is-invalid':inputDataCheck.checkPasswordError}" class="form-control" type="text"> -->
+                                                <div class="text-danger small mt-1">
+                                                    {{inputDataCheck.publisher.errorMsg}}
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="row justify-content-center">
                                             <div class="col-12 col-md-3 mb-3">
                                                 <label for="">主分類</label>
                                                 <el-select v-model="inputData.mainCategory"
+                                                    :class="{'is-invalid':inputDataCheck.mainCategory.error}"
                                                     :loading="mainCategorylist.busy" filterable placeholder="請選擇主分類"
                                                     v-on:change="change" v-on:visible-change="visible"
                                                     loading-text="載入中" no-data-text="無資料" no-match-text="找不到可匹配的內容"
@@ -465,10 +474,14 @@
                                                         :key="item.value" :label="item.label" :value="item.value">
                                                     </el-option>
                                                 </el-select>
+                                                <div class="text-danger small mt-1">
+                                                    {{inputDataCheck.mainCategory.errorMsg}}
+                                                </div>
                                             </div>
                                             <div class="col-12 col-md-3 mb-3">
                                                 <label for="">子分類</label>
                                                 <el-select v-model="inputData.subCategory"
+                                                    :class="{'is-invalid':inputDataCheck.subCategory.error}"
                                                     :loading="subCategorylist.busy" filterable placeholder="請選擇子分類"
                                                     v-on:visible-change="visible" loading-text="載入中" no-data-text="無資料"
                                                     no-match-text="找不到可匹配的內容" clearable>
@@ -476,21 +489,28 @@
                                                         :label="item.label" :value="item.value">
                                                     </el-option>
                                                 </el-select>
+                                                <div class="text-danger small mt-1">
+                                                    {{inputDataCheck.subCategory.errorMsg}}
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="row justify-content-center">
                                             <div class="col-12 col-md-3 mb-3">
                                                 <label for="">ISBN</label>
                                                 <input v-model="inputData.ISBN"
-                                                :class="{'is-invalid':inputDataCheck.ISBN.error,'is-valid':!inputDataCheck.ISBN.error}"
-                                                class="form-control" type="text">
+                                                    :class="{'is-invalid':inputDataCheck.ISBN.error}"
+                                                    class="form-control" type="text">
                                                 <div class="text-danger small mt-1">
                                                     {{inputDataCheck.ISBN.errorMsg}}
                                                 </div>
                                             </div>
                                             <div class="col-12 col-md-3 mb-3">
                                                 <label for="">定價</label>
-                                                <input class="form-control" type="number" min="0">
+                                                <input v-model="inputData.price" class="form-control" type="number"
+                                                    min="0">
+                                                <div class="text-danger small mt-1">
+                                                    {{inputDataCheck.price.errorMsg}}
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="row justify-content-center">
@@ -546,6 +566,8 @@
                                             <strong>圖片設定</strong>
                                         </template>
                                         <div class="row justify-content-center">
+                                            <div class="col-12 text-danger small mt-1 text-center">
+                                                {{inputDataCheck.image.errorMsg}}</div>
                                             <div class="col-sm-12 col-md-12 col-lg-3">
                                                 <div class="mx-auto">
                                                     <input ref="imgFileInput" type="file" id="imgFileInput"
@@ -565,6 +587,18 @@
                                                         <span>請將圖片拖曳至此區塊</span>
                                                         <span>或是</span>
                                                         <span>點擊此區塊開啟檔案視窗</span>
+                                                        <!-- <div v-if="!imgFileUpload.isValid">
+                                                            <b-icon icon="cloud-arrow-up-fill" aria-hidden="true"
+                                                                font-scale="5"></b-icon>
+                                                            <span>請將圖片拖曳至此區塊</span>
+                                                            <span>或是</span>
+                                                            <span>點擊此區塊開啟檔案視窗</span>
+                                                        </div>
+                                                        <div v-else>
+                                                            <b-img-lazy id="img" v-bind="productimgProps"
+                                                                :src="productimg" class="" thumbnail center>
+                                                            </b-img-lazy>
+                                                        </div> -->
                                                     </div>
                                                 </div>
                                             </div>
@@ -604,7 +638,11 @@
                                         </template>
                                         <div class="row">
                                             <div class="col-12">
-                                                <div class="editor-wrap">
+                                                <div class="description-editor-wrap"
+                                                    :class="{'is-invalid':inputDataCheck.description.error}">
+                                                    <div class="text-danger small mt-1">
+                                                        {{inputDataCheck.description.errorMsg}}
+                                                    </div>
                                                     <div id="description-editor">
                                                         <p>請在這裡編輯商品簡介</p>
                                                     </div>

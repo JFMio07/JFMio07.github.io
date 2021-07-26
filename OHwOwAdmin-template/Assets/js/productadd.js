@@ -11,14 +11,15 @@ let app = new Vue({
                 tel: "",
                 address: "",
                 productName: '',
-                author: '',
-                publisher: '',
-                mainCategory: '',
-                subCategory: '',
-                ISBN: '',
-                price: '',
+                author: '1',
+                publisher: '1',
+                mainCategory: '1',
+                subCategory: '1',
+                ISBN: '1111111111',
+                price: 0,
                 file: null,
-                image: null,
+                image: {},
+                description: '1'
 
             },
 
@@ -32,23 +33,7 @@ let app = new Vue({
                 price: { error: false, errorMsg: '' },
                 file: { error: false, errorMsg: '' },
                 image: { error: false, errorMsg: '' },
-
-
-                productNameError: false,
-                authorError: false,
-                publisherError: false,
-                mainCategoryError: false,
-                subCategoryError: false,
-                ISBNError: false,
-                priceError: false,
-                fileError: false,
-                imageError: false,
-                accountError: false,
-                accountErrorMsg: "",
-                passwordError: false,
-                passwordErrprMsg: "",
-                checkPasswordError: false,
-                checkPasswordErrorMsg: ""
+                description: { error: false, errorMsg: '' },              
             },
             authorlist: {
                 busy: false,
@@ -157,16 +142,28 @@ let app = new Vue({
                     width: '',
                     height: '',
                 },
+            },
+
+            testAAA: {
+                key1: { error: false, msg: '' }
             }
 
 
         }
     },
     computed: {
-
+        allValidation() {
+            let invalid = Object.keys(this.inputDataCheck).some(key => this.inputDataCheck[key].error === true);            
+            return {
+                error: invalid,
+                errorMsg: invalid?'尚有無效的輸入欄位':''
+            }            
+        }
     },
     watch: {
-        //判斷商品輸入的內容格式是否符合規則
+        inputDataCheck: function () {
+            console.log('check');
+        },
         'inputData.productName': {
             immediate: true,
             handler: function () {
@@ -180,24 +177,113 @@ let app = new Vue({
                 }
             },
         },
+        'inputData.author': {
+            immediate: true,
+            handler: function (value) {
+                if (value) {
+                    this.inputDataCheck.author.error = false;
+                    this.inputDataCheck.author.errorMsg = '';
+                } else {
+                    this.inputDataCheck.author.error = true;
+                    this.inputDataCheck.author.errorMsg = '請選擇作者';
+                }
+            }
+        },
+        'inputData.publisher': {
+            immediate: true,
+            handler: function (value) {
+                if (value) {
+                    this.inputDataCheck.publisher.error = false;
+                    this.inputDataCheck.publisher.errorMsg = '';
+                } else {
+                    this.inputDataCheck.publisher.error = true;
+                    this.inputDataCheck.publisher.errorMsg = '請選擇出版社';
+                }
+            }
+        },
+        'inputData.mainCategory': {
+            immediate: true,
+            handler: function (value) {
+                if (value) {
+                    this.inputDataCheck.mainCategory.error = false;
+                    this.inputDataCheck.mainCategory.errorMsg = '';
+                } else {
+                    this.inputDataCheck.mainCategory.error = true;
+                    this.inputDataCheck.mainCategory.errorMsg = '請選擇主分類';
+                }
+            }
+        },
+        'inputData.subCategory': {
+            immediate: true,
+            handler: function (value) {
+                if (value) {
+                    this.inputDataCheck.subCategory.error = false;
+                    this.inputDataCheck.subCategory.errorMsg = '';
+                } else {
+                    this.inputDataCheck.subCategory.error = true;
+                    this.inputDataCheck.subCategory.errorMsg = '請選擇子分類';
+                }
+            }
+        },
         'inputData.ISBN': {
             immediate: true,
-            handler: function () {
+            handler: function (value) {
                 let ISBNRegexp = /^\d{13}$|^\d{10}$/;
-                let result = ISBNRegexp.test(this.inputData.ISBN);
 
-                console.log(ISBNRegexp.test(this.inputData.ISBN));
-
-                if (!ISBNRegexp.test(this.inputData.ISBN)) {
+                if (!ISBNRegexp.test(value)) {
                     this.inputDataCheck.ISBN.error = true;
                     this.inputDataCheck.ISBN.errorMsg = 'ISBN格式為10位或13位數字';
                 } else {
-
                     this.inputDataCheck.ISBN.error = false;
                     this.inputDataCheck.ISBN.errorMsg = '';
                 }
             }
-        }
+        },
+        'inputData.price': {
+            immediate: true,
+            handler: function (value) {
+                if (value < 0) {
+                    this.inputDataCheck.price.error = true;
+                    this.inputDataCheck.price.errorMsg = '價錢不得大於';
+                }
+            }
+        },
+        'inputData.file': {
+            immediate: true,
+            handler: function (value) {
+                if (value) {
+                    this.inputDataCheck.file.error = false;
+                    this.inputDataCheck.file.errorMsg = '';
+                } else {
+                    this.inputDataCheck.file.error = true;
+                    this.inputDataCheck.file.errorMsg = '請上傳商品檔案';
+                }
+            }
+        },
+        'inputData.image': {
+            immediate: true,
+            handler: function (value) {
+                if (value) {
+                    this.inputDataCheck.image.error = false;
+                    this.inputDataCheck.image.errorMsg = '';
+                } else {
+                    this.inputDataCheck.image.error = true;
+                    this.inputDataCheck.image.errorMsg = '請上傳商品圖片';
+                }
+            }
+        },
+        'inputData.description': {
+            immediate: true,
+            handler: function (value) {
+                if (value) {
+                    this.inputDataCheck.description.error = false;
+                    this.inputDataCheck.description.errorMsg = '';
+                } else {
+                    this.inputDataCheck.description.error = true;
+                    this.inputDataCheck.description.errorMsg = '商品簡介不得為空';
+                }
+            }
+        },
 
 
 
