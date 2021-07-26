@@ -3,21 +3,46 @@ let app = new Vue({
     data() {
         return {
             inputData: {
-                onSale:false,
+                onSale: false,
                 account: "",
                 password: "",
                 checkPassword: "",
                 name: "",
                 tel: "",
                 address: "",
-                author:'',
-                publisher:'',
-                mainCategory:'',
-                subCategory:'',
+                productName: '',
+                author: '',
+                publisher: '',
+                mainCategory: '',
+                subCategory: '',
+                ISBN: '',
+                price: '',
                 file: null,
+                image: null,
+
             },
-            
+
             inputDataCheck: {
+                productName: { error: false, errorMsg: '' },
+                author: { error: false, errorMsg: '' },
+                publisher: { error: false, errorMsg: '' },
+                mainCategory: { error: false, errorMsg: '' },
+                subCategory: { error: false, errorMsg: '' },
+                ISBN: { error: false, errorMsg: '' },
+                price: { error: false, errorMsg: '' },
+                file: { error: false, errorMsg: '' },
+                image: { error: false, errorMsg: '' },
+
+
+                productNameError: false,
+                authorError: false,
+                publisherError: false,
+                mainCategoryError: false,
+                subCategoryError: false,
+                ISBNError: false,
+                priceError: false,
+                fileError: false,
+                imageError: false,
                 accountError: false,
                 accountErrorMsg: "",
                 passwordError: false,
@@ -25,57 +50,32 @@ let app = new Vue({
                 checkPasswordError: false,
                 checkPasswordErrorMsg: ""
             },
-            authorlist:{
-                busy:false,
-                // options:[],
-                options:[{value:'1',lable:'AA'}],
+            authorlist: {
+                busy: false,
+                options: [],
+                // options: [{ value: '1', lable: 'AA' }],
             },
-            publisherlist:{
-                busy:false,
-                // options:[],
-                options:[{value:'1',lable:'AA'}],
+            publisherlist: {
+                busy: false,
+                options: [],
+                // options: [{ value: '1', lable: 'AA' }],
 
             },
-            mainCategorylist:{
-                busy:false,
-                // options:[],
-                options:[{value:'1',lable:'AA'}],
+            mainCategorylist: {
+                busy: false,
+                options: [],
+                // options: [{ value: '1', lable: 'AA' }],
 
             },
-            subCategorylist:{
-                busy:false,
-                // options:[],
-                options:[{value:'1',lable:'AA'}],
-            },
-            props: {
-                lazy: true,
-                lazyLoad(node, resolve) {
-                    const { level } = node;
-                    setTimeout(() => {
-                        const nodes = Array.from({ length: level + 1 })
-                            .map(item => ({
-                                value: ++id,
-                                label: `选项${id}`,
-                                leaf: level >= 2
-                            }));
-                        // 通过调用resolve将子节点数据返回，通知组件数据加载完成
-                        resolve(nodes);
-                    }, 1000);
-                }
+            subCategorylist: {
+                busy: false,
+                options: [],
+                // options: [{ value: '1', lable: 'AA' }],
             },
 
-            items: [],
-            currentitem: null,
             tabIndex: 0,
-            totalRows: 1,
-            currentPage: 1,
-            perPage: 5,
-            pageOptions: [5, 10, 15],
-            sortBy: '',
-            sortDesc: false,
-            sortDirection: 'asc',
-            filter: null,
-            filterOn: [],
+
+            //先保留
             productDetailsModel: {
                 id: 'product-details-modal',
                 title: '',
@@ -93,7 +93,7 @@ let app = new Vue({
                 ]
             },
 
-            //描述頁面是否忙碌中，EX:進行非同步作業
+            //描述頁面是否忙碌中，EX:進行非同步作業 先保留
             isOnSaleBusy: { PageBusy: false, DetailsBusy: false },
             isNonSaleBusy: { PageBusy: false, DetailsBusy: false },
 
@@ -106,14 +106,7 @@ let app = new Vue({
                 UpdateProductSalesStatus: 'https://localhost:5001/api/Product/UpdateProductSalesStatus',
             },
 
-            //商品精簡清單圖片延遲載入的參數
-            simplifyproductimgProps: {
-                blank: true,
-                blankColor: '#bbb',
-                height: 60
-            },
-
-
+            //details modal 先保留
             productDetailsimgProps: {
                 blank: true,
                 blankColor: '#bbb',
@@ -129,7 +122,7 @@ let app = new Vue({
                 height: 340
             },
 
-            //商品上下架MessageBox參數
+            //商品上下架MessageBox參數 先保留
             SalesConfirmBoxProps: {
                 onSale: { message: '請再次確認是否要上架商品', data: { SaleStatus: true } },
                 nonSale: { message: '請再次確認是否要下架商品', data: { SaleStatus: false } }
@@ -173,9 +166,41 @@ let app = new Vue({
 
     },
     watch: {
-        items: function () {
-            this.totalRows = this.items.length
+        //判斷商品輸入的內容格式是否符合規則
+        'inputData.productName': {
+            immediate: true,
+            handler: function () {
+                if (this.inputData.productName == '') {
+                    this.inputDataCheck.productName.error = true;
+                    this.inputDataCheck.productName.errorMsg = '商品名稱不得為空';
+                } else {
+                    this.inputDataCheck.productName.error = false;
+                    this.inputDataCheck.productName.errorMsg = '';
+
+                }
+            },
         },
+        'inputData.ISBN': {
+            immediate: true,
+            handler: function () {
+                let ISBNRegexp = /^\d{13}$|^\d{10}$/;
+                let result = ISBNRegexp.test(this.inputData.ISBN);
+
+                console.log(ISBNRegexp.test(this.inputData.ISBN));
+
+                if (!ISBNRegexp.test(this.inputData.ISBN)) {
+                    this.inputDataCheck.ISBN.error = true;
+                    this.inputDataCheck.ISBN.errorMsg = 'ISBN格式為10位或13位數字';
+                } else {
+
+                    this.inputDataCheck.ISBN.error = false;
+                    this.inputDataCheck.ISBN.errorMsg = '';
+                }
+            }
+        }
+
+
+
         // tabIndex: function () {
         //     switch (this.tabIndex) {
         //         case 0:
@@ -214,26 +239,17 @@ let app = new Vue({
     methods: {
         //設定頁面預設狀態
         SetPageDefault() {
-            this.items = [];
-            this.totalRows = 1;
-            this.currentPage = 1;
-            this.perPage = 5;
-            this.sortBy = '';
-            this.sortDesc = false;
-            this.filter = null;
         },
         //切換上架商品頁
         OnSalePage() {
             // console.log('onsalepage');
             this.SetPageDefault();
-            this.fields.filter(x => x.key == 'date')[0].label = '上架日期';
             this.getSimplifyProducts(this.urllist.simplifyproductsOnSale, this.isOnSaleBusy);
         },
         //切換下架商品頁
         NonSalePage() {
             // console.log('Nonsalepage');
             this.SetPageDefault();
-            this.fields.filter(x => x.key == 'date')[0].label = '下架日期';
             this.getSimplifyProducts(this.urllist.simplifyproductsNonSale, this.isNonSaleBusy);
         },
         //將API回傳的商品簡化版清單的格式轉成Vue物件所需的格式
@@ -385,11 +401,6 @@ let app = new Vue({
             this.productDetailsModel.title = ''
             this.productDetailsModel.fields.map(x => x.value = '');
         },
-        onFiltered(filteredItems) {
-            // Trigger pagination to update the number of buttons/pages due to filtering
-            this.totalRows = filteredItems.length
-            this.currentPage = 1
-        },
         //顯示上下架確認視窗
         ShowUpdateSaleConfirm(productId, cfg) {
             this.$bvModal.msgBoxConfirm(cfg.message, {
@@ -505,10 +516,10 @@ let app = new Vue({
                 height: height,
             };
         },
-        visible(){
+        visible() {
 
         },
-        change(){
+        change() {
 
         }
     }

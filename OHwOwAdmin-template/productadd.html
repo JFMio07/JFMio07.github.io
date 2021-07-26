@@ -419,19 +419,20 @@
                                         <div class="row justify-content-center">
                                             <div class="col-12 col-md-6 mb-3">
                                                 <label for="">商品名稱</label>
-                                                <input v-model="inputData.account"
-                                                    :class="{'is-invalid':inputDataCheck.accountError}"
+                                                <input v-model="inputData.productName"
+                                                    :class="{'is-invalid':inputDataCheck.productName.error,'is-valid':!inputDataCheck.productName.error}"
                                                     class="form-control" type="text">
                                                 <div class="text-danger small mt-1">
-                                                    {{inputDataCheck.accountErrorMsg}}
+                                                    {{inputDataCheck.productName.errorMsg}}
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row justify-content-center">
                                             <div class="col-12 col-md-3 mb-3">
                                                 <label for="">作者</label>
-                                                <el-select v-model="inputData.author" :loading="authorlist.busy" filterable
-                                                    placeholder="請選擇作者"  loading-text="載入中" no-data-text="無資料" no-match-text="找不到可匹配的內容" clearable>
+                                                <el-select v-model="inputData.author" :loading="authorlist.busy"
+                                                    filterable placeholder="請選擇作者" loading-text="載入中" no-data-text="無資料"
+                                                    no-match-text="找不到可匹配的內容" clearable>
                                                     <el-option v-for="item in authorlist.options" :key="item.value"
                                                         :label="item.label" :value="item.value">
                                                     </el-option>
@@ -442,8 +443,9 @@
                                             </div>
                                             <div class="col-12 col-md-3 mb-3">
                                                 <label for="">出版社</label>
-                                                <el-select v-model="inputData.publisher" :loading="publisherlist.busy" filterable
-                                                    placeholder="請選擇出版社" loading-text="載入中" no-data-text="無資料" no-match-text="找不到可匹配的內容" clearable>
+                                                <el-select v-model="inputData.publisher" :loading="publisherlist.busy"
+                                                    filterable placeholder="請選擇出版社" loading-text="載入中"
+                                                    no-data-text="無資料" no-match-text="找不到可匹配的內容" clearable>
                                                     <el-option v-for="item in publisherlist.options" :key="item.value"
                                                         :label="item.label" :value="item.value">
                                                     </el-option>
@@ -454,18 +456,22 @@
                                         <div class="row justify-content-center">
                                             <div class="col-12 col-md-3 mb-3">
                                                 <label for="">主分類</label>
-                                                <el-select v-model="inputData.mainCategory" :loading="mainCategorylist.busy" filterable
-                                                    placeholder="請選擇主分類" v-on:change="change"
-                                                    v-on:visible-change="visible" loading-text="載入中" no-data-text="無資料" no-match-text="找不到可匹配的內容" clearable>
-                                                    <el-option v-for="item in mainCategorylist.options" :key="item.value"
-                                                        :label="item.label" :value="item.value">
+                                                <el-select v-model="inputData.mainCategory"
+                                                    :loading="mainCategorylist.busy" filterable placeholder="請選擇主分類"
+                                                    v-on:change="change" v-on:visible-change="visible"
+                                                    loading-text="載入中" no-data-text="無資料" no-match-text="找不到可匹配的內容"
+                                                    clearable>
+                                                    <el-option v-for="item in mainCategorylist.options"
+                                                        :key="item.value" :label="item.label" :value="item.value">
                                                     </el-option>
                                                 </el-select>
                                             </div>
                                             <div class="col-12 col-md-3 mb-3">
                                                 <label for="">子分類</label>
-                                                <el-select v-model="inputData.subCategory" :loading="subCategorylist.busy" filterable
-                                                    placeholder="請選擇子分類" v-on:visible-change="visible" loading-text="載入中" no-data-text="無資料" no-match-text="找不到可匹配的內容" clearable>
+                                                <el-select v-model="inputData.subCategory"
+                                                    :loading="subCategorylist.busy" filterable placeholder="請選擇子分類"
+                                                    v-on:visible-change="visible" loading-text="載入中" no-data-text="無資料"
+                                                    no-match-text="找不到可匹配的內容" clearable>
                                                     <el-option v-for="item in subCategorylist.options" :key="item.value"
                                                         :label="item.label" :value="item.value">
                                                     </el-option>
@@ -475,7 +481,12 @@
                                         <div class="row justify-content-center">
                                             <div class="col-12 col-md-3 mb-3">
                                                 <label for="">ISBN</label>
-                                                <input class="form-control" type="text">
+                                                <input v-model="inputData.ISBN"
+                                                :class="{'is-invalid':inputDataCheck.ISBN.error,'is-valid':!inputDataCheck.ISBN.error}"
+                                                class="form-control" type="text">
+                                                <div class="text-danger small mt-1">
+                                                    {{inputDataCheck.ISBN.errorMsg}}
+                                                </div>
                                             </div>
                                             <div class="col-12 col-md-3 mb-3">
                                                 <label for="">定價</label>
@@ -485,14 +496,12 @@
                                         <div class="row justify-content-center">
                                             <div class="col-12 col-md-6 mb-3">
                                                 <label for="">檔案上傳</label>
-                                                <b-form-file
-                                                v-model="inputData.file"
-                                                :state="Boolean(inputData.file)"
-                                                placeholder="Choose a file or drop it here..."
-                                                drop-placeholder="Drop file here..."
-                                              ></b-form-file>
-                                              <div class="mt-3">Selected file: {{ inputData.file ? inputData.file.name : '' }}</div>
-                                            </div>                                            
+                                                <b-form-file v-model="inputData.file" :state="Boolean(inputData.file)"
+                                                    placeholder="Choose a file or drop it here..."
+                                                    drop-placeholder="Drop file here..."></b-form-file>
+                                                <div class="mt-3">Selected file: {{ inputData.file ? inputData.file.name
+                                                    : '' }}</div>
+                                            </div>
                                         </div>
 
                                         <!-- <div class="col-12">
