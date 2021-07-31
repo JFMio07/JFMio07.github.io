@@ -392,265 +392,316 @@
                                     <b-breadcrumb :items="breadCrumbItems"></b-breadcrumb>
                                 </template>
                             </div>
-                            <div class="col-12">
-                                <b-row>
-                                    <b-col lg="3" class="my-1 ml-auto d-flex align-content-center">
-                                        <div class="checkboxOnSale">
-                                            <b-form-checkbox switch size="lg" v-model="inputData.onSale">立即上架
-                                            </b-form-checkbox>
-                                        </div>
-                                        <b-button-group size="md" class="d-flex justify-content-end flex-grow-1">                                        
-                                            <span class="flex-grow-1" tabindex="0" v-b-tooltip.top
+                            <div v-if="isPageBusy" class="col-12">
+                                <div class="col-12">
+                                    <div class="busy text-center text-danger my-2">
+                                        <b-spinner class="align-middle"></b-spinner>
+                                        <strong>Loading...</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div v-if="!isPageBusy" class="w-100">
+                                <div class="col-12">
+                                    <b-row>
+                                        <b-col lg="3" class="my-1 ml-auto d-flex align-content-center">
+                                            <div class="checkboxOnSale">
+                                                <b-form-checkbox switch size="lg" v-model="inputData.onSale">
+                                                    立即上架
+                                                </b-form-checkbox>
+                                            </div>
+                                            <b-button-group size="md" class="d-flex justify-content-end flex-grow-1">
+                                                <span class="flex-grow-1" tabindex="0" v-b-tooltip.top
                                                     :title="allValidation.errorMsg">
-                                                    <b-button variant="success" :disabled="allValidation.error" class="w-100"
-                                                        v-on:click="">
+                                                    <b-button variant="success" :disabled="allValidation.error"
+                                                        class="w-100" v-on:click="submit">
                                                         <b-icon icon="arrow-up-square-fill" aria-hidden="true"></b-icon>
                                                         商品發佈
                                                     </b-button>
                                                 </span>
-                                        </b-button-group>
-                                    </b-col>
-                                </b-row>
-                            </div>
-                            <div class="col-12">
-                                <b-tabs content-class="pt-2 pb-2 px-2" fill v-model="tabIndex">
-                                    <b-tab active>
-                                        <template #title>
-                                            <b-icon icon="book" aria-hidden="true"></b-icon>
-                                            <strong>商品資訊</strong>
-                                        </template>
-                                        <!-- Main table element -->
-                                        <div class="row justify-content-center">
-                                            <div class="col-12 col-md-6 mb-3">
-                                                <label for="">商品名稱</label>
-                                                <input v-model="inputData.productName"
-                                                    :class="{'is-invalid':inputDataCheck.productName.error}"
-                                                    class="form-control" type="text">
-                                                <div class="text-danger small mt-1">
-                                                    {{inputDataCheck.productName.errorMsg}}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row justify-content-center">
-                                            <div class="col-12 col-md-3 mb-3">
-                                                <label for="">作者</label>
-                                                <el-select v-model="inputData.author" :loading="authorlist.busy"
-                                                    :class="{'is-invalid':inputDataCheck.author.error}" filterable
-                                                    placeholder="請選擇作者" loading-text="載入中" no-data-text="無資料"
-                                                    no-match-text="找不到可匹配的內容" clearable>
-                                                    <el-option v-for="item in authorlist.options" :key="item.value"
-                                                        :label="item.label" :value="item.value">
-                                                    </el-option>
-                                                </el-select>
-                                                <div class="text-danger small mt-1">
-                                                    {{inputDataCheck.author.errorMsg}}
-                                                </div>
-                                            </div>
-                                            <div class="col-12 col-md-3 mb-3">
-                                                <label for="">出版社</label>
-                                                <el-select v-model="inputData.publisher" :loading="publisherlist.busy"
-                                                    :class="{'is-invalid':inputDataCheck.publisher.error}" filterable
-                                                    placeholder="請選擇出版社" loading-text="載入中" no-data-text="無資料"
-                                                    no-match-text="找不到可匹配的內容" clearable>
-                                                    <el-option v-for="item in publisherlist.options" :key="item.value"
-                                                        :label="item.label" :value="item.value">
-                                                    </el-option>
-                                                </el-select>
-                                                <div class="text-danger small mt-1">
-                                                    {{inputDataCheck.publisher.errorMsg}}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row justify-content-center">
-                                            <div class="col-12 col-md-3 mb-3">
-                                                <label for="">主分類</label>
-                                                <el-select v-model="inputData.mainCategory"
-                                                    :class="{'is-invalid':inputDataCheck.mainCategory.error}"
-                                                    :loading="mainCategorylist.busy" filterable placeholder="請選擇主分類"
-                                                    v-on:change="change" v-on:visible-change="visible"
-                                                    loading-text="載入中" no-data-text="無資料" no-match-text="找不到可匹配的內容"
-                                                    clearable>
-                                                    <el-option v-for="item in mainCategorylist.options"
-                                                        :key="item.value" :label="item.label" :value="item.value">
-                                                    </el-option>
-                                                </el-select>
-                                                <div class="text-danger small mt-1">
-                                                    {{inputDataCheck.mainCategory.errorMsg}}
-                                                </div>
-                                            </div>
-                                            <div class="col-12 col-md-3 mb-3">
-                                                <label for="">子分類</label>
-                                                <el-select v-model="inputData.subCategory"
-                                                    :class="{'is-invalid':inputDataCheck.subCategory.error}"
-                                                    :loading="subCategorylist.busy" filterable placeholder="請選擇子分類"
-                                                    v-on:visible-change="visible" loading-text="載入中" no-data-text="無資料"
-                                                    no-match-text="找不到可匹配的內容" clearable>
-                                                    <el-option v-for="item in subCategorylist.options" :key="item.value"
-                                                        :label="item.label" :value="item.value">
-                                                    </el-option>
-                                                </el-select>
-                                                <div class="text-danger small mt-1">
-                                                    {{inputDataCheck.subCategory.errorMsg}}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row justify-content-center">
-                                            <div class="col-12 col-md-3 mb-3">
-                                                <label for="">ISBN</label>
-                                                <input v-model="inputData.ISBN"
-                                                    :class="{'is-invalid':inputDataCheck.ISBN.error}"
-                                                    class="form-control" type="text">
-                                                <div class="text-danger small mt-1">
-                                                    {{inputDataCheck.ISBN.errorMsg}}
-                                                </div>
-                                            </div>
-                                            <div class="col-12 col-md-3 mb-3">
-                                                <label for="">定價</label>
-                                                <input v-model="inputData.price" class="form-control" type="number"
-                                                    min="0">
-                                                <div class="text-danger small mt-1">
-                                                    {{inputDataCheck.price.errorMsg}}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row justify-content-center">
-                                            <div class="col-12 col-md-6 mb-3">
-                                                <label for="">檔案上傳</label>
-                                                <b-form-file v-model="inputData.file" :state="Boolean(inputData.file)"
-                                                    placeholder="Choose a file or drop it here..."
-                                                    drop-placeholder="Drop file here..."></b-form-file>
-                                                <div class="mt-3">Selected file: {{ inputData.file ? inputData.file.name
-                                                    : '' }}</div>
-                                            </div>
-                                        </div>
-
-                                        <!-- <div class="col-12">
-                                                <div class="editor-wrap">
-                                                    <div id="description-editor">
-                                                        <p>請在這裡編輯商品簡介</p>
+                                            </b-button-group>
+                                        </b-col>
+                                    </b-row>
+                                </div>
+                                <div class="col-12">
+                                    <b-tabs content-class="pt-2 pb-2 px-2" fill v-model="tabIndex">
+                                        <b-tab active>
+                                            <template #title>
+                                                <b-icon icon="book" aria-hidden="true"></b-icon>
+                                                <strong>商品資訊</strong>
+                                            </template>
+                                            <!-- Main table element -->
+                                            <div class="row justify-content-center">
+                                                <div class="col-12 col-md-6 mb-3">
+                                                    <label for="">商品名稱</label>
+                                                    <input v-model="inputData.productName"
+                                                        :class="{'is-invalid':inputDataCheck.productName.error}"
+                                                        class="form-control" type="text">
+                                                    <div class="text-danger small mt-1">
+                                                        {{inputDataCheck.productName.errorMsg}}
                                                     </div>
                                                 </div>
-                                            </div> -->
-
-
-                                        <b-modal :id="productDetailsModel.id" :title="productDetailsModel.title"
-                                            header-bg-variant="info" header-text-variant="light" hide-footer
-                                            v-on:hide="resetProductDetailsModel" scrollable>
-                                            <!-- <template #default> -->
-                                            <div v-if="isOnSaleBusy.DetailsBusy"
-                                                class="busy text-center text-danger my-2">
-                                                <b-spinner class="align-middle"></b-spinner>
-                                                <strong>Loading...</strong>
                                             </div>
-                                            <div class="details-body" v-if="!isOnSaleBusy.DetailsBusy">
-                                                <div class="row">
-                                                    <div v-for="item in productDetailsModel.fields"
-                                                        class="col-12 field">
-                                                        <h2 class="title">{{item.title}}</h2>
-                                                        <!-- <div v-if="item.key==='imagePath'" class="d-flex justify-content-center"> -->
-                                                        <div v-if="item.key==='imagePath'">
-                                                            <b-img-lazy v-bind="productDetailsimgProps"
-                                                                :src="item.value" class="pddetailsimg" thumbnail center>
-                                                            </b-img-lazy>
+                                            <div class="row justify-content-center">
+                                                <div class="col-12 col-md-3 mb-3">
+                                                    <label for="">作者</label>
+                                                    <el-select v-model="inputData.authorId" :loading="authorlist.busy"
+                                                        :class="{'is-invalid':inputDataCheck.author.error}" filterable
+                                                        placeholder="請選擇作者" loading-text="載入中" no-data-text="無資料"
+                                                        no-match-text="找不到可匹配的內容" clearable>
+                                                        <el-option v-for="item in authorlist.options" :key="item.value"
+                                                            :label="item.label" :value="item.value">
+                                                        </el-option>
+                                                    </el-select>
+                                                    <div class="text-danger small mt-1">
+                                                        {{inputDataCheck.author.errorMsg}}
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-md-3 mb-3">
+                                                    <label for="">出版社</label>
+                                                    <el-select v-model="inputData.publisherId"
+                                                        :loading="publisherlist.busy"
+                                                        :class="{'is-invalid':inputDataCheck.publisher.error}"
+                                                        filterable placeholder="請選擇出版社" loading-text="載入中"
+                                                        no-data-text="無資料" no-match-text="找不到可匹配的內容" clearable>
+                                                        <el-option v-for="item in publisherlist.options"
+                                                            :key="item.value" :label="item.label" :value="item.value">
+                                                        </el-option>
+                                                    </el-select>
+                                                    <div class="text-danger small mt-1">
+                                                        {{inputDataCheck.publisher.errorMsg}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row justify-content-center">
+                                                <div class="col-12 col-md-3 mb-3">
+                                                    <label for="">主分類</label>
+                                                    <el-select v-model="inputData.mainCategoryId"
+                                                        :class="{'is-invalid':inputDataCheck.mainCategory.error}"
+                                                        :loading="mainCategorylist.busy" filterable placeholder="請選擇主分類"
+                                                        v-on:change="change" v-on:visible-change="visible"
+                                                        loading-text="載入中" no-data-text="無資料" no-match-text="找不到可匹配的內容"
+                                                        clearable>
+                                                        <el-option v-for="item in mainCategorylist.options"
+                                                            :key="item.value" :label="item.label" :value="item.value">
+                                                        </el-option>
+                                                    </el-select>
+                                                    <div class="text-danger small mt-1">
+                                                        {{inputDataCheck.mainCategory.errorMsg}}
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-md-3 mb-3">
+                                                    <label for="">子分類</label>
+                                                    <el-select v-model="inputData.subCategoryId"
+                                                        :class="{'is-invalid':inputDataCheck.subCategory.error}"
+                                                        :loading="subCategorylist.busy" filterable placeholder="請選擇子分類"
+                                                        v-on:visible-change="visible" loading-text="載入中"
+                                                        no-data-text="無資料" no-match-text="找不到可匹配的內容" clearable>
+                                                        <el-option v-for="item in subCategorylist.options"
+                                                            :key="item.value" :label="item.label" :value="item.value">
+                                                        </el-option>
+                                                    </el-select>
+                                                    <div class="text-danger small mt-1">
+                                                        {{inputDataCheck.subCategory.errorMsg}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row justify-content-center">
+                                                <div class="col-12 col-md-6 d-flex p-0">
+                                                    <div class="col-12 col-md-4 mb-3">
+                                                        <label for="">語言</label>
+                                                        <el-select v-model="inputData.languageId"
+                                                            :class="{'is-invalid':inputDataCheck.language.error}"
+                                                            :loading="languagelist.busy" filterable placeholder="請選擇語言"
+                                                            v-on:visible-change="visible" loading-text="載入中"
+                                                            no-data-text="無資料" no-match-text="找不到可匹配的內容" clearable>
+                                                            <el-option v-for="item in languagelist.options"
+                                                                :key="item.value" :label="item.label"
+                                                                :value="item.value">
+                                                            </el-option>
+                                                        </el-select>
+                                                        <div class="text-danger small mt-1">
+                                                            {{inputDataCheck.language.errorMsg}}
                                                         </div>
-                                                        <p v-else class="content">{{item.value}}</p>
+                                                    </div>
+                                                    <div class="col-12 col-md-4 mb-3">
+                                                        <label for="">ISBN</label>
+                                                        <input v-model="inputData.ISBN"
+                                                            :class="{'is-invalid':inputDataCheck.ISBN.error}"
+                                                            class="form-control" type="text">
+                                                        <div class="text-danger small mt-1">
+                                                            {{inputDataCheck.ISBN.errorMsg}}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 col-md-4 mb-3">
+                                                        <label for="">定價</label>
+                                                        <input v-model="inputData.price" class="form-control"
+                                                            type="number" min="0">
+                                                        <div class="text-danger small mt-1">
+                                                            {{inputDataCheck.price.errorMsg}}
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!-- </template> -->
-                                        </b-modal>
-                                    </b-tab>
-                                    <b-tab>
-                                        <template #title>
-                                            <b-icon icon="images" aria-hidden="true"></b-icon>
-                                            <strong>圖片設定</strong>
-                                        </template>
-                                        <div class="row justify-content-center">
-                                            <div class="col-12 text-danger small mt-1 text-center">
-                                                {{inputDataCheck.image.errorMsg}}</div>
-                                            <div class="col-sm-12 col-md-12 col-lg-3">
-                                                <div class="mx-auto">
-                                                    <input ref="imgFileInput" type="file" id="imgFileInput"
-                                                        name="fileUpload" accept="image/png, image/gif, image/jpeg"
-                                                        v-on:change="(e)=>ImgFilesInput(e.target.files)" />
-                                                    <div ref="imgUploadZone" id="uploadZone"
-                                                        v-on:click="ImgUploadZoneClick"
-                                                        v-on:dragenter="ImgUploadZoneDragenter"
-                                                        v-on:dragover="ImgUploadZoneDragover"
-                                                        v-on:dragleave="ImgUploadZoneDragleave"
-                                                        v-on:drop="ImgUploadZoneDrop" :class="{
-                                                            'bg-info':!imgFileUpload.isDragEnter,
-                                                            'bg-secondary':imgFileUpload.isDragEnter,
-                                                        }">
-                                                        <b-icon icon="cloud-arrow-up-fill" aria-hidden="true"
-                                                            font-scale="5"></b-icon>
-                                                        <span>請將圖片拖曳至此區塊</span>
-                                                        <span>或是</span>
-                                                        <span>點擊此區塊開啟檔案視窗</span>
-                                                        <!-- <div v-if="!imgFileUpload.isValid">
+                                            <div class="row justify-content-center">
+                                                <div class="col-12 col-md-6 mb-3">
+                                                    <label for="">檔案上傳</label>
+                                                    <b-form-file v-model="inputData.file"
+                                                        :state="Boolean(inputData.file)"
+                                                        placeholder="Choose a file or drop it here..."
+                                                        drop-placeholder="Drop file here..."></b-form-file>
+                                                    @*<div class="mt-3">
+                                                        Selected file: {{ inputData.file ? inputData.file.name
+                                                        : '' }}
+                                                    </div>*@
+                                                </div>
+                                            </div>
+
+                                            <!-- <div class="col-12">
+                                                    <div class="editor-wrap">
+                                                        <div id="description-editor">
+                                                            <p>請在這裡編輯商品簡介</p>
+                                                        </div>
+                                                    </div>
+                                                </div> -->
+
+
+                                            <b-modal :id="productDetailsModel.id" :title="productDetailsModel.title"
+                                                header-bg-variant="info" header-text-variant="light" hide-footer
+                                                v-on:hide="resetProductDetailsModel" scrollable>
+                                                <!-- <template #default> -->
+                                                <div v-if="isOnSaleBusy.DetailsBusy"
+                                                    class="busy text-center text-danger my-2">
+                                                    <b-spinner class="align-middle"></b-spinner>
+                                                    <strong>Loading...</strong>
+                                                </div>
+                                                <div class="details-body" v-if="!isOnSaleBusy.DetailsBusy">
+                                                    <div class="row">
+                                                        <div v-for="item in productDetailsModel.fields"
+                                                            class="col-12 field">
+                                                            <h2 class="title">{{item.title}}</h2>
+                                                            <!-- <div v-if="item.key==='imagePath'" class="d-flex justify-content-center"> -->
+                                                            <div v-if="item.key==='imagePath'">
+                                                                <b-img-lazy v-bind="productDetailsimgProps"
+                                                                    :src="item.value" class="pddetailsimg" thumbnail
+                                                                    center>
+                                                                </b-img-lazy>
+                                                            </div>
+                                                            <p v-else class="content">{{item.value}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- </template> -->
+                                            </b-modal>
+                                            <b-modal :id="progressModal.id" :title="progressModal.title"
+                                                header-bg-variant="info" header-text-variant="light" hide-footer
+                                                v-on:hidden="resetProgressModal" no-close-on-backdrop no-close-on-esc
+                                                hide-header-close>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <p class="text-center">Progress...{{progressModal.description}}
+                                                        </p>
+                                                        <b-progress :value="progressModal.value"
+                                                            :max="progressModal.max" animated></b-progress>
+                                                    </div>
+                                                </div>
+                                            </b-modal>
+                                        </b-tab>
+                                        <b-tab>
+                                            <template #title>
+                                                <b-icon icon="images" aria-hidden="true"></b-icon>
+                                                <strong>圖片設定</strong>
+                                            </template>
+                                            <div class="row justify-content-center">
+                                                <div class="col-12 text-danger small mt-1 text-center">
+                                                    {{inputDataCheck.image.errorMsg}}
+                                                </div>
+                                                <div class="col-sm-12 col-md-12 col-lg-3">
+                                                    <div class="mx-auto">
+                                                        <input ref="imgFileInput" type="file" id="imgFileInput"
+                                                            name="fileUpload" accept="image/png, image/gif, image/jpeg"
+                                                            v-on:change="(e)=>ImgFilesInput(e.target.files)" />
+                                                        <div ref="imgUploadZone" id="uploadZone"
+                                                            v-on:click="ImgUploadZoneClick"
+                                                            v-on:dragenter="ImgUploadZoneDragenter"
+                                                            v-on:dragover="ImgUploadZoneDragover"
+                                                            v-on:dragleave="ImgUploadZoneDragleave"
+                                                            v-on:drop="ImgUploadZoneDrop" :class="{
+                                                                                    'bg-info':!imgFileUpload.isDragEnter,
+                                                                                    'bg-secondary':imgFileUpload.isDragEnter,
+                                                                                }">
                                                             <b-icon icon="cloud-arrow-up-fill" aria-hidden="true"
                                                                 font-scale="5"></b-icon>
                                                             <span>請將圖片拖曳至此區塊</span>
                                                             <span>或是</span>
                                                             <span>點擊此區塊開啟檔案視窗</span>
+                                                            <!-- <div v-if="!imgFileUpload.isValid">
+                                                                <b-icon icon="cloud-arrow-up-fill" aria-hidden="true"
+                                                                    font-scale="5"></b-icon>
+                                                                <span>請將圖片拖曳至此區塊</span>
+                                                                <span>或是</span>
+                                                                <span>點擊此區塊開啟檔案視窗</span>
+                                                            </div>
+                                                            <div v-else>
+                                                                <b-img-lazy id="img" v-bind="productimgProps"
+                                                                    :src="productimg" class="" thumbnail center>
+                                                                </b-img-lazy>
+                                                            </div> -->
                                                         </div>
-                                                        <div v-else>
-                                                            <b-img-lazy id="img" v-bind="productimgProps"
-                                                                :src="productimg" class="" thumbnail center>
-                                                            </b-img-lazy>
-                                                        </div> -->
+                                                    </div>
+                                                </div>
+                                                <div v-show="imgFileUpload.isValid"
+                                                    class="col-sm-12 col-md-12 col-lg-3">
+                                                    <!-- <div class="col-6 mx-auto">
+                                                        <img id="img" src="" alt="">
+                                                    </div> -->
+                                                    <b-img-lazy id="img" v-bind="productimgProps" :src="productimg"
+                                                        class="" thumbnail center>
+                                                    </b-img-lazy>
+                                                    <b-tooltip target="img" placement="bottom"
+                                                        custom-class="d-flex justify-content-start">
+                                                        <p class="m-0">檔案大小：{{imgFileUpload.imageInfo.size}}KB</p>
+                                                        <p class="m-0">
+                                                            檔案尺寸：{{imgFileUpload.imageInfo.width}} x
+                                                            {{imgFileUpload.imageInfo.height}}
+                                                        </p>
+                                                    </b-tooltip>
+                                                </div>
+                                                @*<div v-show="imgFileUpload.isValid" class="col-12">
+                                                    <p ref="imageInfo" class="imgInfo">
+                                                        Name：{{imgFileUpload.imageInfo.name}} &ensp;
+                                                        Size：{{imgFileUpload.imageInfo.size}}KB &ensp;
+                                                        Dimensions：{{imgFileUpload.imageInfo.width}} x
+                                                        {{imgFileUpload.imageInfo.height}}
+                                                    </p>
+                                                    <input ref="imagepath" v-model="imgFileUpload.imageInfo.name"
+                                                        class="form-control text-box single-line" data-val="true"
+                                                        data-val-length="欄位 ImagePath 必須是最大長度為 200 的字串。"
+                                                        data-val-length-max="200" data-val-required="ImagePath 欄位是必要項。"
+                                                        id="ImagePath" name="ImagePath" type="text" value="">
+                                                </div>*@
+                                            </div>
+                                        </b-tab>
+                                        <b-tab>
+                                            <template #title>
+                                                <b-icon icon="card-text" aria-hidden="true"></b-icon>
+                                                <strong>簡介設定</strong>
+                                            </template>
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="description-editor-wrap"
+                                                        :class="{'is-invalid':inputDataCheck.description.error}">
+                                                        <div class="text-danger small mt-1">
+                                                            {{inputDataCheck.description.errorMsg}}
+                                                        </div>
+                                                        <div id="description-editor">
+                                                            <p>請在這裡編輯商品簡介</p>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div v-show="imgFileUpload.isValid" class="col-sm-12 col-md-12 col-lg-3">
-                                                <!-- <div class="col-6 mx-auto">
-                                                    <img id="img" src="" alt="">
-                                                </div> -->
-                                                <b-img-lazy id="img" v-bind="productimgProps" :src="productimg" class=""
-                                                    thumbnail center>
-                                                </b-img-lazy>
-                                                <b-tooltip target="img" placement="bottom"
-                                                    custom-class="d-flex justify-content-start">
-                                                    <p class="m-0">檔案大小：{{imgFileUpload.imageInfo.size}}KB</p>
-                                                    <p class="m-0">檔案尺寸：{{imgFileUpload.imageInfo.width}} x
-                                                        {{imgFileUpload.imageInfo.height}}</p>
-                                                </b-tooltip>
-                                            </div>
-                                            <div v-show="imgFileUpload.isValid" class="col-12">
-                                                <p ref="imageInfo" class="imgInfo">
-                                                    Name：{{imgFileUpload.imageInfo.name}} &ensp;
-                                                    Size：{{imgFileUpload.imageInfo.size}}KB &ensp;
-                                                    Dimensions：{{imgFileUpload.imageInfo.width}} x
-                                                    {{imgFileUpload.imageInfo.height}}
-                                                </p>
-                                                <input ref="imagepath" v-model="imgFileUpload.imageInfo.name"
-                                                    class="form-control text-box single-line" data-val="true"
-                                                    data-val-length="欄位 ImagePath 必須是最大長度為 200 的字串。"
-                                                    data-val-length-max="200" data-val-required="ImagePath 欄位是必要項。"
-                                                    id="ImagePath" name="ImagePath" type="text" value="">
-                                            </div>
-                                        </div>
-                                    </b-tab>
-                                    <b-tab>
-                                        <template #title>
-                                            <b-icon icon="card-text" aria-hidden="true"></b-icon>
-                                            <strong>簡介設定</strong>
-                                        </template>
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="description-editor-wrap"
-                                                    :class="{'is-invalid':inputDataCheck.description.error}">
-                                                    <div class="text-danger small mt-1">
-                                                        {{inputDataCheck.description.errorMsg}}
-                                                    </div>
-                                                    <div id="description-editor">
-                                                        <p>請在這裡編輯商品簡介</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </b-tab>
-                                </b-tabs>
+                                        </b-tab>
+                                    </b-tabs>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -739,6 +790,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/quill/1.3.7/quill.min.js"
         integrity="sha512-P2W2rr8ikUPfa31PLBo5bcBQrsa+TNj8jiKadtaIrHQGMo6hQM6RdPjQYxlNguwHz8AwSQ28VkBK6kHBLgd/8g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="./Assets/js/aspnet/signalr/dist/browser/signalr.js"></script>
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>

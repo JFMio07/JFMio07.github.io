@@ -35,7 +35,8 @@ table.b-table[aria-busy="true"] {
 
 /* 商品明細 */
 
-#product-details-modal .busy {
+/* #product-details-modal .busy { */
+.busy {
   opacity: 0.6;
 }
 

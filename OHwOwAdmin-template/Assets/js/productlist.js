@@ -54,9 +54,8 @@ let app = new Vue({
                 {
                     key: 'date',
                     label: '',
-                    formatter: (value, key, item) => {
-                        if (value == null) { return "" }
-                        return DateFormat(value)
+                    formatter: (value, key, item) => {                        
+                        return (value == null) ? '' : DateFormat(value)
                     },
                     sortable: true,
                     sortByFormatted: true,
@@ -185,38 +184,41 @@ let app = new Vue({
             // console.log('onsalepage');
             this.SetPageDefault();
             this.fields.filter(x => x.key == 'date')[0].label = '上架日期';
-            this.getSimplifyProducts(this.urllist.simplifyproductsOnSale, this.isOnSaleBusy);
+            this.getSimplifyProducts(this.urllist.simplifyproductsOnSale, this.isOnSaleBusy,true);
         },
         //切換下架商品頁
         NonSalePage() {
             // console.log('Nonsalepage');
             this.SetPageDefault();
             this.fields.filter(x => x.key == 'date')[0].label = '下架日期';
-            this.getSimplifyProducts(this.urllist.simplifyproductsNonSale, this.isNonSaleBusy);
+            this.getSimplifyProducts(this.urllist.simplifyproductsNonSale, this.isNonSaleBusy,false);
         },
         //將API回傳的商品簡化版清單的格式轉成Vue物件所需的格式
-        SimplifyProductDataProc(raw) {
+        SimplifyProductDataProc(raw, onsale) {
             return raw.map((item, index) => {
                 return {
                     productId: item.productID,
                     productName: item.productName,
-                    // productImg: item.imagePath,
+                    //productImg: item.imagePath,
                     productImg: './Assets/image/book-sm-pic.jpg',
                     authorName: item.authorName,
                     publisherName: item.publisherName,
                     mainCategory: item.mainCategoryName,
                     subCategory: item.subCategoryName,
                     fixedPrice: item.fixedPrice,
-                    date: item.shelfDate
+                    date: onsale ? item.shelfDate : item.offShelfDate
                 }
             });
         },
         //取得商品簡化版清單
-        getSimplifyProducts(uri, busyobj) {
+        getSimplifyProducts(uri, busyobj,onsale) {
             busyobj.PageBusy = true;
             let cfg = {
                 method: 'get',
-                headers: { 'Content-type': 'application/json' },
+                headers: {
+                    'Content-type': 'application/json',
+                    'Authorization': GenCurrentAuthBarerFormat(),
+                },
                 url: uri
             };
             axios(cfg)
@@ -225,16 +227,22 @@ let app = new Vue({
 
                         switch (res.data.status) {
                             case 0:
-                                this.items = this.SimplifyProductDataProc(res.data.result);
+                                this.items = this.SimplifyProductDataProc(res.data.result, onsale);
                                 break;
                             default:
                                 console.log(res);
                                 break;
                         }
                     }
+                    else {
+                        throw new UserException('Unknown Error');
+                    }
                 })
                 .catch(err => {
-                    console.log(err);
+                    if (err.response.status === 401) {
+                        LoginInvalidRedirect();
+                    }
+                    console.dir(err);
                 })
                 .finally(() => {
                     busyobj.PageBusy = false;
@@ -244,7 +252,10 @@ let app = new Vue({
         getProductDetails(uri, id) {
             let cfg = {
                 method: 'get',
-                headers: { 'Content-type': 'application/json' },
+                headers: {
+                    'Content-type': 'application/json',
+                    'Authorization': GenCurrentAuthBarerFormat(),
+                },
                 url: `${uri}/${id}`
             };
 
@@ -254,7 +265,10 @@ let app = new Vue({
         UpdateProductSalesStatus(uri, data) {
             let cfg = {
                 method: 'put',
-                headers: { 'Content-type': 'application/json' },
+                headers: {
+                    'Content-type': 'application/json',
+                    'Authorization': GenCurrentAuthBarerFormat(),
+                },
                 data: {
                     ID: data.ID,
                     SaleStatus: data.SaleStatus
@@ -291,8 +305,14 @@ let app = new Vue({
                                 break;
                         }
                     }
+                    else {
+                        throw new UserException('Unknown Error');
+                    }
                 })
                 .catch(err => {
+                    if (err.response.status === 401) {
+                        LoginInvalidRedirect();
+                    }
                     console.log(err);
                     this.$bvToast.toast(errorMsg, {
                         title: `商品操作失敗`,
@@ -333,7 +353,13 @@ let app = new Vue({
                         item.value = (tmp != '') ? tmp : '無';
                     }
                 }
+                else {
+                    throw new UserException('Unknown Error');
+                }
             } catch (err) {
+                if (err.response.status === 401) {
+                    LoginInvalidRedirect();
+                }
                 console.log(err);
             } finally {
                 this.isOnSaleBusy.DetailsBusy = false;
@@ -375,6 +401,9 @@ let app = new Vue({
                 .catch(err => {
                     // An error occurred
                 })
+        },
+        ProductCreate() {
+            window.location.href = '/Product/Create';
         }
     }
 });

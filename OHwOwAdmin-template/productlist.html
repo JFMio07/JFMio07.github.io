@@ -391,7 +391,7 @@
                                         <b-row>
                                             <b-col lg="9" class="my-1">
                                                 <b-button-group>
-                                                    <b-button variant="success" v-on:click="">
+                                                    <b-button variant="success" v-on:click="ProductCreate">
                                                         <b-icon icon="plus-square" aria-hidden="true"></b-icon>
                                                         新增商品
                                                     </b-button>
@@ -480,6 +480,8 @@
                                                             <b-img-lazy v-bind="productDetailsimgProps"
                                                                 :src="item.value" class="pddetailsimg" thumbnail center>
                                                             </b-img-lazy>
+                                                        </div>
+                                                        <div v-else-if="item.key==='description'" v-html="item.value">
                                                         </div>
                                                         <p v-else class="content">{{item.value}}</p>
                                                     </div>
@@ -645,6 +647,7 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+    <script src="./Assets/js/Common.js"></script>
     <script src="./Assets/js/helpers.js"></script>
     <script src="./Assets/js/productlist.js"></script>
 

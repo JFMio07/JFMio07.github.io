@@ -4,22 +4,17 @@ let app = new Vue({
         return {
             inputData: {
                 onSale: false,
-                account: "",
-                password: "",
-                checkPassword: "",
-                name: "",
-                tel: "",
-                address: "",
                 productName: '',
-                author: '1',
-                publisher: '1',
-                mainCategory: '1',
-                subCategory: '1',
-                ISBN: '1111111111',
+                authorId: '',
+                publisherId: '',
+                mainCategoryId: '',
+                subCategoryId: '',
+                ISBN: '',
                 price: 0,
+                languageId: '',
                 file: null,
-                image: {},
-                description: '1'
+                image: null,
+                description: ''
 
             },
 
@@ -31,34 +26,71 @@ let app = new Vue({
                 subCategory: { error: false, errorMsg: '' },
                 ISBN: { error: false, errorMsg: '' },
                 price: { error: false, errorMsg: '' },
+                language: { error: false, errorMsg: '' },
                 file: { error: false, errorMsg: '' },
                 image: { error: false, errorMsg: '' },
-                description: { error: false, errorMsg: '' },              
+                description: { error: false, errorMsg: '' },
             },
             authorlist: {
                 busy: false,
                 options: [],
-                // options: [{ value: '1', lable: 'AA' }],
+                // options: [
+                //     { value: '1', label: '亨利・大衛・梭羅(henry david thoreau)' },
+                //     { value: '2', label: '謝孟恭' },
+                //     { value: '3', label: '培峰' },
+                //     { value: '4', label: '泰勒．柯文' },
+                //     { value: '5', label: '彼得．霍林斯（peter hollins）' },
+                //     { value: '6', label: '伊恩‧里德(Iain Reid)' },
+                // ],
             },
             publisherlist: {
                 busy: false,
                 options: [],
-                // options: [{ value: '1', lable: 'AA' }],
-
+                // options: [
+                //     { value: '2', label: '天下文化出版社' },
+                //     { value: '3', label: '今周刊出版社' },
+                //     { value: '4', label: '早安財經文化有限公司' },
+                //     { value: '5', label: '方言文化' },
+                //     { value: '6', label: '城邦出版集團' },
+                //     { value: '7', label: '漫遊者文化事業股份有限公司' }
+                // ],
             },
             mainCategorylist: {
                 busy: false,
                 options: [],
-                // options: [{ value: '1', lable: 'AA' }],
+                // options: [
+                //     { value: '1', label: '企業與金融' },
+                //     { value: '2', label: '愛情' },
+                //     { value: '3', label: '傳記與回憶錄' },
+                //     { value: '4', label: '期刊' },
+                //     { value: '5', label: '兒童' },
+                //     { value: '6', label: '漫畫與圖像小說' },
+                // ],
 
             },
             subCategorylist: {
                 busy: false,
                 options: [],
-                // options: [{ value: '1', lable: 'AA' }],
+                // options: [
+                //     { value: '1', label: '人力資源與人事管理' },
+                //     { value: '2', label: '企業家精神與小型企業' },
+                //     { value: '3', label: '個人財務' },
+                //     { value: '4', label: '工業與專業' },
+                //     { value: '5', label: '會計' },
+                //     { value: '6', label: '業務參考' },
+                // ],
+            },
+            languagelist: {
+                busy: false,
+                options: [],
+                // options: [
+                //     { value: '1', label: '中文' },
+                // ],
             },
 
             tabIndex: 0,
+            isPageBusy: false,
+
 
             //先保留
             productDetailsModel: {
@@ -78,6 +110,15 @@ let app = new Vue({
                 ]
             },
 
+            progressModal: {
+                id: 'progress-modal',
+                title: '',
+                value: 0,
+                max: 100,
+                description: '0%'
+            },
+
+
             //描述頁面是否忙碌中，EX:進行非同步作業 先保留
             isOnSaleBusy: { PageBusy: false, DetailsBusy: false },
             isNonSaleBusy: { PageBusy: false, DetailsBusy: false },
@@ -85,6 +126,11 @@ let app = new Vue({
             //url列表
             //for live server
             urllist: {
+                authorList: 'https://localhost:5001/api/Product/GetAuthorList',
+                publisherList: 'https://localhost:5001/api/Product/GetPublisherList',
+                categoryList: 'https://localhost:5001/api/Product/GetCategoryList',
+                languageList: 'https://localhost:5001/api/Product/GetLanguageList',
+
                 simplifyproductsOnSale: 'https://localhost:5001/api/Product/GetSimplifyProductsOnSale',
                 simplifyproductsNonSale: 'https://localhost:5001/api/Product/GetSimplifyProductsNonSale',
                 productDetails: 'https://localhost:5001/api/Product/GetProductDetails',
@@ -146,18 +192,22 @@ let app = new Vue({
 
             testAAA: {
                 key1: { error: false, msg: '' }
-            }
+            },
 
+            signalR: {
+                connection: '',
+                callerId: '',
+            }
 
         }
     },
     computed: {
         allValidation() {
-            let invalid = Object.keys(this.inputDataCheck).some(key => this.inputDataCheck[key].error === true);            
+            let invalid = Object.keys(this.inputDataCheck).some(key => this.inputDataCheck[key].error === true);
             return {
                 error: invalid,
-                errorMsg: invalid?'尚有無效的輸入欄位':''
-            }            
+                errorMsg: invalid ? '尚有無效的輸入欄位' : ''
+            }
         }
     },
     watch: {
@@ -177,7 +227,7 @@ let app = new Vue({
                 }
             },
         },
-        'inputData.author': {
+        'inputData.authorId': {
             immediate: true,
             handler: function (value) {
                 if (value) {
@@ -189,7 +239,7 @@ let app = new Vue({
                 }
             }
         },
-        'inputData.publisher': {
+        'inputData.publisherId': {
             immediate: true,
             handler: function (value) {
                 if (value) {
@@ -201,7 +251,7 @@ let app = new Vue({
                 }
             }
         },
-        'inputData.mainCategory': {
+        'inputData.mainCategoryId': {
             immediate: true,
             handler: function (value) {
                 if (value) {
@@ -213,7 +263,7 @@ let app = new Vue({
                 }
             }
         },
-        'inputData.subCategory': {
+        'inputData.subCategoryId': {
             immediate: true,
             handler: function (value) {
                 if (value) {
@@ -245,6 +295,18 @@ let app = new Vue({
                 if (value < 0) {
                     this.inputDataCheck.price.error = true;
                     this.inputDataCheck.price.errorMsg = '價錢不得大於';
+                }
+            }
+        },
+        'inputData.languageId': {
+            immediate: true,
+            handler: function (value) {
+                if (value) {
+                    this.inputDataCheck.language.error = false;
+                    this.inputDataCheck.language.errorMsg = '';
+                } else {
+                    this.inputDataCheck.language.error = true;
+                    this.inputDataCheck.language.errorMsg = '請選擇語言';
                 }
             }
         },
@@ -300,37 +362,159 @@ let app = new Vue({
         //     }
         // }
     },
-    created() {
+    async created() {
+        let pageSelectors = await this.GetPageSelectors();
+
+        let [author, publisher, category, language] = pageSelectors;
+
+        this.authorlist.options = author.data.result.map(x => { return { value: x.id, label: x.name } });
+        this.publisherlist.options = publisher.data.result.map(x => { return { value: x.id, label: x.name } });
+        this.languagelist.options = language.data.result.map(x => { return { value: x.id, label: x.name } });
+        this.mainCategorylist.options = category.data.result.map(x => { return { value: x.mainCategoryID, label: x.mainCategoryName } });
+        //this.subCategorylist.options = res.data.result.map(x => { return { value: x.id, label: x.name } });
+
+
+
+
+
+
+
+
+
+
+
+
+        console.log(pageSelectors);
+
+
+
+
+
+
+
+
+
         //初始化頁面
-        this.tabIndex = 1;
+        this.tabIndex = 0;
         // this.OnSalePage();
 
         this.imgFileUpload.imageInfo = this.CreateImgUploadImgInfo();
+        //console.log(testA());
 
-        this.quill = GetQuillInstance('#description-editor');
+        //this.quill = GetQuillInstance('#description-editor');
+        //let aa = GetQuillInstance('#description-editor');
+        //console.log(aa);
+        //aa.on('text-change', function (delta, oldDelta, source) {
+        //    console.log('aa');
+        //    if (source == 'api') {
+        //        console.log("An API call triggered this change.");
+        //    } else if (source == 'user') {
+        //        //this.inputData.description = 
+        //        //console.log(delta);
+        //        console.log("A user action triggered this change.");
+        //    }
+        //});
 
 
-        this.quill.on('text-change', function (delta, oldDelta, source) {
-            if (source == 'api') {
-                console.log("An API call triggered this change.");
-            } else if (source == 'user') {
-                console.log("A user action triggered this change.");
-            }
-        });
 
     },
     mounted() {
-
+        this.InitSignalR();
+        //this.quill.on('text-change', function (delta, oldDelta, source) {
+        //    console.log('aa');
+        //    if (source == 'api') {
+        //        //console.log("An API call triggered this change.");
+        //    } else if (source == 'user') {
+        //        //this.inputData.description = 
+        //        console.log(delta);
+        //        //console.log("A user action triggered this change.");
+        //    }
+        //});
     },
     methods: {
+        //SignalR初始化
+        InitSignalR() {
+            this.signalR.connection = new signalR.HubConnectionBuilder().withUrl("/progressHub").build();
+
+            //設定開始連接，當連接成功時去取得ConnectionID
+            this.signalR.connection.start()
+                .then(() => {
+                    //呼叫Hub上的GetConnectionID
+                    this.signalR.connection.invoke("GetConnectionID")
+                        .then(res => {
+                            this.signalR.callerId = res;
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        });
+                }).catch(err => {
+                    console.error(err);
+                });
+
+            //設定當從Hub接收到AddProgress訊息時，所要做的事情
+            this.signalR.connection.on("AddProgress", (percentage) => {
+                //更新進度條
+                this.progressModal.value = percentage;
+                this.progressModal.description = `${percentage}%`;
+                console.log(percentage)
+            });
+        },
+        submit() {
+            let formdata = new FormData();
+
+            Object.keys(this.inputData).forEach(key => {
+                // console.log(key);
+                // console.log(this.inputData[key]);
+                let value;
+                if (key === 'description') {
+                    //value = JSON.stringify(quill.root.getInnerHTML());
+                    value = quill.root.getInnerHTML();
+
+                } else {
+                    value = this.inputData[key];
+                }
+                console.log(value);
+
+                formdata.append(key, value);
+            });
+
+            formdata.append('signalid', this.signalR.callerId);
+            // console.log(data);
+            // console.log(data.getAll());
+
+            let cfg = {
+                method: 'post',
+                headers: { 'Content-type': 'multipart/form-data' },
+                data: formdata,
+                url: 'https://localhost:5001/api/Product/Create',
+            };
+            this.$bvModal.show(this.progressModal.id);
+            axios(cfg)
+                .then(res => {
+                    console.log(res);
+                    if (res.data.status === 0) {
+                        console.log("success");
+                        window.location.href = "/Product/Index";
+                    }
+                    console.log(res.data);
+                }).catch(err => {
+                    console.log(err);
+                }).finally(() => {
+                    this.$bvModal.hide(this.progressModal.id);
+                });
+        },
         //設定頁面預設狀態
         SetPageDefault() {
         },
-        //切換上架商品頁
-        OnSalePage() {
-            // console.log('onsalepage');
-            this.SetPageDefault();
-            this.getSimplifyProducts(this.urllist.simplifyproductsOnSale, this.isOnSaleBusy);
+
+        //取得頁面所有選擇清單的資料
+        GetPageSelectors() {
+            let author = this.getSelectorOptions(this.urllist.authorList);
+            let publisher = this.getSelectorOptions(this.urllist.publisherList);
+            let category = this.getSelectorOptions(this.urllist.categoryList);
+            let language = this.getSelectorOptions(this.urllist.languageList);
+
+            return Promise.all([author, publisher, category, language])
         },
         //切換下架商品頁
         NonSalePage() {
@@ -355,8 +539,18 @@ let app = new Vue({
                 }
             });
         },
-        //取得商品簡化版清單
-        getSimplifyProducts(uri, busyobj) {
+        getSelectorOptions(uri) {
+            let cfg = {
+                method: 'get',
+                headers: { 'Content-type': 'application/json' },
+                url: uri
+            };
+            return axios(cfg);
+        },
+
+
+        //取得作者清單
+        getAuthorsData(uri, busyobj) {
             busyobj.PageBusy = true;
             let cfg = {
                 method: 'get',
@@ -487,6 +681,10 @@ let app = new Vue({
             this.productDetailsModel.title = ''
             this.productDetailsModel.fields.map(x => x.value = '');
         },
+        resetProgressModal() {
+            this.progressModal.value = 0;
+            this.progressModal.description = '';
+        },
         //顯示上下架確認視窗
         ShowUpdateSaleConfirm(productId, cfg) {
             this.$bvModal.msgBoxConfirm(cfg.message, {
@@ -535,7 +733,7 @@ let app = new Vue({
                 this.imgFileUpload.imageInfo = this.CreateImgUploadImgInfo();
                 return;
             }
-
+            this.inputData.image = files[0];
             var reader = new FileReader();
             reader.onload = async (e) => {
                 this.imgFileUpload.isValid = true;
@@ -610,3 +808,29 @@ let app = new Vue({
         }
     }
 });
+
+
+
+let quill;
+
+function testA() {
+    quill = GetQuillInstance('#description-editor');
+    quill.on('text-change', function (delta, oldDelta, source) {
+        if (source == 'api') {
+            console.log("An API call triggered this change.");
+        } else if (source == 'user') {
+            //this.inputData.description = 
+            //console.log(delta);
+            console.log("A user action triggered this change.");
+            console.log(delta);
+            console.log(oldDelta);
+            app.$data.inputData.description = delta;
+
+        }
+    });
+
+
+    return quill;
+}
+
+testA();
