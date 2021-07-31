@@ -478,9 +478,8 @@
                                                     <el-select v-model="inputData.mainCategoryId"
                                                         :class="{'is-invalid':inputDataCheck.mainCategory.error}"
                                                         :loading="mainCategorylist.busy" filterable placeholder="請選擇主分類"
-                                                        v-on:change="change" v-on:visible-change="visible"
-                                                        loading-text="載入中" no-data-text="無資料" no-match-text="找不到可匹配的內容"
-                                                        clearable>
+                                                        loading-text="載入中" no-data-text="無資料"
+                                                        no-match-text="找不到可匹配的內容" clearable>
                                                         <el-option v-for="item in mainCategorylist.options"
                                                             :key="item.value" :label="item.label" :value="item.value">
                                                         </el-option>
@@ -494,8 +493,8 @@
                                                     <el-select v-model="inputData.subCategoryId"
                                                         :class="{'is-invalid':inputDataCheck.subCategory.error}"
                                                         :loading="subCategorylist.busy" filterable placeholder="請選擇子分類"
-                                                        v-on:visible-change="visible" loading-text="載入中"
-                                                        no-data-text="無資料" no-match-text="找不到可匹配的內容" clearable>
+                                                        loading-text="載入中" no-data-text="無資料" no-match-text="找不到可匹配的內容"
+                                                        clearable>
                                                         <el-option v-for="item in subCategorylist.options"
                                                             :key="item.value" :label="item.label" :value="item.value">
                                                         </el-option>
@@ -512,8 +511,7 @@
                                                         <el-select v-model="inputData.languageId"
                                                             :class="{'is-invalid':inputDataCheck.language.error}"
                                                             :loading="languagelist.busy" filterable placeholder="請選擇語言"
-                                                            v-on:visible-change="visible" loading-text="載入中"
-                                                            no-data-text="無資料" no-match-text="找不到可匹配的內容" clearable>
+                                                            loading-text="載入中" no-data-text="無資料" no-match-text="找不到可匹配的內容" clearable>
                                                             <el-option v-for="item in languagelist.options"
                                                                 :key="item.value" :label="item.label"
                                                                 :value="item.value">

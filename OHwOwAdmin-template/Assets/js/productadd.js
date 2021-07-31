@@ -87,7 +87,9 @@ let app = new Vue({
                 //     { value: '1', label: '中文' },
                 // ],
             },
-
+            databuffer: {
+                category: [],
+            },
             tabIndex: 0,
             isPageBusy: false,
 
@@ -255,6 +257,7 @@ let app = new Vue({
             immediate: true,
             handler: function (value) {
                 if (value) {
+                    this.MainCategoryChange(value);
                     this.inputDataCheck.mainCategory.error = false;
                     this.inputDataCheck.mainCategory.errorMsg = '';
                 } else {
@@ -363,6 +366,7 @@ let app = new Vue({
         // }
     },
     async created() {
+        this.isPageBusy = true;
         let pageSelectors = await this.GetPageSelectors();
 
         let [author, publisher, category, language] = pageSelectors;
@@ -371,11 +375,12 @@ let app = new Vue({
         this.publisherlist.options = publisher.data.result.map(x => { return { value: x.id, label: x.name } });
         this.languagelist.options = language.data.result.map(x => { return { value: x.id, label: x.name } });
         this.mainCategorylist.options = category.data.result.map(x => { return { value: x.mainCategoryID, label: x.mainCategoryName } });
+        this.databuffer.category = category.data.result;
         //this.subCategorylist.options = res.data.result.map(x => { return { value: x.id, label: x.name } });
 
 
 
-
+        this.isPageBusy = false;
 
 
 
@@ -514,7 +519,11 @@ let app = new Vue({
             let category = this.getSelectorOptions(this.urllist.categoryList);
             let language = this.getSelectorOptions(this.urllist.languageList);
 
-            return Promise.all([author, publisher, category, language])
+            return Promise.all([author, publisher, category, language]);
+        },
+        MainCategoryChange(maincategoryid) {
+            let category = this.databuffer.category.filter(x => x.mainCategoryID === maincategoryid)[0];
+            this.subCategorylist.options = category.subCategories.map(x => { return { value: x.subCategoryID, label: x.subCategoryName } });
         },
         //切換下架商品頁
         NonSalePage() {
