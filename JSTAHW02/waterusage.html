@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>  <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script> -->
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link rel="stylesheet" href="./styles/styles.css">    
+    <title>台灣每人每日用水量</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div id="map"></div>               
+            </div>
+        </div>
+    </div>
+  
+    
+    <!-- #region template  -->
+    
+    <template id="tpl-initDataLoading">
+        <div class="initDataLoading">
+            <span>資料載入中...</span>
+        </div>
+    </template>
+    <template id="tpl-yearSelect">
+        <div class="col-12">
+            <label for="yearSelect">資料區間</label>
+
+
+            <div class="d-flex">
+                <select class="form-select" aria-label="" id="yearSelect">
+                    <option value="-1" selected>請選擇年份</option>
+                    <template id="tpl-yearSelect-option">
+                        <option value=""></option>
+                    </template>
+                </select>
+                <button class="btn btn-primary ms-1">送出</button>
+            </div>
+        </div>
+    </template>
+
+
+    <!-- endregion -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+        crossorigin="anonymous"></script>
+
+    <script src="./js/mapaction_2.js"></script>
+
+    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+    <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5zCk7EUypGLf0BfA7p8oA5v2FMtmW52M&callback=initMap&libraries=&v=weekly"
+    async></script>
+
+
+</body>
+
+</html>
