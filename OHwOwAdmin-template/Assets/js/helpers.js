@@ -55,7 +55,6 @@ function GetQuillInstance(selector) {
         ['clean']                                         // remove formatting button
     ];
 
-
     return new Quill(selector, {
         modules: {
             toolbar: toolbaroptions,

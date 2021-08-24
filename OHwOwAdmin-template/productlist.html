@@ -472,8 +472,10 @@
                                             </div>
                                             <div class="details-body" v-if="!isOnSaleBusy.DetailsBusy">
                                                 <div class="row">
-                                                    <div v-for="item in productDetailsModel.fields"
-                                                        class="col-12 field">
+                                                    <div v-for="(item,index) in productDetailsModel.fields"
+                                                        :class="['field',((item.key==='imagePath' || item.key==='description')?'col-12':'col-6')]"
+                                                    >
+                                                        <!-- class="col-12 field"> -->
                                                         <h2 class="title">{{item.title}}</h2>
                                                         <!-- <div v-if="item.key==='imagePath'" class="d-flex justify-content-center"> -->
                                                         <div v-if="item.key==='imagePath'">
